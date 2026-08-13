@@ -1,0 +1,19 @@
+﻿<CdtTrfTxInf>
+    <PmtId>
+        <InstrId>{serialNumber}</InstrId>
+        <EndToEndId>{endToEndId}</EndToEndId>
+    </PmtId>
+
+    <Amt>
+        <InstdAmt Ccy="EUR">{amount}</InstdAmt>
+    </Amt>
+
+    <Cdtr>
+        <Nm>{creditorName}</Nm>
+    </Cdtr>
+    <CdtrAcct>
+        <Id>
+            <IBAN>{creditorIBAN}</IBAN>
+        </Id>
+    </CdtrAcct>    
+</CdtTrfTxInf>

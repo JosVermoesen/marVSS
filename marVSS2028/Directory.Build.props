@@ -1,0 +1,9 @@
+<Project>
+  <ItemGroup>
+	<Reference Include="IDEALSoftware.VpeCommunity">
+	  <SpecificVersion>False</SpecificVersion>
+	  <HintPath>$(MSBuildProjectDirectory)\VpeRuntime\IDEALSoftware.VpeCommunity.dll</HintPath>
+	  <Private>True</Private>
+	</Reference>
+  </ItemGroup>
+</Project>

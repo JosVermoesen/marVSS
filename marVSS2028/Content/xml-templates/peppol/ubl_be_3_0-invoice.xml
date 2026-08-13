@@ -1,0 +1,114 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<Invoice xmlns="urn:oasis:names:specification:ubl:schema:xsd:Invoice-2"
+       xmlns:qdt="urn:oasis:names:specification:ubl:schema:xsd:QualifiedDatatypes-2"
+       xmlns:ccts="urn:oasis:names:specification:ubl:schema:xsd:CoreComponentParameters-2"
+       xmlns:stat="urn:oasis:names:specification:ubl:schema:xsd:DocumentStatusCode-1.0"
+       xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2"
+       xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2"
+       xmlns:udt="urn:un:unece:uncefact:data:draft:UnqualifiedDataTypesSchemaModule:2">
+       <cbc:UBLVersionID>2.1</cbc:UBLVersionID>
+       <cbc:CustomizationID>urn:cen.eu:en16931:2017#conformant#urn:UBL.BE:1.0.0.20180214</cbc:CustomizationID>
+       <cbc:ProfileID>urn:fdc:peppol.eu:2017:poacc:billing:01:1.0</cbc:ProfileID>
+       <cbc:ID>{documentNumber}</cbc:ID>
+       <cbc:IssueDate>{documentDate}</cbc:IssueDate>
+       <cbc:DueDate>{documentDueDate}</cbc:DueDate>
+       <cbc:InvoiceTypeCode>380</cbc:InvoiceTypeCode>
+       <cbc:DocumentCurrencyCode listID="ISO4217">EUR</cbc:DocumentCurrencyCode>
+       <cac:OrderReference>
+              <cbc:ID>{orderReference}</cbc:ID>
+       </cac:OrderReference>
+       <cac:AdditionalDocumentReference>
+              <cbc:ID>UBL.BE</cbc:ID>
+              <cbc:DocumentDescription>Vsoft marIntegraal {marVersion}</cbc:DocumentDescription>
+       </cac:AdditionalDocumentReference>
+       <cac:AdditionalDocumentReference>
+              <cbc:ID>{documentNumber}</cbc:ID>
+              <cbc:DocumentDescription>CommercialInvoice</cbc:DocumentDescription>
+              <cac:Attachment>
+                     <cbc:EmbeddedDocumentBinaryObject mimeCode="application/pdf" filename="{pdfFileName}">{pdfBase64}</cbc:EmbeddedDocumentBinaryObject>
+              </cac:Attachment>
+       </cac:AdditionalDocumentReference>
+       <cac:AccountingSupplierParty>
+              <cac:Party>
+                     <cbc:EndpointID schemeID="0208">{supplierRegistrationId}</cbc:EndpointID>                     
+                     <cac:PartyName>
+                            <cbc:Name>{supplierRegistrationName}</cbc:Name>
+                     </cac:PartyName>
+                     <cac:PostalAddress>
+                            <cbc:StreetName>{supplierStreetName}</cbc:StreetName>
+                            <cbc:CityName>{supplierCityName}</cbc:CityName>
+                            <cbc:PostalZone>{supplierPostalZone}</cbc:PostalZone>
+                            <cac:Country>
+                                   <cbc:IdentificationCode>{supplierCountryCode}</cbc:IdentificationCode>
+                            </cac:Country>
+                     </cac:PostalAddress>
+                     <cac:PartyTaxScheme>
+                            <cbc:CompanyID>{supplierEUVatNumber}</cbc:CompanyID>
+                            <cac:TaxScheme>
+                                   <cbc:ID>{supplierTaxScheme}</cbc:ID>
+                            </cac:TaxScheme>
+                     </cac:PartyTaxScheme>
+                     <cac:PartyLegalEntity>
+                            <cbc:RegistrationName>{supplierRegistrationName}</cbc:RegistrationName>
+                            <cbc:CompanyID schemeID="0208">{supplierRegistrationId}</cbc:CompanyID>                     
+                     </cac:PartyLegalEntity>                     
+		     <cac:Contact>
+                            <cbc:Telephone>{supplierTelephone}</cbc:Telephone>
+                            <cbc:ElectronicMail>{supplierElectronicMail}</cbc:ElectronicMail>
+                     </cac:Contact>
+              </cac:Party>
+       </cac:AccountingSupplierParty>
+       <cac:AccountingCustomerParty>              <!-- <cbc:CustomerAssignedAccountID>{customerNumber}</cbc:CustomerAssignedAccountID> -->
+              <cac:Party>
+		     <cbc:EndpointID schemeID="{customerSchemeId}">{customerRegistrationId}</cbc:EndpointID>                     
+                     <cac:PartyName>
+                            <cbc:Name>{customerRegistrationName}</cbc:Name>
+                     </cac:PartyName>
+                     <cac:PostalAddress>
+                            <cbc:StreetName>{customerStreetName}</cbc:StreetName>
+                            <cbc:CityName>{customerCityName}</cbc:CityName>
+                            <cbc:PostalZone>{customerPostalZone}</cbc:PostalZone>
+                            <cac:Country>
+                                   <cbc:IdentificationCode>{customerCountryCode}</cbc:IdentificationCode>
+                            </cac:Country>
+                     </cac:PostalAddress>
+                     <cac:PartyTaxScheme>
+                            <cbc:CompanyID>{customerEUVatNumber}</cbc:CompanyID>
+                            <cac:TaxScheme>
+                                   <cbc:ID>{customerTaxScheme}</cbc:ID>
+                            </cac:TaxScheme>
+                     </cac:PartyTaxScheme>
+                     <cac:PartyLegalEntity>
+                            <cbc:RegistrationName>{customerRegistrationName}</cbc:RegistrationName>
+                            <cbc:CompanyID schemeID="{customerSchemeId}">{customerRegistrationId}</cbc:CompanyID>
+                     </cac:PartyLegalEntity>
+                     <cac:Contact>
+                            <cbc:ElectronicMail>{customerElectronicMail}</cbc:ElectronicMail>
+                     </cac:Contact>
+              </cac:Party>
+       </cac:AccountingCustomerParty>
+       <cac:PaymentMeans>
+              <cbc:PaymentMeansCode>{paymentMeansCode}</cbc:PaymentMeansCode>
+              <cbc:PaymentID>{paymentId}</cbc:PaymentID>
+              <cac:PayeeFinancialAccount>
+                     <cbc:ID>{supplierIBAN}</cbc:ID>
+                     <cac:FinancialInstitutionBranch>
+                            <cbc:ID>{supplierBIC}</cbc:ID>
+                     </cac:FinancialInstitutionBranch>
+              </cac:PayeeFinancialAccount>
+       </cac:PaymentMeans>
+       <cac:PaymentTerms>
+              <cbc:Note>{paymentTerms}</cbc:Note>
+       </cac:PaymentTerms>
+       <cac:TaxTotal>
+              <cbc:TaxAmount currencyID="{currency}">{taxTotalAmount}</cbc:TaxAmount>
+              <Vsoft>{taxsubtotals-template}</Vsoft>
+       </cac:TaxTotal>
+       <cac:LegalMonetaryTotal>
+              <cbc:LineExtensionAmount currencyID="{currency}">{taxExclusiveAmount}</cbc:LineExtensionAmount>
+              <cbc:TaxExclusiveAmount currencyID="{currency}">{taxExclusiveAmount}</cbc:TaxExclusiveAmount>
+              <cbc:TaxInclusiveAmount currencyID="{currency}">{taxInclusiveAmount}</cbc:TaxInclusiveAmount>
+              <cbc:PayableAmount currencyID="{currency}">{payableAmount}</cbc:PayableAmount>
+       </cac:LegalMonetaryTotal>
+       <Vsoft>{invoicelines-template}</Vsoft>
+</Invoice>

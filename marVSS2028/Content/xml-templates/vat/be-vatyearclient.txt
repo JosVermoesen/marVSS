@@ -1,0 +1,5 @@
+<ns2:Client SequenceNumber="{sequenceNumber}">
+    <ns2:CompanyVATNumber issuedBy="BE">{companyVatNumber}</ns2:CompanyVATNumber>
+    <ns2:TurnOver>{turnOver}</ns2:TurnOver>
+    <ns2:VATAmount>{vatAmount}</ns2:VATAmount>
+</ns2:Client>

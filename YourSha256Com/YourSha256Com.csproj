@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net48</TargetFramework>
+    <OutputType>Library</OutputType>
+    <RootNamespace>YourSha256Com</RootNamespace>
+    <AssemblyName>YourSha256Com</AssemblyName>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <LangVersion>latest</LangVersion>
+    <RunComRegistrationOnBuild Condition="'$(RunComRegistrationOnBuild)' == ''">false</RunComRegistrationOnBuild>
+    <RegAsmPath Condition="'$(RegAsmPath)' == ''">$(SystemRoot)\Microsoft.NET\Framework\v4.0.30319\RegAsm.exe</RegAsmPath>
+  </PropertyGroup>
+
+  <Target Name="RegisterComInterop" AfterTargets="Build"
+          Condition="'$(RunComRegistrationOnBuild)' == 'true' and Exists('$(RegAsmPath)')">
+    <Exec Command="&quot;$(RegAsmPath)&quot; &quot;$(TargetPath)&quot; /tlb:&quot;$(TargetDir)$(TargetName).tlb&quot; /codebase" />
+  </Target>
+</Project>

@@ -1,0 +1,23 @@
+﻿<cac:InvoiceLine>
+       <cbc:ID>1</cbc:ID>
+       <cbc:InvoicedQuantity unitCode="MON">{lineQuantity}</cbc:InvoicedQuantity>
+       <cbc:LineExtensionAmount currencyID="{currency}">{lineExtensionAmount}</cbc:LineExtensionAmount>
+       <cac:TaxTotal>
+              <cbc:TaxAmount currencyID="{currency}">0</cbc:TaxAmount>
+       </cac:TaxTotal>
+       <cac:Item>
+              <cbc:Name>{lineDescription}</cbc:Name>
+              <cac:ClassifiedTaxCategory>
+                     <cbc:ID>O</cbc:ID>
+                     <cbc:Name>{lineTaxCategory}</cbc:Name>
+                     <cbc:TaxExemptionReasonCode>BETE-NS</cbc:TaxExemptionReasonCode>
+                     <cbc:TaxExemptionReason>Not subject to VAT</cbc:TaxExemptionReason>
+                     <cac:TaxScheme>
+                            <cbc:ID>VAT</cbc:ID>
+                     </cac:TaxScheme>
+              </cac:ClassifiedTaxCategory>
+       </cac:Item>
+       <cac:Price>
+              <cbc:PriceAmount currencyID="{currency}">{linePriceAmount}</cbc:PriceAmount>
+       </cac:Price>
+</cac:InvoiceLine>

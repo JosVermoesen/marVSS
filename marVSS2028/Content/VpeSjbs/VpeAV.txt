@@ -1,0 +1,38 @@
+CMD-PRINT
+1.5,1.5,12,"Arial",0,1,0,0
+Algemene Voorwaarden
+CMD-WRITE
+1.5,2.5,20,28,10,"Arial",0,0,0,0,0
+Art. 1 [BENAMING KLANTGERICHT]
+[BENAMING KLANTGERICHT] staat voor [OFFICIELE BENAMING MET ADRESINFO EN NATIONALE INSCHRIJVING ZOALS ONDERNEMINGSNUMMER].
+
+Art. 2 Voorrang van de Algemene Voorwaarden
+Onderhavige Algemene Voorwaarden hebben voorrang op voorwaarden van de klant en verzekeraars. Behoudens andersluidende en uitdrukkelijke schriftelijke overeenkomst, gelden de hierna vermelde bedingen en voorwaarden tussen [BENAMING KLANTGERICHT] en de klant. Mededelingen en meldingen, al dan niet gedrukt, worden als niet-bestaande aanzien voor zover zij niet overeenstemmen met huidige Algemene Voorwaarden.
+
+Elke door [BENAMING KLANTGERICHT] aanvaarde opdracht impliceert dat de klant deze voorwaarden kent, begrijpt en deze als een integraal bestanddeel van de overeenkomst aanvaardt.
+
+Art. 3 Facturatie, betalingstermijn, schadebeding, interesten
+Facturen / Betalingsverzoeken (hierna: facturen) moeten ten laatste einde maand na de datum betaald zijn. Deze facturen zijn betaalbaar te Herdersem. Ingeval van gehele of gedeeltelijke niet-betaling van de factuur op de vervaldag, is de klant, behoudens bij overmacht, en zonder ingebrekestelling, een interest verschuldigd op het verschuldigde of het nog openstaande bedrag, gelijk aan de wettelijke interestvoet, vermeerderd met een som van 25 EUR ten titel van conventioneel schadebeding.
+
+[BENAMING KLANTGERICHT] behoudt zich het recht voor om bijkomende schadevergoeding te vorderen indien [BENAMING KLANTGERICHT] deze schade kan aantonen. [BENAMING KLANTGERICHT] heeft het recht om onmiddellijke betaling te eisen van alle andere nog niet vervallen facturen. Alle invorderingskosten, ook aanmaningen, zijn ten laste van de klant.
+
+Daarnaast zullen, bij niet-betaling op de vervaldag, alle lopende bestellingen en overeenkomsten worden geschorst en alle niet-vervallen facturen en bedragen onmiddellijk eisbaar worden, dit zonder ingebrekestelling door [BENAMING KLANTGERICHT], zonder dat de klant de mogelijkheid heeft tot schuldvergelijking.
+
+Art.4 Beperking van aansprakelijkheid en overmacht
+[BENAMING KLANTGERICHT] gaat een inspanningsverbintenis aan en kan slechts worden aangesproken voor haar opzettelijke fout.
+
+De aansprakelijkheid van [BENAMING KLANTGERICHT] is steeds beperkt tot het factuurbedrag van de overeenkomst tussen [BENAMING KLANTGERICHT] en de klant, behalve ingeval van opzettelijke fout. Voor gevolgschade (o.a. winstderving) is [BENAMING KLANTGERICHT] nooit aansprakelijk.
+
+Bij overmacht is [BENAMING KLANTGERICHT] niet gehouden haar verplichtingen na te komen. In dat geval kan [BENAMING KLANTGERICHT] haar verplichtingen opschorten voor de duur van de overmacht ofwel de overeenkomst definitief ontbinden.
+
+Overmacht is elke omstandigheid buiten de wil en controle van [BENAMING KLANTGERICHT] die de nakoming van haar verplichtingen geheel of gedeeltelijk zou verhinderen. [BENAMING KLANTGERICHT] verwittigt de klant binnen redelijke termijn van de overmacht en de gevolgen op haar verplichtingen.
+
+Art. 5 Privacy
+[BENAMING KLANTGERICHT] behandelt de persoonsgegevens van de klant vertrouwelijk en in overeenstemming met haar privacy policy zoals terug te vinden is op haar website https://www.rv.be/privacy
+
+Art. 6 Nietigheid
+In geval van nietigheid van een of meer bepalingen van de algemene verkoopsvoorwaarden, heeft dit geen invloed op de geldigheid van de overige bepalingen.
+
+Art. 7 Bevoegde rechtbank
+Elke betwisting wordt beheerst door het Belgisch recht en wordt beslecht door de bevoegde rechtbanken van Oost-Vlaanderen.
+CMD-ENDWRITE

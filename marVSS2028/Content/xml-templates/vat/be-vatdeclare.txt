@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 0050724864-252 -->
+<ns2:VATConsignment VATDeclarationsNbr="1"
+  xmlns:ns2="http://www.minfin.fgov.be/VATConsignment"
+  xmlns:common="http://www.minfin.fgov.be/InputCommon"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.minfin.fgov.be/VATConsignment
+c:\dev_data\Documentation\Intervat\Schemas_Version_14_8_avril_2024\TVA\NewTVA-in_v0_9.xsd">
+  <ns2:RepresentativeReference>044005821700211</ns2:RepresentativeReference>
+  <ns2:VATDeclaration DeclarantReference="{referenceDeclarant}" SequenceNumber="1">
+    <ns2:Declarant>
+      <common:VATNumber>{vatNumberDeclarant}</common:VATNumber>
+      <common:Name>{nameDeclarant}</common:Name>
+      <common:Street>{streetDeclarant}</common:Street>
+      <common:PostCode>{postalCodeDeclarant}</common:PostCode>
+      <common:City>{cityDeclarant}</common:City>
+      <common:CountryCode>BE</common:CountryCode>
+      <common:EmailAddress>{emailDeclarant}</common:EmailAddress>
+    </ns2:Declarant>
+    <ns2:Period>
+      <ns2:{periodeType}>{period}</ns2:{periodeType}>
+      <ns2:Year>{fiscalYear}</ns2:Year>
+    </ns2:Period>
+    <ns2:Data>
+      <Vsoft>vatDeclareGridLinesList</Vsoft>
+    </ns2:Data>
+    <ns2:ClientListingNihil>NO</ns2:ClientListingNihil>
+    <ns2:Ask Restitution="NO" Payment="NO"/>
+  </ns2:VATDeclaration>
+</ns2:VATConsignment>

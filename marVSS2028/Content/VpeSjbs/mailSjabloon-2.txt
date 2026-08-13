@@ -1,0 +1,12 @@
+Zoals overeengekomen vindt je in bijlage onze {docType} nummer {docNumber}.
+
+Bij factuur, danken wij je alvast om de betaling van deze binnen de aangegeven termijn in orde te brengen. Betaal indien gewenst, via de QR code vermeld. Heb je gekozen voor betaling via domiciliëring? Dan zal het bedrag automatisch van jouw rekening gaan. 
+
+Is dit een creditnota? Dan hoef je helemaal niets te doen. Wij zorgen voor een snelle én correcte opvolging. 
+
+Aarzel niet om ons te contacteren als je vragen hebt. 
+Fijne dag nog! 
+
+Met beleefde groeten
+
+{sellerInfo}

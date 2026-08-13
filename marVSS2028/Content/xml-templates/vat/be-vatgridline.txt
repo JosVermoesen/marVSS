@@ -1,0 +1,1 @@
+<ns2:Amount GridNumber="{gridnumber}">{amount}</ns2:Amount>

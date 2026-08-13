@@ -1,0 +1,6 @@
+# Force C#
+*.cs linguist-language=C#
+
+# Ignore generated or script-like folders
+Content/* linguist-vendored
+

@@ -1,0 +1,27 @@
+﻿<cac:CreditNoteLine>
+       <cbc:ID>{lineCounter+1}</cbc:ID>
+       <cbc:CreditedQuantity unitCode="{unitCode}">{lineQuantity}</cbc:CreditedQuantity>
+       <cbc:LineExtensionAmount currencyID="{currency}">{lineExtensionAmount}</cbc:LineExtensionAmount>
+       <cbc:AccountingCost>{lineAccountingCost}</cbc:AccountingCost>
+       <cac:TaxTotal>
+              <cbc:TaxAmount currencyID="{currency}">{lineTaxAmountAccurate}</cbc:TaxAmount>
+       </cac:TaxTotal>
+       <cac:Item>
+              <cbc:Description>{lineDescription}</cbc:Description>
+              <cbc:Name>{lineDescription}</cbc:Name>
+              <cac:SellersItemIdentification>
+                     <cbc:ID>{lineSellerItemIdentification}</cbc:ID>
+              </cac:SellersItemIdentification>
+              <cac:ClassifiedTaxCategory>
+                     <cbc:ID>{taxIndex}</cbc:ID>
+                     <cbc:Name>{lineTaxCategory}</cbc:Name>
+                     <cbc:Percent>{lineTaxPercentage}</cbc:Percent>
+                     <cac:TaxScheme>
+                            <cbc:ID>{supplierTaxScheme}</cbc:ID>
+                     </cac:TaxScheme>
+              </cac:ClassifiedTaxCategory>
+       </cac:Item>
+       <cac:Price>
+              <cbc:PriceAmount currencyID="{currency}">{linePriceAmount}</cbc:PriceAmount>
+       </cac:Price>
+</cac:CreditNoteLine>

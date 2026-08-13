@@ -1,0 +1,21 @@
+CMD-PRINT
+1.5,4.2,12,"Arial",0,1,0,0
+Disclaimer
+CMD-WRITE
+1.5,5,19,14,12,"Arial",0,0,0,0,0
+Merk op dat als u verschillende verzekeringsovereenkomsten gaat vergelijken, u niet enkel de geraamde kosten en lasten van de overeenkomsten met elkaar mag vergelijken, maar ook andere elementen in aanmerking moet nemen, zoals de reikwijdte van de waarborgen, het bedrag van de eventuele vrijstellingen of de uitsluitingsclausules.
+
+De opgegeven ramingen geven een beter zicht op het premiegedeelte dat wordt aangewend voor de dekking van het risico dat door de verzekeringsovereenkomst wordt gedekt. Het saldo van de premie, na aftrek van de taksen en bijdragen, alsook van de acquisitie- en administratiekosten, bestaat.
+
+Immers uit het gedeelte van de premie dat wordt aangewend om de contractueel vastgelegde prestaties te verrichten en uit de andere kosten dan hierboven vermeld (waaronder de samengevoegde en onderling gedeelde kosten van de schadegevallen en het beheer ervan).
+
+Deze ramingen zijn berekend op grond van de boekhoudkundige gegevens van het laatste boekjaar van de verzekeringsonderneming, zoals goedgekeurd door haar algemene vergadering.
+CMD-ENDWRITE
+CMD-PRINT
+1.5,15.2,12,"Arial",0,1,0,0
+Gewijzigde opzegregeling
+CMD-WRITE
+1.5,16,19,23,12,"Arial",0,0,0,0,0
+Klant die een natuurlijk persoon is en die handelt voor doeleinden die buiten zijn handels-, bedrijfs-, ambachts- of beroepsactiviteit vallen, kan na het verstrijken van een termijn van één jaar na de aanvang van deze overeenkomst, deze overeenkomst op elk moment opzeggen zonder kosten of boeten. De opzegging heeft uitwerking na het verstrijken van een termijn van twee maanden vanaf de dag na de datum van het ontvangstbewijs, of, bij een aangetekende zending, vanaf de dag na de indiening ervan.
+CMD-ENDWRITE
+'

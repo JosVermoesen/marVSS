@@ -1,0 +1,234 @@
+<?xml version="1.0"?>
+<ss:Workbook xmlns:o="urn:schemas-microsoft-com:office:office"
+ xmlns:x="urn:schemas-microsoft-com:office:excel"
+ xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
+ xmlns:c="urn:schemas-microsoft-com:office:component:spreadsheet"
+ xmlns:html="http://www.w3.org/TR/REC-html40">
+ <x:ExcelWorkbook>
+  <x:ProtectStructure>False</x:ProtectStructure>
+  <x:ActiveSheet>0</x:ActiveSheet>
+ </x:ExcelWorkbook>
+ <ss:Styles>
+  <ss:Style ss:ID="Default">
+   <ss:Alignment ss:Horizontal="Automatic" ss:Rotate="0.0" ss:Vertical="Bottom"
+    ss:ReadingOrder="Context"/>
+   <ss:Borders>
+   </ss:Borders>
+   <ss:Font ss:FontName="Arial" ss:Size="10" ss:Color="Automatic" ss:Bold="0"
+    ss:Italic="0" ss:Underline="None"/>
+   <ss:Interior ss:Color="Automatic" ss:Pattern="None"/>
+   <ss:NumberFormat ss:Format="General"/>
+   <ss:Protection ss:Protected="1"/>
+  </ss:Style>
+  <ss:Style ss:ID="wc0D2CA30000000000">
+   <ss:Alignment ss:Vertical="Bottom"/>
+   <ss:Borders>
+    <ss:Border ss:Position="Top" ss:LineStyle="Double" ss:Weight="3.0"/>
+    <ss:Border ss:Position="Left" ss:LineStyle="Double" ss:Weight="3.0"/>
+    <ss:Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1.0"/>
+    <ss:Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1.0"/>
+   </ss:Borders>
+   <ss:Font ss:FontName="Arial" ss:Size="12"/>
+   <ss:Interior ss:Color="#00FFFF" ss:Pattern="Solid"/>
+  </ss:Style>
+  <ss:Style ss:ID="wc0D2CA40000000000">
+   <ss:Alignment ss:Vertical="Bottom"/>
+   <ss:Borders>
+    <ss:Border ss:Position="Top" ss:LineStyle="Double" ss:Weight="3.0"/>
+    <ss:Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1.0"/>
+    <ss:Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1.0"/>
+    <ss:Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1.0"/>
+   </ss:Borders>
+   <ss:Font ss:FontName="Arial" ss:Size="12"/>
+   <ss:Interior ss:Color="#FFCC00" ss:Pattern="Solid"/>
+   <ss:NumberFormat ss:Format="Standard"/>
+  </ss:Style>
+  <ss:Style ss:ID="wc0D2CA50000000000">
+   <ss:Alignment ss:Vertical="Bottom"/>
+   <ss:Borders>
+    <ss:Border ss:Position="Top" ss:LineStyle="Double" ss:Weight="3.0"/>
+    <ss:Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1.0"/>
+    <ss:Border ss:Position="Right" ss:LineStyle="Double" ss:Weight="3.0"/>
+    <ss:Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1.0"/>
+   </ss:Borders>
+   <ss:Font ss:FontName="Arial" ss:Size="12"/>
+   <ss:Interior ss:Color="#FFCC00" ss:Pattern="Solid"/>
+  </ss:Style>
+  <ss:Style ss:ID="wc0D2CA60000000000">
+   <ss:Alignment ss:Vertical="Bottom"/>
+   <ss:Borders>
+    <ss:Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1.0"/>
+    <ss:Border ss:Position="Left" ss:LineStyle="Double" ss:Weight="3.0"/>
+    <ss:Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1.0"/>
+    <ss:Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1.0"/>
+   </ss:Borders>
+   <ss:Font ss:FontName="Arial" ss:Size="12"/>
+   <ss:Interior ss:Color="#00FFFF" ss:Pattern="Solid"/>
+  </ss:Style>
+  <ss:Style ss:ID="wc0D2CA70000000000">
+   <ss:Alignment ss:Vertical="Bottom"/>
+   <ss:Borders>
+    <ss:Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1.0"/>
+    <ss:Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1.0"/>
+    <ss:Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1.0"/>
+    <ss:Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1.0"/>
+   </ss:Borders>
+   <ss:Font ss:FontName="Arial" ss:Size="12"/>
+   <ss:Interior ss:Color="#FFCC00" ss:Pattern="Solid"/>
+  </ss:Style>
+  <ss:Style ss:ID="wc0D2CA80000000000">
+   <ss:Alignment ss:Vertical="Bottom"/>
+   <ss:Borders>
+    <ss:Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1.0"/>
+    <ss:Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1.0"/>
+    <ss:Border ss:Position="Right" ss:LineStyle="Double" ss:Weight="3.0"/>
+    <ss:Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1.0"/>
+   </ss:Borders>
+   <ss:Font ss:FontName="Arial" ss:Size="12"/>
+   <ss:Interior ss:Color="#FFCC00" ss:Pattern="Solid"/>
+  </ss:Style>
+  <ss:Style ss:ID="wc0D2CA90000000000">
+   <ss:Alignment ss:Vertical="Bottom"/>
+   <ss:Borders>
+    <ss:Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1.0"/>
+    <ss:Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1.0"/>
+    <ss:Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1.0"/>
+    <ss:Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1.0"/>
+   </ss:Borders>
+   <ss:Font ss:FontName="Arial" ss:Size="12"/>
+   <ss:Interior ss:Color="#FFCC00" ss:Pattern="Solid"/>
+   <ss:NumberFormat ss:Format="Fixed"/>
+  </ss:Style>
+  <ss:Style ss:ID="wc0D2CAA0000000000">
+   <ss:Alignment ss:Vertical="Bottom"/>
+   <ss:Borders>
+    <ss:Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1.0"/>
+    <ss:Border ss:Position="Left" ss:LineStyle="Double" ss:Weight="3.0"/>
+    <ss:Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1.0"/>
+    <ss:Border ss:Position="Bottom" ss:LineStyle="Double" ss:Weight="3.0"/>
+   </ss:Borders>
+   <ss:Font ss:FontName="Arial" ss:Size="12"/>
+   <ss:Interior ss:Color="#FFFF00" ss:Pattern="Solid"/>
+  </ss:Style>
+  <ss:Style ss:ID="wc0D2CAB0000000000">
+   <ss:Alignment ss:Vertical="Bottom"/>
+   <ss:Borders>
+    <ss:Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1.0"/>
+    <ss:Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1.0"/>
+    <ss:Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1.0"/>
+    <ss:Border ss:Position="Bottom" ss:LineStyle="Double" ss:Weight="3.0"/>
+   </ss:Borders>
+   <ss:Font ss:FontName="Arial" ss:Size="12" ss:Bold="1"/>
+   <ss:Interior ss:Color="#FFFF00" ss:Pattern="Solid"/>
+   <ss:NumberFormat ss:Format="Standard"/>
+  </ss:Style>
+  <ss:Style ss:ID="wc0D2CAD0000000000">
+   <ss:Alignment ss:Vertical="Bottom"/>
+   <ss:Borders>
+    <ss:Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1.0"/>
+    <ss:Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1.0"/>
+    <ss:Border ss:Position="Right" ss:LineStyle="Double" ss:Weight="3.0"/>
+    <ss:Border ss:Position="Bottom" ss:LineStyle="Double" ss:Weight="3.0"/>
+   </ss:Borders>
+   <ss:Font ss:FontName="Arial" ss:Size="12" ss:Bold="1"/>
+   <ss:Interior ss:Color="#FFFF00" ss:Pattern="Solid"/>
+  </ss:Style>
+  <ss:Style ss:ID="wc0D2CAE0000000000">
+   <ss:Alignment ss:Vertical="Bottom"/>
+   <ss:Font ss:FontName="Arial"/>
+   <ss:Interior ss:Color="#FF9900" ss:Pattern="Solid"/>
+   <ss:NumberFormat ss:Format="Standard"/>
+  </ss:Style>
+ </ss:Styles>
+ <c:ComponentOptions>
+  <c:Label>
+   <c:Caption>Microsoft Office Spreadsheet</c:Caption>
+  </c:Label>
+  <c:MaxHeight>80%</c:MaxHeight>
+  <c:MaxWidth>80%</c:MaxWidth>
+  <c:NextSheetNumber>2</c:NextSheetNumber>
+ </c:ComponentOptions>
+ <x:WorkbookOptions>
+  <c:OWCVersion>12.0.0.6502         </c:OWCVersion>
+  <x:Height>7646</x:Height>
+  <x:Width>15266</x:Width>
+ </x:WorkbookOptions>
+ <ss:Worksheet ss:Name="Sheet1">
+  <x:WorksheetOptions>
+   <x:Selected/>
+   <x:ViewableRange>R1:R262144</x:ViewableRange>
+   <x:Selection>R2C2</x:Selection>
+   <x:TopRowVisible>0</x:TopRowVisible>
+   <x:LeftColumnVisible>0</x:LeftColumnVisible>
+   <x:ProtectContents>False</x:ProtectContents>
+  </x:WorksheetOptions>
+  <c:WorksheetOptions>
+  </c:WorksheetOptions>
+  <ss:Table ss:ExpandedColumnCount="5" ss:ExpandedRowCount="4"
+   ss:DefaultColumnWidth="48.0" ss:DefaultRowHeight="12.75">
+   <ss:Column ss:Width="255.75"/>
+   <ss:Column ss:Width="65.25"/>
+   <ss:Column ss:Width="24.75"/>
+   <ss:Column ss:Width="51.74999999999999"/>
+   <ss:Row ss:Height="15.0">
+    <ss:Cell ss:StyleID="wc0D2CA30000000000">
+     <ss:Data ss:Type="String">U belegt nu een bedrag van:</ss:Data>
+    </ss:Cell>
+    <ss:Cell ss:StyleID="wc0D2CA40000000000">
+     <ss:Data ss:Type="Number">50000</ss:Data>
+    </ss:Cell>
+    <ss:Cell ss:StyleID="wc0D2CA50000000000">
+     <ss:Data ss:Type="String">€</ss:Data>
+    </ss:Cell>
+    <ss:Cell ss:StyleID="Default"/>
+    <ss:Cell ss:StyleID="Default"/>
+   </ss:Row>
+   <ss:Row ss:Height="15.0">
+    <ss:Cell ss:StyleID="wc0D2CA60000000000">
+     <ss:Data ss:Type="String">gedurende een periode van: </ss:Data>
+    </ss:Cell>
+    <ss:Cell ss:StyleID="wc0D2CA70000000000">
+     <ss:Data ss:Type="Number">10</ss:Data>
+    </ss:Cell>
+    <ss:Cell ss:StyleID="wc0D2CA80000000000">
+     <ss:Data ss:Type="String">jaar</ss:Data>
+    </ss:Cell>
+    <ss:Cell ss:StyleID="Default"/>
+    <ss:Cell ss:StyleID="Default"/>
+   </ss:Row>
+   <ss:Row ss:Height="15.0">
+    <ss:Cell ss:StyleID="wc0D2CA60000000000">
+     <ss:Data ss:Type="String">Indien de jaarlijkse opbrengst overeenstemt met:</ss:Data>
+    </ss:Cell>
+    <ss:Cell ss:StyleID="wc0D2CA90000000000">
+     <ss:Data ss:Type="Number">4</ss:Data>
+    </ss:Cell>
+    <ss:Cell ss:StyleID="wc0D2CA80000000000">
+     <ss:Data ss:Type="String">%</ss:Data>
+    </ss:Cell>
+    <ss:Cell ss:StyleID="Default"/>
+    <ss:Cell ss:StyleID="Default"/>
+   </ss:Row>
+   <ss:Row ss:Height="15.75">
+    <ss:Cell ss:StyleID="wc0D2CAA0000000000">
+     <ss:Data ss:Type="String">dan heeft u na afloop een spaarbedrag van:</ss:Data>
+    </ss:Cell>
+    <ss:Cell ss:StyleID="wc0D2CAB0000000000"
+     ss:Formula="=R[-3]C*(1+(R[-1]C/100))^R[-2]C">
+     <ss:Data ss:Type="Number">74012.214245917232</ss:Data>
+    </ss:Cell>
+    <ss:Cell ss:StyleID="wc0D2CAD0000000000">
+     <ss:Data ss:Type="String">€</ss:Data>
+    </ss:Cell>
+    <ss:Cell ss:StyleID="wc0D2CAE0000000000"
+     ss:Formula="=(((RC[-2]-R[-3]C[-2])*0.85)+R[-3]C[-2])">
+     <ss:Data ss:Type="Number">70410.382109029655</ss:Data>
+    </ss:Cell>
+    <ss:Cell ss:StyleID="Default">
+     <ss:Data ss:Type="String">netto</ss:Data>
+    </ss:Cell>
+   </ss:Row>
+  </ss:Table>
+ </ss:Worksheet>
+</ss:Workbook>
+

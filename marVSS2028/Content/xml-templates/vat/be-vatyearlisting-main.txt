@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?><!-- 0067240448-245 -->
+<ns2:ClientListingConsignment xmlns:ns2="http://www.minfin.fgov.be/ClientListingConsignment"
+    xmlns:common="http://www.minfin.fgov.be/InputCommon"
+    xmlns:iso="http://www.minfin.fgov.be/IsoTypes"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.minfin.fgov.be/ClientListingConsignment
+C:\DEV_DATA\Documentation\Intervat\Schemas_Version_14\Listings\NewLK-in_v0_9.xsd" ClientListingsNbr="1">
+    <ns2:RepresentativeReference>04400582170091</ns2:RepresentativeReference>
+    <ns2:ClientListing ClientsNbr="{clientsCount}" DeclarantReference="{referenceDeclarant}" TurnOverSum="{turnoverSum}" VATAmountSum="{vatAmountSum}" SequenceNumber="1">
+        <ns2:Declarant>
+            <common:VATNumber>{vatNumberDeclarant}</common:VATNumber>
+            <common:Name>{nameDeclarant}</common:Name>
+            <common:Street>{streetDeclarant}</common:Street>
+            <common:PostCode>{postalCodeDeclarant}</common:PostCode>
+            <common:City>{cityDeclarant}</common:City>
+            <common:CountryCode>BE</common:CountryCode>
+            <common:EmailAddress>{emailDeclarant}</common:EmailAddress>
+        </ns2:Declarant>
+        <ns2:Period>{fiscalYear}</ns2:Period>
+        <Vsoft>vatYearClientsList</Vsoft>        
+    </ns2:ClientListing>
+</ns2:ClientListingConsignment>

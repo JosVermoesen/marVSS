@@ -1,0 +1,1150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{0C9816F9-81D4-464B-B26C-92AA3C9D772A}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>marVSS2028</RootNamespace>
+    <AssemblyName>marVSS2028</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+    <IsWebBootstrapper>true</IsWebBootstrapper>
+    <PublishUrl>C:\Users\Jos\source\repos\mar\vss\marVSS\marVSS2028publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Web</InstallFrom>
+    <UpdateEnabled>true</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <InstallUrl>https://clickonce.vsoft.be/marVSS2028/</InstallUrl>
+    <SupportUrl>https://vsoft.be/marintegraal</SupportUrl>
+    <ProductName>MarIntegraal 2028</ProductName>
+    <PublisherName>Vsoft 1985</PublisherName>
+    <SuiteName>MarIntegraal 365</SuiteName>
+    <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
+    <WebPage>publish.htm</WebPage>
+    <ApplicationRevision>3</ApplicationRevision>
+    <ApplicationVersion>0.1.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <PublishWizardCompleted>true</PublishWizardCompleted>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>marVSS2028.Program</StartupObject>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Images\NOTE04.ICO</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestCertificateThumbprint>8DD316AEB2EAD72EA31F617044417BBD89CFCEFD</ManifestCertificateThumbprint>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestKeyFile>marVSS2028_TemporaryKey.pfx</ManifestKeyFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <GenerateManifests>true</GenerateManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignManifests>true</SignManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <TargetZone>LocalIntranet</TargetZone>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>false</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>
+    </AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="adodb, Version=7.0.3300.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="IDEALSoftware.VpeCommunity, Version=7.4.0.1, Culture=neutral, PublicKeyToken=cd7e57f4b5d80cd1, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\..\..\Program Files (x86)\VPE_C32.740\deploy\IDEALSoftware.VpeCommunity.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.VisualBasic" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Classes\BrokerTools.cs" />
+    <Compile Include="Classes\ListViewItemComparer.cs" />
+    <Compile Include="Classes\MdvDataTools.cs" />
+    <Compile Include="Classes\MimEnvironment.cs" />
+    <Compile Include="Classes\Globals.cs" />
+    <Compile Include="Classes\LoadMain.cs" />
+    <Compile Include="Classes\PeppolDocumentRepository.cs" />
+    <Compile Include="Classes\PeppolTools.cs" />
+    <Compile Include="Classes\QRCodeGen.cs" />
+    <Compile Include="Classes\OleDbTools.cs" />
+    <Compile Include="Classes\ShellHelper.cs" />
+    <Compile Include="Classes\TB2Tools.cs" />
+    <Compile Include="Classes\TextTools.cs" />
+    <Compile Include="Classes\VPETools.cs" />
+    <Compile Include="MimMenu\Accounting\FormBalancePurchaseAndSales.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MimMenu\Accounting\FormBalancePurchaseAndSales.Designer.cs">
+      <DependentUpon>FormBalancePurchaseAndSales.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MimMenu\Accounting\FormManualLedgerEntries.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MimMenu\Accounting\FormManualLedgerEntries.Designer.cs">
+      <DependentUpon>FormManualLedgerEntries.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MimMenu\Accounting\FormFinancialBook.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MimMenu\Accounting\FormFinancialBook.Designer.cs">
+      <DependentUpon>FormFinancialBook.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MimMenu\Accounting\FormHistoryGeneralLedger.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MimMenu\Accounting\FormHistoryGeneralLedger.Designer.cs">
+      <DependentUpon>FormHistoryGeneralLedger.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MimMenu\Accounting\FormLedgerBook.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MimMenu\Accounting\FormLedgerBook.Designer.cs">
+      <DependentUpon>FormLedgerBook.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MimMenu\Accounting\FormPurchaseAndSalesLedger.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MimMenu\Accounting\FormPurchaseAndSalesLedger.Designer.cs">
+      <DependentUpon>FormPurchaseAndSalesLedger.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MimMenu\Accounting\FormTrialBalance.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MimMenu\Accounting\FormTrialBalance.Designer.cs">
+      <DependentUpon>FormTrialBalance.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MimMenu\Accounting\FormVatDeclaration.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MimMenu\Accounting\FormVatDeclaration.Designer.cs">
+      <DependentUpon>FormVatDeclaration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MimMenu\Actions\FormCompanyNew.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MimMenu\Actions\FormCompanyNew.Designer.cs">
+      <DependentUpon>FormCompanyNew.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MimMenu\DailyManagement\FormBuying.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MimMenu\DailyManagement\FormBuying.Designer.cs">
+      <DependentUpon>FormBuying.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MimMenu\Filing\FormBasicTableReporting.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MimMenu\Filing\FormBasicTableReporting.Designer.cs">
+      <DependentUpon>FormBasicTableReporting.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MimMenu\Filing\FormLedgerSQL.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MimMenu\Filing\FormLedgerSQL.Designer.cs">
+      <DependentUpon>FormLedgerSQL.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MimMenu\Filing\FormProductBasicTable.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MimMenu\Filing\FormProductBasicTable.Designer.cs">
+      <DependentUpon>FormProductBasicTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MimMenu\Filing\FormProductGroups.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MimMenu\Filing\FormProductGroups.Designer.cs">
+      <DependentUpon>FormProductGroups.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MimMenu\Filing\FormProductReporting.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MimMenu\Filing\FormProductReporting.Designer.cs">
+      <DependentUpon>FormProductReporting.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MimMenu\Filing\FormVariousDataSheets.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MimMenu\Filing\FormVariousDataSheets.Designer.cs">
+      <DependentUpon>FormVariousDataSheets.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MimMenu\System\FormFiscalYearSettings.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MimMenu\System\FormFiscalYearSettings.Designer.cs">
+      <DependentUpon>FormFiscalYearSettings.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MimMenu\Info\FormSplash.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MimMenu\Info\FormSplash.Designer.cs">
+      <DependentUpon>FormSplash.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MimMenu\System\FormSQLOperations.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MimMenu\System\FormSQLOperations.Designer.cs">
+      <DependentUpon>FormSQLOperations.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MimMenu\System\FormVpeTemplateEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MimMenu\System\FormVpeTemplateEditor.Designer.cs">
+      <DependentUpon>FormVpeTemplateEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MimMenu\Filing\FormBasicTable.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MimMenu\Filing\FormBasicTable.Designer.cs">
+      <DependentUpon>FormBasicTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MimMenu\System\FormBYPERDAT.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MimMenu\System\FormBYPERDAT.Designer.cs">
+      <DependentUpon>FormBYPERDAT.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MimMenu\Cloud\FormCloudSetting.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MimMenu\Cloud\FormCloudSetting.Designer.cs">
+      <DependentUpon>FormCloudSetting.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormMim.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormMim.Designer.cs">
+      <DependentUpon>FormMim.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MimMenu\Actions\FormOpenCompany.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MimMenu\Actions\FormOpenCompany.Designer.cs">
+      <DependentUpon>FormOpenCompany.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SharedForms\DetailInfo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SharedForms\DetailInfo.Designer.cs">
+      <DependentUpon>DetailInfo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SharedForms\FormBoeking.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SharedForms\FormBoeking.Designer.cs">
+      <DependentUpon>FormBoeking.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SharedForms\FormIntrastat.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SharedForms\FormIntrastat.Designer.cs">
+      <DependentUpon>FormIntrastat.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SharedForms\FormKeuzeVSF.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SharedForms\FormKeuzeVSF.Designer.cs">
+      <DependentUpon>FormKeuzeVSF.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SharedForms\FormNTInputbox.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SharedForms\FormNTInputbox.Designer.cs">
+      <DependentUpon>FormNTInputbox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SharedForms\FormPeppolCheckTool.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SharedForms\FormPeppolCheckTool.Designer.cs">
+      <DependentUpon>FormPeppolCheckTool.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SharedForms\FormPurchaseInvestmentSheet.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SharedForms\FormPurchaseInvestmentSheet.Designer.cs">
+      <DependentUpon>FormPurchaseInvestmentSheet.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SharedForms\FormPurchaseLineEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SharedForms\FormPurchaseLineEditor.Designer.cs">
+      <DependentUpon>FormPurchaseLineEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SharedForms\FormPurchasePeppolMonitor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SharedForms\FormPurchasePeppolMonitor.Designer.cs">
+      <DependentUpon>FormPurchasePeppolMonitor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SharedForms\FormReactionsDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SharedForms\FormReactionsDialog.Designer.cs">
+      <DependentUpon>FormReactionsDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SharedForms\FormSearchSQL.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SharedForms\FormSearchSQL.Designer.cs">
+      <DependentUpon>FormSearchSQL.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SharedForms\FormXLog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SharedForms\FormXLog.Designer.cs">
+      <DependentUpon>FormXLog.cs</DependentUpon>
+    </Compile>
+    <Content Include="Content\Def\00.DEF">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Def\000.DEF">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Def\001.DEF">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Def\001M.DEF">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Def\002.DEF">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Def\003.DEF">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Def\004.DEF">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Def\005.DEF">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Def\007.DEF">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Def\010.DEF">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Def\012.DEF">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Def\018.DEF">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Def\020.DEF">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Def\020A.DEF">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Def\020Q.DEF">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Def\020V.DEF">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Def\021.DEF">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Def\022.DEF">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Def\028.DEF">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Def\060.DEF">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Def\070.DEF">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Def\099.DEF">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Def\90D.DEF">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Def\Arc.exe">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Def\AS1022.DEF">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Def\AS1024.DEF">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Def\AS1046.DEF">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Def\AS1047.DEF">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Def\AS1097.DEF">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Def\DOK11.TXT">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Def\DOK12.TXT">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Def\DOK13.TXT">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Def\DOK14.TXT">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Def\DOK21.TXT">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Def\DOK22.TXT">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Def\DOK23.TXT">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Def\DOK24.TXT">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Def\ENDUSER.DEF">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Def\FORM-IBAN.TXT">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Def\GROEP50.DEF">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Def\GROEP96.DEF">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Def\HPJ.DEF">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Def\IBM.DEF">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Def\MSB.DEF">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Def\PAUTO01.DEF">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Def\PAUTO02.DEF">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Def\PBAPRIVE.DEF">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Def\PRECHT.DEF">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Def\SCHADE01.DEF">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Def\SPAARBON.DEF">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Def\TAK0.DEF">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Def\TAK1.DEF">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Def\TAK2.DEF">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Def\TAK3.DEF">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Def\TAK4.DEF">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Def\TAK41.DEF">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Def\TAK5.DEF">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Def\TAK6.DEF">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Def\TAK7.DEF">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Def\TAK8.DEF">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Def\TAK9.DEF">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Def\TAK96.DEF">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Def\TELEB022.DEF">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Def\TELEB024.DEF">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Def\TRF50.DEF">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Def\TXT.DEF">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Intrastat\geo2021nl_intrastat.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="MdX\Vsoft.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\VpeSjbs\demo-compagny-logo.bmp">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\VpeSjbs\mailSjabloon-2.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\VpeSjbs\pdfDDEF110.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\VpeSjbs\pdfDDEF111.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\VpeSjbs\pdfDDEF112.Txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\VpeSjbs\pdfDDEF113.Txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\VpeSjbs\pdfDDEF114.Txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\VpeSjbs\pdfDDEF115.Txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\VpeSjbs\pdfDDEF120.Txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\VpeSjbs\pdfDDEF121.Txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\VpeSjbs\pdfDDEF122.Txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\VpeSjbs\pdfDDEF123.Txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\VpeSjbs\pdfDDEF124.Txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\VpeSjbs\pdfDDEF125.Txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\VpeSjbs\pdfDDEF130.Txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\VpeSjbs\pdfDDEF131.Txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\VpeSjbs\pdfDDEF132.Txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\VpeSjbs\pdfDDEF133.Txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\VpeSjbs\pdfDDEF134.Txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\VpeSjbs\pdfDDEF135.Txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\VpeSjbs\pdfDDEF140.Txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\VpeSjbs\pdfDDEF141.Txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\VpeSjbs\pdfDDEF142.Txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\VpeSjbs\pdfDDEF143.Txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\VpeSjbs\pdfDDEF144.Txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\VpeSjbs\pdfDDEF145.Txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\VpeSjbs\VpeAV.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\VpeSjbs\VpeDisclaimer.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\xlsx-templates\budget.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\xlsx-templates\intrest.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\xml-templates\peppol\peppol-invoice.xslt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\xml-templates\peppol\peppol_bis_billing_ubl_v3-creditnote.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\xml-templates\peppol\peppol_bis_billing_ubl_v3-creditnoteline.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\xml-templates\peppol\peppol_bis_billing_ubl_v3-invoice.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\xml-templates\peppol\peppol_bis_billing_ubl_v3-invoicecontractor.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\xml-templates\peppol\peppol_bis_billing_ubl_v3-invoiceline.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\xml-templates\peppol\peppol_bis_billing_ubl_v3-invoicelinecontractor.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\xml-templates\peppol\peppol_bis_billing_ubl_v3-invoicetaxline.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\xml-templates\peppol\peppol_bis_billing_ubl_v3-invoicetaxlinecontractor.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\xml-templates\peppol\ubl_be_3_0-creditnote.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\xml-templates\peppol\ubl_be_3_0-creditnoteline.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\xml-templates\peppol\ubl_be_3_0-invoice-no-vat.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\xml-templates\peppol\ubl_be_3_0-invoice.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\xml-templates\peppol\ubl_be_3_0-invoiceline-no-vat.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\xml-templates\peppol\ubl_be_3_0-invoiceline.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\xml-templates\peppol\ubl_be_3_0-invoicetaxline.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\xml-templates\sepa\be-sepa-main.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\xml-templates\sepa\be-sepa-trans-no-ogm.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\xml-templates\sepa\be-sepa-trans-no-ref.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\xml-templates\sepa\be-sepa-trans-ogm.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\xml-templates\vat\be-vatdeclare.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\xml-templates\vat\be-vatgridline.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\xml-templates\vat\be-vatyearclient.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\xml-templates\vat\be-vatyearlisting-main.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="vpec3274.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <EmbeddedResource Include="licenses.licx" />
+    <EmbeddedResource Include="MimMenu\Accounting\FormBalancePurchaseAndSales.resx">
+      <DependentUpon>FormBalancePurchaseAndSales.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MimMenu\Accounting\FormManualLedgerEntries.resx">
+      <DependentUpon>FormManualLedgerEntries.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MimMenu\Accounting\FormFinancialBook.resx">
+      <DependentUpon>FormFinancialBook.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MimMenu\Accounting\FormHistoryGeneralLedger.resx">
+      <DependentUpon>FormHistoryGeneralLedger.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MimMenu\Accounting\FormLedgerBook.resx">
+      <DependentUpon>FormLedgerBook.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MimMenu\Accounting\FormPurchaseAndSalesLedger.resx">
+      <DependentUpon>FormPurchaseAndSalesLedger.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MimMenu\Accounting\FormTrialBalance.resx">
+      <DependentUpon>FormTrialBalance.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MimMenu\Accounting\FormVatDeclaration.resx">
+      <DependentUpon>FormVatDeclaration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MimMenu\Actions\FormCompanyNew.resx">
+      <DependentUpon>FormCompanyNew.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MimMenu\DailyManagement\FormBuying.resx">
+      <DependentUpon>FormBuying.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MimMenu\Filing\FormBasicTableReporting.resx">
+      <DependentUpon>FormBasicTableReporting.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MimMenu\Filing\FormLedgerSQL.resx">
+      <DependentUpon>FormLedgerSQL.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MimMenu\Filing\FormProductBasicTable.resx">
+      <DependentUpon>FormProductBasicTable.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MimMenu\Filing\FormProductGroups.resx">
+      <DependentUpon>FormProductGroups.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MimMenu\Filing\FormProductReporting.resx">
+      <DependentUpon>FormProductReporting.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MimMenu\Filing\FormVariousDataSheets.resx">
+      <DependentUpon>FormVariousDataSheets.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MimMenu\System\FormFiscalYearSettings.resx">
+      <DependentUpon>FormFiscalYearSettings.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SharedForms\DetailInfo.resx">
+      <DependentUpon>DetailInfo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SharedForms\FormBoeking.resx">
+      <DependentUpon>FormBoeking.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SharedForms\FormIntrastat.resx">
+      <DependentUpon>FormIntrastat.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SharedForms\FormKeuzeVSF.resx">
+      <DependentUpon>FormKeuzeVSF.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SharedForms\FormPeppolCheckTool.resx">
+      <DependentUpon>FormPeppolCheckTool.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SharedForms\FormPurchaseInvestmentSheet.resx">
+      <DependentUpon>FormPurchaseInvestmentSheet.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SharedForms\FormPurchaseLineEditor.resx">
+      <DependentUpon>FormPurchaseLineEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SharedForms\FormPurchasePeppolMonitor.resx">
+      <DependentUpon>FormPurchasePeppolMonitor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SharedForms\FormReactionsDialog.resx">
+      <DependentUpon>FormReactionsDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SharedForms\FormSearchSQL.resx">
+      <DependentUpon>FormSearchSQL.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SharedForms\FormXLog.resx">
+      <DependentUpon>FormXLog.cs</DependentUpon>
+    </EmbeddedResource>
+    <Content Include="Content\Deprecated\XMLbtwAangifte.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Intrastat\nom-n-26.vsf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Prd\00100.PRD">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Prd\00101.PRD">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Prd\00102.PRD">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Prd\00103.PRD">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Prd\00200.PRD">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Prd\00300.PRD">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Prd\00301.PRD">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Prd\00401.PRD">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Prd\00501.PRD">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Def\00.ONT">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Def\0000000.ONT">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Def\0000000.PRE">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Def\001.QHP">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Def\00100.IOD">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Def\00100.PRD">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Def\0010000.ONT">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Def\00101.IOD">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Def\00101.PRD">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Def\00102.IOD">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Def\00102.PRD">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Def\00103.PRD">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Def\002.QHP">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Def\00200.IOD">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Def\00200.PRD">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Def\0020000.ONT">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Def\003.QHP">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Def\00300.IOD">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Def\00300.PRD">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Def\0030000.ONT">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Def\00301.PRD">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Def\003DUMM.OCT">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Def\004.QHP">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Def\00400.IOD">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Def\0040000.ONT">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Def\00401.IOD">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Def\00401.PRD">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Def\005.QHP">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Def\00501.PRD">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Def\00900111.MRG">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Def\00900112.MRG">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Def\00900113.MRG">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Def\00900114.MRG">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Def\00DUMMY.ONT">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Def\0200000.ONT">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Def\0600000.ONT">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Def\0700000.ONT">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Def\90DUMMY.ONT">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Def\99MAR01N.SRN">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Def\99MAR02N.SRN">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Def\99MAR03N.SRN">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Def\99MAR04N.SRN">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Def\AS1OCT.INI">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Def\B2B_Factuur_in_mail.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Def\BAAUTO.100">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Def\F01.SRN">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Def\F02.SRN">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Def\F03.SRN">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Def\F04.SRN">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Def\LICMARNT.###">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Def\Marnt.arc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Def\MARNT.VBZ">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Def\PeppolDocTypes.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Def\PLIJST.INI">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Def\prnt2000.SET">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Def\TELEBIB.OCT">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Def\TELEBIB.PRE">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <None Include="Directory.Build.props" />
+    <None Include="Directory.Build.targets" />
+    <None Include="Resources\WebFolderOpened.png" />
+    <None Include="Resources\Access.png" />
+    <None Include="Resources\OPENFOLD_SMALL.BMP" />
+    <None Include="Resources\OPENFOLD.BMP" />
+    <None Include="Resources\LEAF.BMP" />
+    <None Include="Resources\OPENFOLD_LARGE.BMP" />
+    <None Include="Resources\Windows-11-scaled.jpg" />
+    <EmbeddedResource Include="MimMenu\Info\FormSplash.resx">
+      <DependentUpon>FormSplash.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MimMenu\System\FormSQLOperations.resx">
+      <DependentUpon>FormSQLOperations.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MimMenu\System\FormVpeTemplateEditor.resx">
+      <DependentUpon>FormVpeTemplateEditor.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MimMenu\Filing\FormBasicTable.resx">
+      <DependentUpon>FormBasicTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MimMenu\System\FormBYPERDAT.resx">
+      <DependentUpon>FormBYPERDAT.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MimMenu\Cloud\FormCloudSetting.resx">
+      <DependentUpon>FormCloudSetting.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormMim.resx">
+      <DependentUpon>FormMim.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MimMenu\Actions\FormOpenCompany.resx">
+      <DependentUpon>FormOpenCompany.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Content Include="MdX\MARNT.MDV">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="9999.OCT">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <EmbeddedResource Include="SharedForms\FormNTInputbox.resx">
+      <DependentUpon>FormNTInputbox.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="Properties\app.manifest" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="Scripting">
+      <Guid>{420B2830-E718-11CF-893D-00A0C9054228}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="stdole">
+      <Guid>{00020430-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>2</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="VPECTRLLib">
+      <Guid>{A9AC2CEF-0F38-4A9E-8855-8EED88F59501}</Guid>
+      <VersionMajor>7</VersionMajor>
+      <VersionMinor>40</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="MdX\default2022.mdb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\NOTE04.ICO" />
+    <Content Include="MdX\TELEBIB2.mdb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.8">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.8 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <PublishFile Include="MdX\default2022.mdb">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>File</FileType>
+    </PublishFile>
+    <PublishFile Include="MdX\TELEBIB2.mdb">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>File</FileType>
+    </PublishFile>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

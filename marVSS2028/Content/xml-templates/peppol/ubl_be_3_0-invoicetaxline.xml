@@ -1,0 +1,12 @@
+﻿<cac:TaxSubtotal>
+    <cbc:TaxableAmount currencyID="{currency}">{taxableAmount}</cbc:TaxableAmount>
+    <cbc:TaxAmount currencyID="{currency}">{taxAmount}</cbc:TaxAmount>
+    <cac:TaxCategory>
+        <cbc:ID>{taxIndex}</cbc:ID>
+        <cbc:Name>{taxCategory}</cbc:Name>
+        <cbc:Percent>{taxPercent}</cbc:Percent>
+        <cac:TaxScheme>
+            <cbc:ID>{supplierTaxScheme}</cbc:ID>
+        </cac:TaxScheme>
+    </cac:TaxCategory>
+</cac:TaxSubtotal>

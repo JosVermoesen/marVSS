@@ -1,0 +1,5 @@
+<Solution>
+  <Project Path="marVSS2028/marVSS2028.csproj" Id="0c9816f9-81d4-464b-b26c-92aa3c9d772a" />
+  <Project Path="marVSSNET/marVSSNET.csproj" Id="7a4f53cc-8cd2-468b-a595-430de848b71c" />
+  <Project Path="YourSha256Com/YourSha256Com.csproj" />
+</Solution>

@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Document xmlns="urn:iso:std:iso:20022:tech:xsd:pain.001.001.03"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <CstmrCdtTrfInitn>        
+        <GrpHdr>
+            <MsgId>{guidId}</MsgId>            
+            <CreDtTm>{creationDateTime}</CreDtTm>            
+            <NbOfTxs>{numberOfTransactions}</NbOfTxs>
+            <CtrlSum>{controlSum}</CtrlSum>
+            <InitgPty>
+                <Nm>{initiatingPartyName}</Nm>
+            </InitgPty>
+        </GrpHdr>
+        
+        <PmtInf>
+            <PmtInfId>{paymentInformationId}</PmtInfId>
+            <PmtMtd>TRF</PmtMtd>
+            <BtchBookg>true</BtchBookg>
+            <NbOfTxs>{numberOfTransactions}</NbOfTxs>
+            <CtrlSum>{controlSum}</CtrlSum>
+
+            <PmtTpInf>
+                <SvcLvl>
+                    <Cd>SEPA</Cd>
+                </SvcLvl>
+            </PmtTpInf>
+            
+            <ReqdExctnDt>{requestedExecutionDate}</ReqdExctnDt>
+
+            <Dbtr>
+                <Nm>{debtorName}</Nm>
+            </Dbtr>
+            <DbtrAcct>
+                <Id>                  
+                    <IBAN>{debtorIBAN}</IBAN>
+                </Id>
+                <Ccy>EUR</Ccy>
+            </DbtrAcct>
+            <DbtrAgt>
+                <FinInstnId>
+                    <BIC>{debtorBIC}</BIC>
+                </FinInstnId>
+            </DbtrAgt>
+
+            <!-- Cost allocation -->
+            <ChrgBr>SLEV</ChrgBr>
+
+            <!-- ====== TRANSACTIONS ====== -->
+            <Vsoft>transactionsList</Vsoft>
+
+        </PmtInf>
+    </CstmrCdtTrfInitn>
+</Document>

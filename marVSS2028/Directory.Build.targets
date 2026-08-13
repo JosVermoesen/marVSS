@@ -1,0 +1,19 @@
+<Project>
+  <Target Name="SwapVpeReference" BeforeTargets="ResolveReferences">
+	<ItemGroup>
+	  <Reference Remove="IDEALSoftware.VpeStandard" />
+	</ItemGroup>
+  </Target>
+
+  <Target Name="CopyVpeRuntimeDll" AfterTargets="Build">
+	<ItemGroup>
+	  <_VpeRuntimeDll Include="$(MSBuildProjectDirectory)\VpeRuntime\vpec3274.dll" />
+	</ItemGroup>
+
+	<Copy
+	  SourceFiles="@(_VpeRuntimeDll)"
+	  DestinationFolder="$(TargetDir)"
+	  SkipUnchangedFiles="true"
+	  Condition="Exists('$(MSBuildProjectDirectory)\VpeRuntime\vpec3274.dll')" />
+  </Target>
+</Project>
