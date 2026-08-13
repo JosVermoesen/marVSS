@@ -1,5 +1,15 @@
-﻿using IDEALSoftware.VpeCommunity;
+﻿using System;
+using System.Drawing;
+using System.IO;
+using System.Linq;
+using System.Windows.Forms;
+
+using IDEALSoftware.VpeCommunity;
+
 using marVSS2028.Classes;
+using static marVSS2028.Classes.Globals;
+using static marVSS2028.Classes.MimEnvironment;
+using static marVSS2028.Classes.ShellHelper;
 using marVSS2028.Forms;
 using marVSS2028.MimMenu.Accounting;
 using marVSS2028.MimMenu.Actions;
@@ -7,14 +17,6 @@ using marVSS2028.MimMenu.DailyManagement;
 using marVSS2028.MimMenu.Filing;
 using marVSS2028.PrivateForms;
 using marVSS2028.SharedForms;
-using System;
-using System.Drawing;
-using System.IO;
-using System.Linq;
-using System.Windows.Forms;
-using static marVSS2028.Classes.Globals;
-using static marVSS2028.Classes.MimEnvironment;
-using static marVSS2028.Classes.ShellHelper;
 
 namespace marVSS2028
 {

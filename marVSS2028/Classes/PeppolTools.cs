@@ -769,7 +769,7 @@ namespace marVSS2028.Classes
                     msg += "Globale kosten : " + Dec(lm4, "#######.##") + Environment.NewLine;
 
                 msg += Environment.NewLine;
-                msg += "Bij inboeking worden de bedrag(en) toegevoegd aan het bedrag van de eerste factuurlijn." + Environment.NewLine;
+                msg += "Bij inboeking wordt bedrag toegevoegd aan de eerste factuurlijn." + Environment.NewLine;
 
                 MessageBox.Show(msg, string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Information);
             }

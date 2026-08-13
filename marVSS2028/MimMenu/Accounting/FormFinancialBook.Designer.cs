@@ -93,10 +93,11 @@
             // 
             // ExtractsListBox
             // 
-            this.ExtractsListBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ExtractsListBox.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ExtractsListBox.ItemHeight = 14;
             this.ExtractsListBox.Location = new System.Drawing.Point(8, 112);
             this.ExtractsListBox.Name = "ExtractsListBox";
-            this.ExtractsListBox.Size = new System.Drawing.Size(578, 251);
+            this.ExtractsListBox.Size = new System.Drawing.Size(586, 242);
             this.ExtractsListBox.Sorted = true;
             this.ExtractsListBox.TabIndex = 8;
             this.ExtractsListBox.DoubleClick += new System.EventHandler(this.ExtractsListBox_DoubleClick);
@@ -152,7 +153,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.ButtonClose;
-            this.ClientSize = new System.Drawing.Size(596, 408);
+            this.ClientSize = new System.Drawing.Size(606, 408);
             this.ControlBox = false;
             this.Controls.Add(this.LabelPeriod);
             this.Controls.Add(this.PeriodTextBox);
