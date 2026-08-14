@@ -183,6 +183,12 @@
     <Compile Include="MimMenu\DailyManagement\FormBuying.Designer.cs">
       <DependentUpon>FormBuying.cs</DependentUpon>
     </Compile>
+    <Compile Include="MimMenu\DailyManagement\FormProcessBankStatements.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MimMenu\DailyManagement\FormProcessBankStatements.Designer.cs">
+      <DependentUpon>FormProcessBankStatements.cs</DependentUpon>
+    </Compile>
     <Compile Include="MimMenu\Filing\FormBasicTableReporting.cs">
       <SubType>Form</SubType>
     </Compile>

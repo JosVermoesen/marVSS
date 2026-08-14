@@ -850,5 +850,11 @@ namespace marVSS2028
             ShowSingleMdiChild<FormBuying>();
             LayoutMdi(MdiLayout.Cascade);
         }
+
+        private void ToolStripFinancial_Click(object sender, EventArgs e)
+        {
+            ShowSingleMdiChild<FormProcessBankStatements>();
+            LayoutMdi(MdiLayout.Cascade);
+        }
     }
 }
