@@ -21,7 +21,15 @@ namespace marVSS2028.SharedForms
         public DetailInfo()
         {
             InitializeComponent();
+            InitializeControlArrays();
             WireHighlightEvents(this);
+        }
+
+        private void InitializeControlArrays()
+        {
+            TekstInfo = new[] { _tekst0, _tekst1, _tekst2, _tekst3, _tekst4, _tekst5 };
+            LabelInfo = new[] { _label0, _label1, _label2, _label3, _label4, _label5, _label6 };
+            tbBank    = new[] { _tbBank0, _tbBank1 };
         }
 
         // ── Form_Load ────────────────────────────────────────────────────────
