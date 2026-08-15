@@ -183,6 +183,12 @@
     <Compile Include="MimMenu\DailyManagement\FormBuying.Designer.cs">
       <DependentUpon>FormBuying.cs</DependentUpon>
     </Compile>
+    <Compile Include="MimMenu\DailyManagement\FormInbrengFinancieel.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MimMenu\DailyManagement\FormInbrengFinancieel.Designer.cs">
+      <DependentUpon>FormInbrengFinancieel.cs</DependentUpon>
+    </Compile>
     <Compile Include="MimMenu\Filing\FormBasicTableReporting.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -275,6 +281,12 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SharedForms\DetailInfo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SharedForms\DetailInfo.Designer.cs">
+      <DependentUpon>DetailInfo.cs</DependentUpon>
+    </Compile>
     <Compile Include="SharedForms\FormBoeking.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -762,6 +774,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="MimMenu\System\FormFiscalYearSettings.resx">
       <DependentUpon>FormFiscalYearSettings.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SharedForms\DetailInfo.resx">
+      <DependentUpon>DetailInfo.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SharedForms\FormBoeking.resx">
       <DependentUpon>FormBoeking.cs</DependentUpon>
