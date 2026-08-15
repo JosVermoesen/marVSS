@@ -104,6 +104,71 @@ namespace marVSS2028.Classes
             byperdat.CmbPeriodeBoekjaar.Focus();
         }
 
+        // TODO to avoid weird Left, Right, Mid behavior, consider using our own
+        // VB6 compatibility helpers (C# 7.3)
+        public static string PartRight(string theString, int theLength)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(theString) || theLength <= 0)
+                    return string.Empty;
+
+                int stringLength = theString.Length;
+                int start = stringLength - theLength + 1; // VB6 Mid is 1-based
+                if (start < 1)
+                    return string.Empty;
+
+                int index = start - 1; // C# Substring is 0-based
+                if (index >= theString.Length)
+                    return string.Empty;
+
+                int available = theString.Length - index;
+                int take = theLength < available ? theLength : available;
+                return take <= 0 ? string.Empty : theString.Substring(index, take);
+            }
+            catch
+            {
+                return string.Empty;
+            }
+        }
+
+        public static string PartLeft(string theString, int theLength)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(theString) || theLength <= 0)
+                    return string.Empty;
+
+                int take = theLength < theString.Length ? theLength : theString.Length;
+                return take <= 0 ? string.Empty : theString.Substring(0, take);
+            }
+            catch
+            {
+                return string.Empty;
+            }
+        }
+
+        public static string PartMid(string theString, int thePosition, int theLength)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(theString) || thePosition < 1 || theLength <= 0)
+                    return string.Empty;
+
+                int index = thePosition - 1; // VB6 Mid is 1-based
+                if (index >= theString.Length)
+                    return string.Empty;
+
+                int available = theString.Length - index;
+                int take = theLength < available ? theLength : available;
+                return take <= 0 ? string.Empty : theString.Substring(index, take);
+            }
+            catch
+            {
+                return string.Empty;
+            }
+        }
+
         // -----------------------------------------------------------------------
         // Helper: VB6 vSet — left-pads / truncates a string to a fixed length
         // -----------------------------------------------------------------------
