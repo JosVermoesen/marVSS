@@ -44,7 +44,7 @@ namespace marVSS2028.SharedForms
             GridText = string.Empty;
             Hide();
 
-            if (Application.OpenForms["FormInbrengFinancieel"] is Form inbreng)
+            if (Application.OpenForms["FormBankingTransactions"] is Form inbreng)
                 inbreng.Focus();
         }
 
@@ -165,7 +165,7 @@ namespace marVSS2028.SharedForms
             GridText = kolom1 + "|" + kolom2 + "|" + kolom3 + "|" + kolom4 + "|" + kolom5;
             Hide();
 
-            if (Application.OpenForms["FormInbrengFinancieel"] is Form inbreng)
+            if (Application.OpenForms["FormBankingTransactions"] is Form inbreng)
                 inbreng.Focus();
         }
 

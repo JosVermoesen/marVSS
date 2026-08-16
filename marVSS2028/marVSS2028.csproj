@@ -30,7 +30,7 @@
     <SuiteName>MarIntegraal 365</SuiteName>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>8</ApplicationRevision>
+    <ApplicationRevision>9</ApplicationRevision>
     <ApplicationVersion>0.1.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -183,11 +183,11 @@
     <Compile Include="MimMenu\DailyManagement\FormBuying.Designer.cs">
       <DependentUpon>FormBuying.cs</DependentUpon>
     </Compile>
-    <Compile Include="MimMenu\DailyManagement\FormInbrengFinancieel.cs">
+    <Compile Include="MimMenu\DailyManagement\FormBankingTransactions.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="MimMenu\DailyManagement\FormInbrengFinancieel.Designer.cs">
-      <DependentUpon>FormInbrengFinancieel.cs</DependentUpon>
+    <Compile Include="MimMenu\DailyManagement\FormBankingTransactions.Designer.cs">
+      <DependentUpon>FormBankingTransactions.cs</DependentUpon>
     </Compile>
     <Compile Include="MimMenu\Filing\FormBasicTableReporting.cs">
       <SubType>Form</SubType>
@@ -752,6 +752,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="MimMenu\DailyManagement\FormBuying.resx">
       <DependentUpon>FormBuying.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MimMenu\DailyManagement\FormBankingTransactions.resx">
+      <DependentUpon>FormBankingTransactions.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MimMenu\Filing\FormBasicTableReporting.resx">
       <DependentUpon>FormBasicTableReporting.cs</DependentUpon>

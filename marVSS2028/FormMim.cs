@@ -853,8 +853,8 @@ namespace marVSS2028
 
         private void ToolStripFinancial_Click(object sender, EventArgs e)
         {
-            // ShowSingleMdiChild<FormProcessBankStatements>();
-            // LayoutMdi(MdiLayout.Cascade);
+            ShowSingleMdiChild<FormBankingTransactions>();
+            LayoutMdi(MdiLayout.Cascade);
         }
     }
 }

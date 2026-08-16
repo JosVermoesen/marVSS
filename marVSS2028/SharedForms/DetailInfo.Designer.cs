@@ -69,7 +69,7 @@
             // 
             // cmdBank1
             // 
-            this.cmdBank1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular);
+            this.cmdBank1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.cmdBank1.Location = new System.Drawing.Point(332, 124);
             this.cmdBank1.Name = "cmdBank1";
             this.cmdBank1.Size = new System.Drawing.Size(21, 21);
@@ -82,7 +82,7 @@
             // 
             // cmdBank0
             // 
-            this.cmdBank0.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular);
+            this.cmdBank0.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.cmdBank0.Location = new System.Drawing.Point(156, 124);
             this.cmdBank0.Name = "cmdBank0";
             this.cmdBank0.Size = new System.Drawing.Size(21, 21);
@@ -115,6 +115,7 @@
             // 
             // Balans
             // 
+            this.Balans.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Balans.Location = new System.Drawing.Point(6, 6);
             this.Balans.Name = "Balans";
             this.Balans.Size = new System.Drawing.Size(121, 25);
@@ -125,7 +126,7 @@
             // 
             // OK
             // 
-            this.OK.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular);
+            this.OK.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.OK.Location = new System.Drawing.Point(360, 4);
             this.OK.Name = "OK";
             this.OK.Size = new System.Drawing.Size(76, 22);
@@ -136,7 +137,7 @@
             // 
             // Annuleren
             // 
-            this.Annuleren.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular);
+            this.Annuleren.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.Annuleren.Location = new System.Drawing.Point(360, 96);
             this.Annuleren.Name = "Annuleren";
             this.Annuleren.Size = new System.Drawing.Size(76, 22);
@@ -211,9 +212,10 @@
             this.Bewerking.AutoSize = true;
             this.Bewerking.Checked = true;
             this.Bewerking.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.Bewerking.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Bewerking.Location = new System.Drawing.Point(14, 40);
             this.Bewerking.Name = "Bewerking";
-            this.Bewerking.Size = new System.Drawing.Size(89, 17);
+            this.Bewerking.Size = new System.Drawing.Size(84, 17);
             this.Bewerking.TabIndex = 0;
             this.Bewerking.Text = "= Ontvangst";
             this.Bewerking.UseVisualStyleBackColor = true;
@@ -224,9 +226,10 @@
             this.Dokument.AutoSize = true;
             this.Dokument.Checked = true;
             this.Dokument.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.Dokument.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Dokument.Location = new System.Drawing.Point(14, 56);
             this.Dokument.Name = "Dokument";
-            this.Dokument.Size = new System.Drawing.Size(88, 17);
+            this.Dokument.Size = new System.Drawing.Size(84, 17);
             this.Dokument.TabIndex = 1;
             this.Dokument.Text = "= Document";
             this.Dokument.UseVisualStyleBackColor = true;
@@ -238,9 +241,10 @@
             this.Partij.AutoSize = true;
             this.Partij.Checked = true;
             this.Partij.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.Partij.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Partij.Location = new System.Drawing.Point(14, 72);
             this.Partij.Name = "Partij";
-            this.Partij.Size = new System.Drawing.Size(58, 17);
+            this.Partij.Size = new System.Drawing.Size(59, 17);
             this.Partij.TabIndex = 2;
             this.Partij.Text = "= Klant";
             this.Partij.UseVisualStyleBackColor = true;
@@ -271,6 +275,7 @@
             // LabelInfo5
             // 
             this.LabelInfo5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.LabelInfo5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LabelInfo5.Location = new System.Drawing.Point(140, 0);
             this.LabelInfo5.Name = "LabelInfo5";
             this.LabelInfo5.Size = new System.Drawing.Size(82, 18);
@@ -280,6 +285,7 @@
             // LabelInfo0
             // 
             this.LabelInfo0.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.LabelInfo0.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LabelInfo0.Location = new System.Drawing.Point(260, 0);
             this.LabelInfo0.Name = "LabelInfo0";
             this.LabelInfo0.Size = new System.Drawing.Size(95, 18);
@@ -289,7 +295,7 @@
             // LabelInfo6
             // 
             this.LabelInfo6.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.LabelInfo6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular);
+            this.LabelInfo6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.LabelInfo6.Location = new System.Drawing.Point(140, 38);
             this.LabelInfo6.Name = "LabelInfo6";
             this.LabelInfo6.Size = new System.Drawing.Size(213, 20);
@@ -298,6 +304,7 @@
             // LabelInfo2
             // 
             this.LabelInfo2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.LabelInfo2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LabelInfo2.Location = new System.Drawing.Point(142, 60);
             this.LabelInfo2.Name = "LabelInfo2";
             this.LabelInfo2.Size = new System.Drawing.Size(95, 17);
@@ -307,6 +314,7 @@
             // LabelInfo1
             // 
             this.LabelInfo1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.LabelInfo1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LabelInfo1.Location = new System.Drawing.Point(142, 80);
             this.LabelInfo1.Name = "LabelInfo1";
             this.LabelInfo1.Size = new System.Drawing.Size(95, 17);
@@ -316,6 +324,7 @@
             // LabelInfo3
             // 
             this.LabelInfo3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.LabelInfo3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LabelInfo3.Location = new System.Drawing.Point(56, 100);
             this.LabelInfo3.Name = "LabelInfo3";
             this.LabelInfo3.Size = new System.Drawing.Size(79, 17);
@@ -324,7 +333,7 @@
             // 
             // DetailInfo
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(442, 152);
@@ -361,6 +370,7 @@
             this.Text = "DetailInfo";
             this.ResumeLayout(false);
             this.PerformLayout();
+
         }
 
         #endregion
