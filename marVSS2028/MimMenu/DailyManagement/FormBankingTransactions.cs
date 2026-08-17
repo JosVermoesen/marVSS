@@ -90,8 +90,15 @@ namespace marVSS2028.MimMenu.DailyManagement
         {
             InitializeComponent();
             WireHighlightEvents(this);
+            Shown += FormBankingTransactions_Shown;
         }
-        
+
+        private void FormBankingTransactions_Shown(object sender, EventArgs e)
+        {
+            // Ensure KeuzeInfo0 receives focus when the form is fully displayed
+            KeuzeInfo0.Focus();
+        }
+
         private string MfgTextMatrix(int row, int col)
         {
             if (row < 0 || row >= mfgLijst.Rows.Count || col < 0 || col >= mfgLijst.Columns.Count)
@@ -195,7 +202,9 @@ namespace marVSS2028.MimMenu.DailyManagement
 
             if (KeuzeInfo0.Items.Count > 0)
                 KeuzeInfo0.SelectedIndex = selected < KeuzeInfo0.Items.Count ? selected : 0;
-            KeuzeInfo0.Focus();
+
+            // Set initial focus
+            ActiveControl = KeuzeInfo0;
         }
 
         private void KeuzeInfo0_SelectedIndexChanged(object sender, EventArgs e)
