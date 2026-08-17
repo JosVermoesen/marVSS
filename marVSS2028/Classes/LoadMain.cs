@@ -16,7 +16,7 @@ namespace marVSS2028.Classes
         public static void Main()
         {
             // Set version manually to match ClickOnce publish version format (major.minor.build.revision)
-            Globals.MAR_VERSION = "0.1.0.10";
+            Globals.MAR_VERSION = "0.1.0.11";
             BeWaarTekst("marIntegraal", "VersionNumber", Globals.MAR_VERSION);
             Globals.IsPreviewMode = true;
 

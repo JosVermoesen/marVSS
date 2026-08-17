@@ -46,8 +46,8 @@ namespace marVSS2028.SharedForms
             GridText = string.Empty;
             aIndex = 1;
 
-            using (var sql = new FormSearchSQL())
-                sql.ShowDialog(this);
+            using (FormSearchSQL sqlSearch = new FormSearchSQL())
+                sqlSearch.ShowDialog(this);
 
             if (Ktrl == 0)
             {
@@ -153,7 +153,7 @@ namespace marVSS2028.SharedForms
             string kolom4 = (TekstInfo3.Text ?? string.Empty);
             string kolom5 = Dec(Val(TekstInfo1.Text), MASK_EURBH);
 
-            GridText = kolom1 + "|" + kolom2 + "|" + kolom3 + "|" + kolom4 + "|" + kolom5;
+            GridText = VSet(kolom1,12) + "|" + VSet(kolom2,7) + "|" + VSet(kolom3,12) + "|" + VSet(kolom4, 29) + "|" + VSet(kolom5,12);
             Hide();
 
             if (Application.OpenForms["FormBankingTransactions"] is Form inbreng)
@@ -380,7 +380,7 @@ namespace marVSS2028.SharedForms
 
             SharedFl = PartLeft(FVT[TABLE_INVOICES, 0], 1) == "A" ? TABLE_SUPPLIERS : TABLE_CUSTOMERS;
 
-            BGet(SharedFl, 0, SafeMid(VBibText(TABLE_INVOICES, "#v034 #"), 2, 999));
+            BGet(SharedFl, 0, PartMid(VBibText(TABLE_INVOICES, "#v034 #"), 2, 999));
             if (Ktrl == 0)
             {
                 RecordToVeld(SharedFl);
@@ -403,16 +403,214 @@ namespace marVSS2028.SharedForms
 
         private void KTRLBalans(int fl)
         {
-            // Full VB6 Xlog grid-flow depends on legacy form internals.
-            // Keep behavior functional: load selected party data for current invoice.
-            try
+            double cumul = 0d;
+            int lijnenOpenstaand = 0;
+            string voorLetter = string.Empty;
+
+            switch (fl)
             {
-                string partyName = VBibText(fl, "#A100 #");
-                SnelHelpPrint("Betaalbalans voor : " + partyName, BL_LOGGING);
+                case TABLE_CUSTOMERS:
+                    voorLetter = "K";
+                    break;
+                case TABLE_SUPPLIERS:
+                    voorLetter = "L";
+                    break;
             }
-            catch
+
+            BClose(TABLE_INVOICES);
+
+            string partyName = (VBibText(fl, "#A100 #") ?? string.Empty).TrimEnd();
+            string sleutelPrefix = voorLetter + (VBibText(fl, "#A110 #") ?? string.Empty);
+            string sleutel13 = VSet(sleutelPrefix, 13);
+
+            using (var xlog = new FormXLog())
             {
-                // Keep VB6-like fault tolerance.
+                xlog.Text = "Betaalbalans voor : " + partyName;
+                xlog.X.Columns.Clear();
+                xlog.X.Columns.Add("colDok", "Document");
+                xlog.X.Columns.Add("colTot", "Totaal");
+                xlog.X.Columns.Add("colDat", "Datum");
+                xlog.X.Columns.Add("colFin", "Fin.Stuk");
+                xlog.X.Columns.Add("colBet", "Betaald");
+                xlog.X.Columns.Add("colCum", "CumulRest");
+
+                BGetOrGreater(TABLE_INVOICES, 1, VSet(sleutelPrefix, FLINDEX_LEN[TABLE_INVOICES, 1]));
+                if (Ktrl != 0)
+                {
+                    System.Media.SystemSounds.Beep.Play();
+                    return;
+                }
+
+                RecordToVeld(TABLE_INVOICES);
+                if (VSet(KEY_BUF[TABLE_INVOICES], 13) != sleutel13)
+                {
+                    System.Media.SystemSounds.Beep.Play();
+                    MessageBox.Show("Geen documenten voor " + partyName);
+                    return;
+                }
+
+                Cursor.Current = Cursors.WaitCursor;
+                try
+                {
+                    AddVolgendeLijn(xlog);
+
+                    while (true)
+                    {
+                        BNext(TABLE_INVOICES);
+                        if (Ktrl != 0 || VSet(KEY_BUF[TABLE_INVOICES], 13) != sleutel13)
+                            break;
+
+                        RecordToVeld(TABLE_INVOICES);
+                        AddVolgendeLijn(xlog);
+                    }
+                }
+                finally
+                {
+                    Cursor.Current = Cursors.Default;
+                }
+
+                if (lijnenOpenstaand == 0)
+                {
+                    MessageBox.Show("Alles is betaald voor/door" + Environment.NewLine + partyName, string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                }
+
+                xlog.X.Columns[0].Width = 103; // 1215 / 15;
+                xlog.X.Columns[1].Width = 96;  // 1125 / 15;
+                xlog.X.Columns[2].Width = 90;  // 930 / 15;
+                xlog.X.Columns[3].Width = 82;  // 1005 / 15;
+                xlog.X.Columns[4].Width = 102; // 975 / 15;
+                xlog.X.Columns[5].Width = 103; // 1185 / 15;
+
+                xlog.X.Columns[1].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+                xlog.X.Columns[4].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+                xlog.X.Columns[5].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+
+                xlog.AcceptButton = xlog.BtnAfsluiten;
+                xlog.BtnWijzigenLijn.Visible = false;
+                xlog.BtnAfsluiten.TabStop = false;
+                xlog.BtnAfbeelding.Visible = false;
+                XLogKey = string.Empty;
+                if (xlog.TabControl1.TabPages.Count > 1)
+                    xlog.TabControl1.TabPages[1].Visible = false;
+
+                xlog.ShowDialog(this);
+            }
+
+            if (string.IsNullOrEmpty(XLogKey))
+                return;
+
+            int keySep = XLogKey.IndexOf('\r');
+            string docKey = keySep > 0 ? PartLeft(XLogKey, keySep) : XLogKey;
+
+            BGet(TABLE_INVOICES, 0, docKey);
+            if (Ktrl != 0)
+                return;
+
+            RecordToVeld(TABLE_INVOICES);
+            TekstInfo1.Text = string.Empty;
+
+            if (XisEuroWisBEF)
+            {
+                double saldo = Math.Round(Val(VBibText(TABLE_INVOICES, "#v249 #")) * EURO)
+                             - Math.Round(Val(VBibText(TABLE_INVOICES, "#v037 #")) * EURO);
+                TekstInfo2.Text = saldo.ToString(CultureInfo.InvariantCulture);
+            }
+            else
+            {
+                double totaalBedrag = Val(VBibText(TABLE_INVOICES, "#v249 #"));
+                double totaalBetaald = Val(VBibText(TABLE_INVOICES, "#v037 #"));
+                TekstInfo2.Text = Dec(totaalBedrag - totaalBetaald, string.Empty);
+            }
+
+            TekstInfo3.Text = partyName;
+            tbBank0.Text = VBibText(fl, "#A170 #");
+            tbBank1.Text = VBibText(fl, "#v251 #");
+            TekstInfo5.Text = VBibText(TABLE_INVOICES, "#v033 #");
+            TekstInfo5.Enabled = false;
+            Bewerking.Enabled = false;
+            Dokument.Enabled = false;
+            Partij.Enabled = false;
+            if (!OK.Enabled)
+                OK.Enabled = true;
+            OK.Focus();
+
+            void AddVolgendeLijn(FormXLog xlogForm)
+            {
+                string v033 = VBibText(TABLE_INVOICES, "#v033 #") ?? string.Empty;
+                string type2 = PartLeft(v033, 2);
+
+                switch (type2)
+                {
+                    case "A0":
+                    case "V1":
+                        if (Bewerking.Checked)
+                            return;
+                        break;
+                    case "A1":
+                    case "V0":
+                        if (!Bewerking.Checked)
+                            return;
+                        break;
+                }
+
+                double dBetaald = Val(VBibText(TABLE_INVOICES, "#v037 #"));
+                if (XisEuroWisBEF)
+                    dBetaald = Math.Round(dBetaald * EURO);
+
+                double dTotaal = 0d;
+
+                if (fl == TABLE_CUSTOMERS)
+                {
+                    string type1 = PartLeft(v033, 1);
+
+                    if (type1 == "V")
+                    {
+                        dTotaal = Val(VBibText(TABLE_INVOICES, "#v249 #"));
+                        if (XisEuroWisBEF)
+                        {
+                            MessageBox.Show("CTRLstop");
+                            dTotaal = Math.Round(dTotaal * EURO);
+                        }
+
+                        if (PartMid(v033, 2, 1) == "1")
+                        {
+                            dTotaal = -dTotaal;
+                            dBetaald = -dBetaald;
+                        }
+                    }
+                    else if (type1 == "Q")
+                    {
+                        dTotaal = Val(VBibText(TABLE_INVOICES, "#v249 #"));
+                        if (XisEuroWisBEF)
+                            dTotaal = Math.Round(dTotaal * EURO);
+                    }
+                }
+                else if (fl == TABLE_SUPPLIERS)
+                {
+                    dTotaal = Val(VBibText(TABLE_INVOICES, "#v249 #"));
+                    if (XisEuroWisBEF)
+                        dTotaal = Math.Round(dTotaal * EURO);
+
+                    if (type2 == "A1")
+                    {
+                        dTotaal = -dTotaal;
+                        dBetaald = -dBetaald;
+                    }
+                }
+
+                cumul += dTotaal - dBetaald;
+                if (dBetaald == dTotaal)
+                    return;
+
+                lijnenOpenstaand++;
+                xlogForm.X.Rows.Add(
+                    v033,
+                    dTotaal.ToString("#,##0.00", CultureInfo.InvariantCulture),
+                    DateText(VBibText(TABLE_INVOICES, "#v035 #")),
+                    VBibText(TABLE_INVOICES, "#v038 #"),
+                    dBetaald.ToString("#,##0.00", CultureInfo.InvariantCulture),
+                    cumul.ToString("#,##0.00", CultureInfo.InvariantCulture));
             }
         }
 

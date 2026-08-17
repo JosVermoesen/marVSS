@@ -104,9 +104,7 @@ namespace marVSS2028.Classes
             byperdat.WindowState = FormWindowState.Normal;
             byperdat.CmbPeriodeBoekjaar.Focus();
         }
-
-        // TODO to avoid weird Left, Right, Mid behavior, consider using our own
-        // VB6 compatibility helpers (C# 7.3)
+                
         public static string PartRight(string theString, int theLength)
         {
             try
@@ -216,15 +214,7 @@ namespace marVSS2028.Classes
         }
 
         // Helper: VB6 Mid(s, start, length) — 1-based, safe
-
-        public static string SafeMid(string s, int start, int length)
-        {
-            if (s == null || start < 1 || start > s.Length) return string.Empty;
-            int idx = start - 1;
-            int available = s.Length - idx;
-            return s.Substring(idx, Math.Min(length, available));
-        }
-
+                
         // Helper: VB6 Left(s, n) — safe
         public static string SafeLeft(string s, int n)
         {

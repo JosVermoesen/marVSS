@@ -83,9 +83,9 @@ namespace marVSS2028.PublicForms
                 if (countTo < 0)
                     break;
 
-                sorteerIndex = SafeMid(comboTekst, countTo - 3, 4);
-                sorteerOrde = SafeMid(comboTekst, countTo - 3, 4);
-                sorteerOrde += SafeMid(comboTekst, countTo - 4, 1) == "+" ? " ASC" : " ASC"; // " DESC";
+                sorteerIndex = PartMid(comboTekst, countTo - 3, 4);
+                sorteerOrde = PartMid(comboTekst, countTo - 3, 4);
+                sorteerOrde += PartMid(comboTekst, countTo - 4, 1) == "+" ? " ASC" : " ASC"; // " DESC";
                 
                 telOrde = countTo + 1;
             }
@@ -116,7 +116,7 @@ namespace marVSS2028.PublicForms
                     string colPart = VBibText(TABLE_VARIOUS, "#v132 #");
                     int colWidthIdx = InStr(colPart, "[Colwidth]");
                     string colMsg = colWidthIdx > 0
-                        ? SafeMid(colPart, colWidthIdx + 10)
+                        ? PartMid(colPart, colWidthIdx + 10)
                         : string.Empty;
 
                     if (string.IsNullOrEmpty(colMsg))
@@ -133,7 +133,7 @@ namespace marVSS2028.PublicForms
                             {
                                 if (int.TryParse(colMsg.Substring(0, tabPos - 1), out int w))
                                     _grdColWidth[countTo] = w;
-                                colMsg = SafeMid(colMsg, tabPos + 1);
+                                colMsg = PartMid(colMsg, tabPos + 1);
                                 countTo++;
                             }
                             else
@@ -158,10 +158,10 @@ namespace marVSS2028.PublicForms
             for (int i = 0; i < Sortering.Items.Count; i++)
             {
                 string item = Sortering.Items[i].ToString();
-                string field = SafeMid(item, 2, InStr(item, ";") - 2);
+                string field = PartMid(item, 2, InStr(item, ";") - 2);
                 if (string.Compare(JETTABLEUSE_INDEX[SharedFl, 0].TrimEnd(), field.Trim(), StringComparison.Ordinal) == 0)
                 {
-                    string caption = SafeMid(item, InStr(item, ";") + 2);
+                    string caption = PartMid(item, InStr(item, ";") + 2);
                     msg += " " + field + " AS [" + caption + "],";
                     if (i == Sortering.Items.Count - 1) deLaatste = true;
                     break;
@@ -171,7 +171,7 @@ namespace marVSS2028.PublicForms
             if (msg == "SELECT")
             {
                 string firstItem = Sortering.Items.Count > 0 ? Sortering.Items[0].ToString() : string.Empty;
-                string field = SafeMid(firstItem, 2, InStr(firstItem, ";") - 2);
+                string field = PartMid(firstItem, 2, InStr(firstItem, ";") - 2);
                 MessageBox.Show("Hoofdindex " + field + " bestaat niet (meer)", string.Empty,
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
@@ -180,11 +180,11 @@ namespace marVSS2028.PublicForms
             for (int i = 0; i < Sortering.Items.Count; i++)
             {
                 string item = Sortering.Items[i].ToString();
-                string field = SafeMid(item, 2, InStr(item, ";") - 2);
+                string field = PartMid(item, 2, InStr(item, ";") - 2);
                 if (string.Compare(JETTABLEUSE_INDEX[SharedFl, 0].TrimEnd(), field.Trim(), StringComparison.Ordinal) == 0)
                     continue;
 
-                string caption = SafeMid(item, InStr(item, ";") + 2);
+                string caption = PartMid(item, InStr(item, ";") + 2);
                 msg += " " + field + " AS [" + caption + "]";
                 bool isLast = deLaatste
                     ? (i == Sortering.Items.Count - 2)
@@ -306,7 +306,7 @@ namespace marVSS2028.PublicForms
                 int row = mfgLijst.CurrentCell.RowIndex;
                 if (_datPrimaryRS.Rows.Count == 0 || row >= _datPrimaryRS.Rows.Count) return;
 
-                string fieldName = SafeMid(Sortering.Text, InStr(Sortering.Text, ";") + 2);
+                string fieldName = PartMid(Sortering.Text, InStr(Sortering.Text, ";") + 2);
                 try
                 {
                     txtTeZoeken.Text = _datPrimaryRS.Rows[row][fieldName]?.ToString() ?? string.Empty;
@@ -618,7 +618,7 @@ namespace marVSS2028.PublicForms
             for (int i = 0; i < Sortering.Items.Count; i++)
             {
                 string item = Sortering.Items[i].ToString();
-                string caption = SafeMid(item, InStr(item, ";") + 2);
+                string caption = PartMid(item, InStr(item, ";") + 2);
                 if (string.Compare(caption, FLINDEX_CAPTION[SharedFl, aIndex], StringComparison.OrdinalIgnoreCase) == 0)
                 {
                     _indexNR = i;
@@ -636,7 +636,7 @@ namespace marVSS2028.PublicForms
             string sleutelHier = "marEDB" + SharedFl.ToString("00");
             BGetOrGreater(TABLE_VARIOUS, 1, "29" + sleutelHier);
 
-            if (Ktrl != 0 || string.Compare(SafeMid(KEY_BUF[TABLE_VARIOUS], 3, 8), sleutelHier,
+            if (Ktrl != 0 || string.Compare(PartMid(KEY_BUF[TABLE_VARIOUS], 3, 8), sleutelHier,
                 StringComparison.OrdinalIgnoreCase) != 0)
             {
                 MessageBox.Show("Er bestaan (nog) geen definities met voorvoegsel: " + sleutelHier,
@@ -648,10 +648,10 @@ namespace marVSS2028.PublicForms
                 while (true)
                 {
                     RecordToVeld(TABLE_VARIOUS);
-                    string veldString = SafeMid(KEY_BUF[TABLE_VARIOUS], 11, 5);
-                    cmbExternedatabase.Items.Add(veldString + ";" + SafeMid(KEY_BUF[TABLE_VARIOUS], 3));
+                    string veldString = PartMid(KEY_BUF[TABLE_VARIOUS], 11, 5);
+                    cmbExternedatabase.Items.Add(veldString + ";" + PartMid(KEY_BUF[TABLE_VARIOUS], 3));
                     BNext(TABLE_VARIOUS);
-                    if (Ktrl != 0 || string.Compare(SafeMid(KEY_BUF[TABLE_VARIOUS], 3, 8), sleutelHier,
+                    if (Ktrl != 0 || string.Compare(PartMid(KEY_BUF[TABLE_VARIOUS], 3, 8), sleutelHier,
                         StringComparison.OrdinalIgnoreCase) != 0)
                         break;
                 }
@@ -667,14 +667,14 @@ namespace marVSS2028.PublicForms
             mfgLijst.Rows.Clear();
         }
 
-        private static string SafeMid(string s, int start, int length)
+        private static string PartMid(string s, int start, int length)
         {
             if (string.IsNullOrEmpty(s) || start < 1 || start > s.Length) return string.Empty;
             int idx = start - 1;
             return s.Substring(idx, Math.Min(length, s.Length - idx));
         }
 
-        private static string SafeMid(string s, int start)
+        private static string PartMid(string s, int start)
         {
             if (string.IsNullOrEmpty(s) || start < 1 || start > s.Length) return string.Empty;
             return s.Substring(start - 1);

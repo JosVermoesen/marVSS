@@ -106,8 +106,8 @@ namespace marVSS2028
                                     CmbPeriodeBoekjaar.SelectedIndex = 0;
                                 string yy = CmbPeriodeBoekjaar.Text;
                                 BOOKYEAR_FROMTO =
-                                    SafeMid(yy, 7, 4) + SafeMid(yy, 4, 2) + SafeLeft(yy, 2)
-                                    + SafeMid(xx, 20, 4) + SafeMid(xx, 17, 2) + SafeLeft(xx.Length >= 14 ? xx.Substring(13) : "", 2);
+                                    PartMid(yy, 7, 4) + PartMid(yy, 4, 2) + SafeLeft(yy, 2)
+                                    + PartMid(xx, 20, 4) + PartMid(xx, 17, 2) + SafeLeft(xx.Length >= 14 ? xx.Substring(13) : "", 2);
                                 break;
                             }
                             else
@@ -137,8 +137,8 @@ namespace marVSS2028
             }
 
             xx = CmbPeriodeBoekjaar.Text;
-            PERIOD_FROMTO = SafeMid(xx, 7, 4) + SafeMid(xx, 4, 2) + SafeLeft(xx, 2)
-                          + SafeRight(xx, 4) + SafeMid(xx, 17, 2) + SafeMid(xx, 14, 2);
+            PERIOD_FROMTO = PartMid(xx, 7, 4) + PartMid(xx, 4, 2) + SafeLeft(xx, 2)
+                          + SafeRight(xx, 4) + PartMid(xx, 17, 2) + PartMid(xx, 14, 2);
 
             // Currency panel check (VB6: Mim.SnelHelp.Panels(2).Text)
             if (Mim != null && Mim.ToolStripLabel2.Text != "---")
@@ -195,8 +195,8 @@ namespace marVSS2028
         internal void CmbPeriodeBoekjaar_SelectedIndexChanged(object sender, EventArgs e)
         {
             string a = CmbPeriodeBoekjaar.Text;
-            PERIOD_FROMTO = SafeMid(a, 7, 4) + SafeMid(a, 4, 2) + SafeLeft(a, 2)
-                          + SafeRight(a, 4) + SafeMid(a, 17, 2) + SafeMid(a, 14, 2);
+            PERIOD_FROMTO = PartMid(a, 7, 4) + PartMid(a, 4, 2) + SafeLeft(a, 2)
+                          + SafeRight(a, 4) + PartMid(a, 17, 2) + PartMid(a, 14, 2);
 
             // string octPath = PROGRAM_LOCATION + "9999.OCT";
             string octPath = LOCATION_COMPANYDATA + "9999.OCT";

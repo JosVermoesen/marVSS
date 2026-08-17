@@ -457,10 +457,10 @@ namespace marVSS2028.MimMenu.DailyManagement
         private void RefreshReference()
         {
             string groupCode = VSet(_documentKey, 2) == "A0" ? "4" : "3";
-            string referteTxtNoFormat = groupCode + SafeMid(_documentKey, 3, 2) + SafeMid(_documentKey, 5, 4) + SafeMid(_documentKey, 9, Math.Max(0, _documentKey.Length - 8)) + "xx";
-            string referteTxt = "+++" + groupCode + SafeMid(_documentKey, 3, 2) + "/" + SafeMid(_documentKey, 5, 4) + "/" + SafeMid(_documentKey, 9, Math.Max(0, _documentKey.Length - 8)) + "xx+++";
+            string referteTxtNoFormat = groupCode + PartMid(_documentKey, 3, 2) + PartMid(_documentKey, 5, 4) + PartMid(_documentKey, 9, Math.Max(0, _documentKey.Length - 8)) + "xx";
+            string referteTxt = "+++" + groupCode + PartMid(_documentKey, 3, 2) + "/" + PartMid(_documentKey, 5, 4) + "/" + PartMid(_documentKey, 9, Math.Max(0, _documentKey.Length - 8)) + "xx+++";
 
-            double dPip = ParseDouble(SafeMid(referteTxt, 4, 3) + SafeMid(referteTxt, 8, 4) + SafeMid(referteTxt, 13, 3));
+            double dPip = ParseDouble(PartMid(referteTxt, 4, 3) + PartMid(referteTxt, 8, 4) + PartMid(referteTxt, 13, 3));
             string chk = ((int)(dPip - Math.Floor(dPip / 97d) * 97d)).ToString("00");
             if (chk == "00") chk = "97";
 
@@ -1142,7 +1142,7 @@ namespace marVSS2028.MimMenu.DailyManagement
             string grens0 = _grensDetail[0] ?? string.Empty;
             if (string.Compare(fRekNum, VSet(grens0, 7), StringComparison.Ordinal) >= 0 && string.Compare(fRekNum, VSet(grens0.Substring(7, 7), 7), StringComparison.Ordinal) <= 0)
             {
-                GridText = TekstInfo0.Text + Dec(ParseDouble(SafeMid(GridText, 50, 12)), MASK_EURBH);
+                GridText = TekstInfo0.Text + Dec(ParseDouble(PartMid(GridText, 50, 12)), MASK_EURBH);
                 using (var investmentSheet = new FormPurchaseInvestmentSheet())
                 {
                     investmentSheet.ShowDialog(this);
@@ -1544,16 +1544,16 @@ namespace marVSS2028.MimMenu.DailyManagement
                     string currentLine = AankoopDetail.Items[tt].ToString();
                     if (currentLine.Length == 62)
                     {
-                        string huidigeRekening = SafeMid(currentLine, 1, 7);
+                        string huidigeRekening = PartMid(currentLine, 1, 7);
                         int baseIndex = tt;
                         int compareIndex = tt + 1;
                         while (compareIndex < AankoopDetail.Items.Count)
                         {
                             string compareLine = AankoopDetail.Items[compareIndex].ToString();
-                            if (huidigeRekening == SafeMid(compareLine, 1, 7) && compareLine.Length == 62)
+                            if (huidigeRekening == PartMid(compareLine, 1, 7) && compareLine.Length == 62)
                             {
                                 string tempo = AankoopDetail.Items[baseIndex].ToString();
-                                double sum = ParseDouble(SafeMid(compareLine, 50, 12)) + ParseDouble(SafeMid(tempo, 50, 12));
+                                double sum = ParseDouble(PartMid(compareLine, 50, 12)) + ParseDouble(PartMid(tempo, 50, 12));
                                 string updated = tempo.Substring(0, 49) + Dec(sum, "#########.00").PadLeft(12);
                                 AankoopDetail.Items.RemoveAt(compareIndex);
                                 AankoopDetail.Items[baseIndex] = updated;
@@ -1955,7 +1955,7 @@ namespace marVSS2028.MimMenu.DailyManagement
             for (int i = 0; i < AankoopDetail.Items.Count; i++)
             {
                 string line = AankoopDetail.Items[i].ToString();
-                bedragTotaal += ParseDouble(SafeMid(line, 50, 12));
+                bedragTotaal += ParseDouble(PartMid(line, 50, 12));
             }
 
             double bedragBtw5 = ParseDouble(TekstInfo5.Text);
@@ -2122,12 +2122,12 @@ namespace marVSS2028.MimMenu.DailyManagement
                 if (Ktrl != 0)
                     return true;
 
-                bedrag = ParseDouble(SafeMid(line, 50, 12));
+                bedrag = ParseDouble(PartMid(line, 50, 12));
                 totaalBedrag += bedrag;
                 double boekBedrag = AankoopOptie0.Checked ? bedrag : -bedrag;
                 VBib(TABLE_JOURNAL, Dec(boekBedrag, MASK_EURBH), "v068");
                 VBib(TABLE_JOURNAL, string.Empty, "v102");
-                VBib(TABLE_JOURNAL, SafeMid(line, 9, 40).Trim(), "v067");
+                VBib(TABLE_JOURNAL, PartMid(line, 9, 40).Trim(), "v067");
 
                 if (string.Compare(lokRekening, VSet(_grensDetail[0], 7), StringComparison.Ordinal) >= 0 && string.Compare(lokRekening, SafeRight(_grensDetail[0].Substring(7, 7), 7), StringComparison.Ordinal) <= 0)
                     dInvest += bedrag;

@@ -232,8 +232,8 @@ namespace marVSS2028.Classes
                             string yy = periodeItems.Count > 0 ? periodeItems[0] : string.Empty;
                             // AT = first period text; BOOKYEAR_FROMTO uses XX (last valid a read before space)
                             BOOKYEAR_FROMTO =
-                                SafeMid(yy, 7, 4) + SafeMid(yy, 4, 2) + SafeMid(yy, 1, 2)
-                                + SafeMid(xxPeriod, 20, 4) + SafeMid(xxPeriod, 17, 2) + SafeMid(xxPeriod, 14, 2);
+                                PartMid(yy, 7, 4) + PartMid(yy, 4, 2) + PartMid(yy, 1, 2)
+                                + PartMid(xxPeriod, 20, 4) + PartMid(xxPeriod, 17, 2) + PartMid(xxPeriod, 14, 2);
                             break;
                         }
                         else
@@ -267,8 +267,8 @@ namespace marVSS2028.Classes
             int periodeIndex = Math.Max(0, aktievePeriode - 1);
             string at = periodeIndex < periodeItems.Count ? periodeItems[periodeIndex] : string.Empty;
             PERIOD_FROMTO =
-                SafeMid(at, 7, 4) + SafeMid(at, 4, 2) + SafeLeft(at, 2)
-                + SafeRight(at, 4) + SafeMid(at, 17, 2) + SafeMid(at, 14, 2);
+                PartMid(at, 7, 4) + PartMid(at, 4, 2) + SafeLeft(at, 2)
+                + SafeRight(at, 4) + PartMid(at, 17, 2) + PartMid(at, 14, 2);
 
             FormBYPERDAT formBYPERDAT = null;
             foreach (Form f in Application.OpenForms)
@@ -656,7 +656,7 @@ namespace marVSS2028.Classes
                         TELEBIB_TEXT[t] = text;
                         TELEBIB_TYPE[t] = type;
                         TELEBIB_LENGTH[t] = length;
-                        vBC[fl, t] = SafeMid(TELEBIB_CODE[t], 5, 4);
+                        vBC[fl, t] = PartMid(TELEBIB_CODE[t], 5, 4);
                         if (TELEBIB_TYPE[t] == "D" && DecimalKTRL)
                             JumpToTheBEAT(fl, t);
                         t++;
@@ -677,7 +677,7 @@ namespace marVSS2028.Classes
                     TELEBIB_TEXT[t] = text;
                     TELEBIB_TYPE[t] = type;
                     TELEBIB_LENGTH[t] = length;
-                    vBC[fl, t] = SafeMid(TELEBIB_CODE[t], 5, 4);
+                    vBC[fl, t] = PartMid(TELEBIB_CODE[t], 5, 4);
                     if (TELEBIB_TYPE[t] == "D" && DecimalKTRL)
                         JumpToTheBEAT(fl, t);
                     t++;
@@ -697,7 +697,7 @@ namespace marVSS2028.Classes
                         TELEBIB_TEXT[t] = text;
                         TELEBIB_TYPE[t] = type;
                         TELEBIB_LENGTH[t] = length;
-                        vBC[fl, t] = SafeMid(TELEBIB_CODE[t], 5, 4);
+                        vBC[fl, t] = PartMid(TELEBIB_CODE[t], 5, 4);
                         if (TELEBIB_TYPE[t] == "D" && DecimalKTRL)
                             JumpToTheBEAT(fl, t);
                         t++;
@@ -1888,9 +1888,9 @@ namespace marVSS2028.Classes
             while (t < TELEBIB_CODE.Length && TELEBIB_CODE[t] != new string(' ', 10))
             {
                 string code = TELEBIB_CODE[t] ?? "";
-                // Console.WriteLine("#" + SafeMid(code, 5, 4) + " #");
-                string crText = VBibText(fl, "#" + SafeMid(code, 5, 4) + " #");
-                string typeCode = SafeMid(code, 2, 2);
+                // Console.WriteLine("#" + PartMid(code, 5, 4) + " #");
+                string crText = VBibText(fl, "#" + PartMid(code, 5, 4) + " #");
+                string typeCode = PartMid(code, 2, 2);
 
                 switch (typeCode)
                 {
@@ -1916,13 +1916,13 @@ namespace marVSS2028.Classes
                                 boxMask = "00";
 
                             int boxVal = 0;
-                            int.TryParse(SafeMid(code, 1, 3), out boxVal);
+                            int.TryParse(PartMid(code, 1, 3), out boxVal);
                             crText = FMarBoxText(boxVal.ToString(boxMask), "2", crText);
                         }
                         break;
                 }
 
-                if (SafeMid(code, 10, 1) == "x")
+                if (PartMid(code, 10, 1) == "x")
                     crText = fl.ToString() + "{...}";
 
                 if (code != "")
@@ -1955,7 +1955,7 @@ namespace marVSS2028.Classes
                     ? xlog.X.Rows[t].Cells[2].Value?.ToString() ?? ""
                     : "";
 
-                if (SafeMid(code, 10, 1) == "*" && crText2 == "")
+                if (PartMid(code, 10, 1) == "*" && crText2 == "")
                 {
                     MessageBox.Show(
                         "Invoer voor '" + (TELEBIB_TEXT[t] ?? "").TrimEnd() + "'\r\n\r\nis verplicht !",
@@ -1963,15 +1963,15 @@ namespace marVSS2028.Classes
                     goto XLogShow;
                 }
 
-                if (crText2 != "" && SafeMid(code, 10, 1) != "x")
+                if (crText2 != "" && PartMid(code, 10, 1) != "x")
                 {
-                    if (SafeMid(code, 2, 2) != "  " && (code.Length == 0 || code[0] != '@'))
+                    if (PartMid(code, 2, 2) != "  " && (code.Length == 0 || code[0] != '@'))
                     {
                         int colon = crText2.IndexOf(':');
                         if (colon > 0)
                             crText2 = crText2.Substring(0, colon);
                     }
-                    VBib(fl, crText2, SafeMid(code, 5, 5));
+                    VBib(fl, crText2, PartMid(code, 5, 5));
                 }
                 t++;
             }

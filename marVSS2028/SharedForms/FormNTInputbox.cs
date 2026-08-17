@@ -46,6 +46,9 @@ namespace marVSS2028.SharedForms
         {
             try
             {
+                if (_rs == null)
+                    return string.Empty;
+
                 object val = _rs.Fields[fieldIndex].Value;
                 return (val == null || val is DBNull) ? string.Empty : val.ToString();
             }

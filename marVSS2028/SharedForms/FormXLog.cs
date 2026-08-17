@@ -142,7 +142,7 @@ namespace marVSS2028.SharedForms
                 string telebibCode = _rowIdx < TELEBIB_CODE.Length ? TELEBIB_CODE[_rowIdx] ?? "" : "";
                 string telebibText = _rowIdx < TELEBIB_TEXT.Length ? TELEBIB_TEXT[_rowIdx] ?? "" : "";
 
-                if (SafeMid(telebibCode, 2, 2) != "  " && SafeMid(telebibCode, 1, 1) != "@")
+                if (PartMid(telebibCode, 2, 2) != "  " && PartMid(telebibCode, 1, 1) != "@")
                 {
                     // VB6: X_KeyDown 17, 0
                     X_KeyDown_Ctrl(_rowIdx);
@@ -152,7 +152,7 @@ namespace marVSS2028.SharedForms
                 else
                 {
                     string editMsg = string.Empty;
-                    string pos10   = SafeMid(telebibCode, 10, 1);
+                    string pos10   = PartMid(telebibCode, 10, 1);
 
                     if (pos10 == "-" || pos10 == "x")
                     {
@@ -164,8 +164,8 @@ namespace marVSS2028.SharedForms
                         GridText = "Edit Yes";
                     }
 
-                    if (SafeMid(telebibCode, 1, 1) == "@")
-                        editMsg = SafeMid(telebibCode, 1, 3);
+                    if (PartMid(telebibCode, 1, 1) == "@")
+                        editMsg = PartMid(telebibCode, 1, 3);
                     else
                         editMsg = editMsg + QuickHelp(telebibCode.Length >= 3 ? telebibCode.Substring(0, 3) : telebibCode);
 
@@ -179,7 +179,7 @@ namespace marVSS2028.SharedForms
                         int flIdx = 0;
                         var flIdxMatch = System.Text.RegularExpressions.Regex.Match(currentValue, @"\d+");
                         if (flIdxMatch.Success) int.TryParse(flIdxMatch.Value, out flIdx);
-                        string fieldName = SafeMid(telebibCode, 5, 4);
+                        string fieldName = PartMid(telebibCode, 5, 4);
                         try
                         {
                             object fieldVal = rsMAR[flIdx]?.Fields[fieldName]?.Value;
@@ -419,7 +419,20 @@ namespace marVSS2028.SharedForms
         {
             if (e.KeyCode == Keys.Enter)
             {
-                BtnWijzigenLijn_Click(sender, e);
+                e.Handled = true;
+                e.SuppressKeyPress = true;
+
+                if (Text.StartsWith("Balans", StringComparison.OrdinalIgnoreCase)
+                    || Text.StartsWith("Betaalbalans", StringComparison.OrdinalIgnoreCase))
+                {
+                    int rowIndex = X.CurrentCell?.RowIndex ?? -1;
+                    int colIndex = X.CurrentCell?.ColumnIndex ?? 0;
+                    X_CellDoubleClick(sender, new DataGridViewCellEventArgs(colIndex, rowIndex));
+                }
+                else
+                {
+                    BtnWijzigenLijn_Click(sender, e);
+                }
                 return;
             }
             if (e.KeyCode != Keys.ControlKey) return;
@@ -443,7 +456,7 @@ namespace marVSS2028.SharedForms
             int col2 = Math.Min(2, lastCol);
             string dummyText = (X.Rows[rowIdx].Cells[lastCol].Value?.ToString() ?? "").TrimEnd();
 
-            switch (SafeMid(telebibCode, 2, 2))
+            switch (PartMid(telebibCode, 2, 2))
             {
                 case "K ":
                 case "L ":
@@ -454,7 +467,7 @@ namespace marVSS2028.SharedForms
                 case "R6":
                 case "R7":
                     aIndex = 0;
-                    switch (SafeMid(telebibCode, 2, 1))
+                    switch (PartMid(telebibCode, 2, 1))
                     {
                         case "K": SharedFl = TABLE_CUSTOMERS; break;
                         case "L": SharedFl = TABLE_SUPPLIERS; break;
@@ -462,13 +475,13 @@ namespace marVSS2028.SharedForms
                         default: MessageBox.Show("nog niks"); return;
                     }
                     GridText = string.Empty;
-                    if (SafeMid(telebibCode, 3, 2) != "  ")
+                    if (PartMid(telebibCode, 3, 2) != "  ")
                     {
                         if (!string.IsNullOrEmpty(dummyText))
-                            GridText = SharedFl == TABLE_SUPPLIERS && SafeMid(telebibCode, 3, 2) == "CO"
+                            GridText = SharedFl == TABLE_SUPPLIERS && PartMid(telebibCode, 3, 2) == "CO"
                                 ? "CO" + dummyText : dummyText;
                         else
-                            GridText = SafeMid(telebibCode, 3, 2) + "@Beperk@";
+                            GridText = PartMid(telebibCode, 3, 2) + "@Beperk@";
                     }
                     else
                     {
@@ -479,7 +492,7 @@ namespace marVSS2028.SharedForms
                         sqlSearch.ShowDialog(this);
                     if (Ktrl == 0)
                     {
-                        string val = SharedFl == TABLE_SUPPLIERS && SafeMid(telebibCode, 3, 2) == "CO"
+                        string val = SharedFl == TABLE_SUPPLIERS && PartMid(telebibCode, 3, 2) == "CO"
                             ? (FVT[SharedFl, 0].Length > 2 ? FVT[SharedFl, 0].Substring(2).TrimEnd() : "")
                             : FVT[SharedFl, 0];
                         X.Rows[rowIdx].Cells[lastCol].Value = val;
@@ -491,7 +504,7 @@ namespace marVSS2028.SharedForms
 
                 default:
                     int boxType = telebibCode.Length > 0 && telebibCode[0] >= '0' && telebibCode[0] <= '9' ? 1 : 0;
-                    int.TryParse(SafeMid(telebibCode, 1, 3), out aIndex);
+                    int.TryParse(PartMid(telebibCode, 1, 3), out aIndex);
                     if (boxType == 1) aIndex += 1000;
 
                     string currentVal = X.Rows[rowIdx].Cells[col2].Value?.ToString() ?? "";
@@ -511,7 +524,7 @@ namespace marVSS2028.SharedForms
             if (_rowIdx < 0) return;
             int col2 = Math.Min(2, X.Columns.Count - 1);
             string clip = X.Rows[_rowIdx].Cells[col2].Value?.ToString() ?? "";
-            if (col2 == 2 && SafeMid(clip, 2, 2) == "  ")
+            if (col2 == 2 && PartMid(clip, 2, 2) == "  ")
             {
                 X.Rows[_rowIdx].Cells[col2].Value = e.KeyChar + clip;
                 BtnWijzigenLijn_Click(sender, e);

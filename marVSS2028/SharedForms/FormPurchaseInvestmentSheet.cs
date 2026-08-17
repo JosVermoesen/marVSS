@@ -50,8 +50,8 @@ namespace marVSS2028.SharedForms
             TekstInfo3.Text = VBibText(TABLE_LEDGERACCOUNTS, "#v019 #").TrimEnd();
 
             string rekeningTest2 = VBibText(TABLE_LEDGERACCOUNTS, "#v019 #").TrimEnd();
-            TekstInfo0.Text = SafeMid(GridText ?? string.Empty, 1, 10);
-            TekstInfo1.Text = Dec(ParseVbVal(SafeMid(GridText ?? string.Empty, 11, 12)), MASK_EURBH);
+            TekstInfo0.Text = PartMid(GridText ?? string.Empty, 1, 10);
+            TekstInfo1.Text = Dec(ParseVbVal(PartMid(GridText ?? string.Empty, 11, 12)), MASK_EURBH);
             TLB_RECORD[TABLE_VARIOUS] = string.Empty;
 
             bool foundZero = false;
@@ -208,7 +208,7 @@ namespace marVSS2028.SharedForms
                 case 0:
                     if (DateInvalid(_tekstInfo[index].Text))
                     {
-                        _tekstInfo[index].Text = SafeMid(GridText ?? string.Empty, 1, 10);
+                        _tekstInfo[index].Text = PartMid(GridText ?? string.Empty, 1, 10);
                         SystemSounds.Beep.Play();
                     }
                     break;
