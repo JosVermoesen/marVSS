@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.IO;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -236,6 +237,46 @@ namespace marVSS2028.Classes
         {
             if (s == null || n <= 0) return string.Empty;
             return s.Length >= n ? s.Substring(s.Length - n) : s;
+        }
+
+        public static double DoubleFromString(string value)
+        {
+            if (string.IsNullOrWhiteSpace(value))
+                return 0d;
+
+            var styles = NumberStyles.AllowLeadingSign | NumberStyles.AllowDecimalPoint | NumberStyles.AllowThousands;
+
+            if (double.TryParse(value, styles, CultureInfo.InvariantCulture, out var result))
+                return result;
+
+            if (double.TryParse(value, styles, CultureInfo.CurrentCulture, out result))
+                return result;
+
+            string s = value.Trim().Replace(" ", string.Empty).Replace("'", string.Empty);
+            int lastComma = s.LastIndexOf(',');
+            int lastDot = s.LastIndexOf('.');
+
+            if (lastComma >= 0 && lastDot >= 0)
+            {
+                bool commaIsDecimal = lastComma > lastDot;
+                if (commaIsDecimal)
+                    s = s.Replace(".", string.Empty).Replace(',', '.');
+                else
+                    s = s.Replace(",", string.Empty);
+            }
+            else if (lastComma >= 0)
+            {
+                int digitsAfter = s.Length - lastComma - 1;
+                s = digitsAfter == 3 ? s.Replace(",", string.Empty) : s.Replace(',', '.');
+            }
+            else if (lastDot >= 0)
+            {
+                int digitsAfter = s.Length - lastDot - 1;
+                if (digitsAfter == 3)
+                    s = s.Replace(".", string.Empty);
+            }
+
+            return double.TryParse(s, styles, CultureInfo.InvariantCulture, out result) ? result : 0d;
         }
 
         /// <summary>        

@@ -38,16 +38,7 @@ namespace marVSS2028.SharedForms
             _defaultLeveranciers = (String99(10) ?? string.Empty).TrimEnd();
             TekstInfo0.Text = _defaultKlanten;
         }
-
-        private void Annuleren_Click(object sender, EventArgs e)
-        {
-            GridText = string.Empty;
-            Hide();
-
-            if (Application.OpenForms["FormBankingTransactions"] is Form inbreng)
-                inbreng.Focus();
-        }
-
+        
         private void Balans_Click(object sender, EventArgs e)
         {
             Balans.Text = "Bala&nscontrole";
@@ -424,5 +415,14 @@ namespace marVSS2028.SharedForms
                 // Keep VB6-like fault tolerance.
             }
         }
-    }
+
+        private void ButtonClose_Click(object sender, EventArgs e)
+        {
+            GridText = string.Empty;
+            Hide();
+
+            // if (Application.OpenForms["FormBankingTransactions"] is Form inbreng)
+            //     inbreng.Focus();
+        }
+    }    
 }

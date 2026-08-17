@@ -27,7 +27,7 @@
         private System.Windows.Forms.Button Volgende;
         private System.Windows.Forms.Button Afsluiten;
         private System.Windows.Forms.ListBox FinancieelDetail;
-        private System.Windows.Forms.Button Annuleren;
+        private System.Windows.Forms.Button ButtonClose;
         private System.Windows.Forms.Button Struktuur;
         private System.Windows.Forms.TextBox TextBoxWarningTestCompany;
         private System.Windows.Forms.Button ButtonReadCamt053;
@@ -57,15 +57,15 @@
 
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
             this.SSTab1 = new System.Windows.Forms.TabControl();
             this.TabManueel = new System.Windows.Forms.TabPage();
             this.CheckBoxSepaViewer = new System.Windows.Forms.CheckBox();
             this.ButtonReadCamt053 = new System.Windows.Forms.Button();
             this.TextBoxWarningTestCompany = new System.Windows.Forms.TextBox();
             this.Struktuur = new System.Windows.Forms.Button();
-            this.Annuleren = new System.Windows.Forms.Button();
+            this.ButtonClose = new System.Windows.Forms.Button();
             this.FinancieelDetail = new System.Windows.Forms.ListBox();
             this.Afsluiten = new System.Windows.Forms.Button();
             this.Volgende = new System.Windows.Forms.Button();
@@ -114,7 +114,7 @@
             this.SSTab1.Location = new System.Drawing.Point(0, 0);
             this.SSTab1.Name = "SSTab1";
             this.SSTab1.SelectedIndex = 0;
-            this.SSTab1.Size = new System.Drawing.Size(859, 495);
+            this.SSTab1.Size = new System.Drawing.Size(867, 495);
             this.SSTab1.SizeMode = System.Windows.Forms.TabSizeMode.Fixed;
             this.SSTab1.TabIndex = 0;
             this.SSTab1.SelectedIndexChanged += new System.EventHandler(this.SSTab1_SelectedIndexChanged);
@@ -126,7 +126,7 @@
             this.TabManueel.Controls.Add(this.ButtonReadCamt053);
             this.TabManueel.Controls.Add(this.TextBoxWarningTestCompany);
             this.TabManueel.Controls.Add(this.Struktuur);
-            this.TabManueel.Controls.Add(this.Annuleren);
+            this.TabManueel.Controls.Add(this.ButtonClose);
             this.TabManueel.Controls.Add(this.FinancieelDetail);
             this.TabManueel.Controls.Add(this.Afsluiten);
             this.TabManueel.Controls.Add(this.Volgende);
@@ -148,7 +148,7 @@
             this.TabManueel.Location = new System.Drawing.Point(4, 4);
             this.TabManueel.Name = "TabManueel";
             this.TabManueel.Padding = new System.Windows.Forms.Padding(3);
-            this.TabManueel.Size = new System.Drawing.Size(851, 463);
+            this.TabManueel.Size = new System.Drawing.Size(859, 463);
             this.TabManueel.TabIndex = 0;
             this.TabManueel.Text = "Manueel";
             // 
@@ -158,7 +158,7 @@
             this.CheckBoxSepaViewer.Checked = true;
             this.CheckBoxSepaViewer.CheckState = System.Windows.Forms.CheckState.Checked;
             this.CheckBoxSepaViewer.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.CheckBoxSepaViewer.Location = new System.Drawing.Point(710, 35);
+            this.CheckBoxSepaViewer.Location = new System.Drawing.Point(698, 107);
             this.CheckBoxSepaViewer.Name = "CheckBoxSepaViewer";
             this.CheckBoxSepaViewer.Size = new System.Drawing.Size(91, 17);
             this.CheckBoxSepaViewer.TabIndex = 23;
@@ -168,7 +168,7 @@
             // ButtonReadCamt053
             // 
             this.ButtonReadCamt053.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.ButtonReadCamt053.Location = new System.Drawing.Point(702, 65);
+            this.ButtonReadCamt053.Location = new System.Drawing.Point(656, 71);
             this.ButtonReadCamt053.Name = "ButtonReadCamt053";
             this.ButtonReadCamt053.Size = new System.Drawing.Size(133, 30);
             this.ButtonReadCamt053.TabIndex = 22;
@@ -200,16 +200,16 @@
             this.Struktuur.UseVisualStyleBackColor = true;
             this.Struktuur.Click += new System.EventHandler(this.Struktuur_Click);
             // 
-            // Annuleren
+            // ButtonClose
             // 
-            this.Annuleren.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.Annuleren.Location = new System.Drawing.Point(702, 417);
-            this.Annuleren.Name = "Annuleren";
-            this.Annuleren.Size = new System.Drawing.Size(144, 30);
-            this.Annuleren.TabIndex = 8;
-            this.Annuleren.Text = "Sluiten";
-            this.Annuleren.UseVisualStyleBackColor = true;
-            this.Annuleren.Click += new System.EventHandler(this.Annuleren_Click);
+            this.ButtonClose.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.ButtonClose.Location = new System.Drawing.Point(702, 417);
+            this.ButtonClose.Name = "ButtonClose";
+            this.ButtonClose.Size = new System.Drawing.Size(144, 30);
+            this.ButtonClose.TabIndex = 8;
+            this.ButtonClose.Text = "Sluiten";
+            this.ButtonClose.UseVisualStyleBackColor = true;
+            this.ButtonClose.Click += new System.EventHandler(this.ButtonClose_Click);
             // 
             // FinancieelDetail
             // 
@@ -225,9 +225,9 @@
             // Afsluiten
             // 
             this.Afsluiten.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.Afsluiten.Location = new System.Drawing.Point(553, 101);
+            this.Afsluiten.Location = new System.Drawing.Point(506, 101);
             this.Afsluiten.Name = "Afsluiten";
-            this.Afsluiten.Size = new System.Drawing.Size(144, 33);
+            this.Afsluiten.Size = new System.Drawing.Size(144, 27);
             this.Afsluiten.TabIndex = 3;
             this.Afsluiten.TabStop = false;
             this.Afsluiten.Text = "&Boeken";
@@ -237,9 +237,9 @@
             // Volgende
             // 
             this.Volgende.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.Volgende.Location = new System.Drawing.Point(552, 65);
+            this.Volgende.Location = new System.Drawing.Point(505, 71);
             this.Volgende.Name = "Volgende";
-            this.Volgende.Size = new System.Drawing.Size(144, 33);
+            this.Volgende.Size = new System.Drawing.Size(144, 25);
             this.Volgende.TabIndex = 7;
             this.Volgende.TabStop = false;
             this.Volgende.Text = "Ma&nueel";
@@ -263,9 +263,9 @@
             this.Datum.CustomFormat = "dd/MM/yyyy";
             this.Datum.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Datum.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.Datum.Location = new System.Drawing.Point(552, 35);
+            this.Datum.Location = new System.Drawing.Point(506, 36);
             this.Datum.Name = "Datum";
-            this.Datum.Size = new System.Drawing.Size(145, 20);
+            this.Datum.Size = new System.Drawing.Size(91, 20);
             this.Datum.TabIndex = 2;
             this.Datum.Leave += new System.EventHandler(this.Datum_Leave);
             // 
@@ -338,9 +338,9 @@
             // LabelInfo1
             // 
             this.LabelInfo1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LabelInfo1.Location = new System.Drawing.Point(552, 14);
+            this.LabelInfo1.Location = new System.Drawing.Point(506, 11);
             this.LabelInfo1.Name = "LabelInfo1";
-            this.LabelInfo1.Size = new System.Drawing.Size(144, 24);
+            this.LabelInfo1.Size = new System.Drawing.Size(91, 24);
             this.LabelInfo1.TabIndex = 1;
             this.LabelInfo1.Text = "Datu&m uittreksel";
             this.LabelInfo1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -416,7 +416,7 @@
             this.TabCoda.Location = new System.Drawing.Point(4, 4);
             this.TabCoda.Name = "TabCoda";
             this.TabCoda.Padding = new System.Windows.Forms.Padding(3);
-            this.TabCoda.Size = new System.Drawing.Size(851, 463);
+            this.TabCoda.Size = new System.Drawing.Size(859, 463);
             this.TabCoda.TabIndex = 1;
             this.TabCoda.Text = "Full CODA (versie 2.1)";
             // 
@@ -455,14 +455,14 @@
             // 
             this.mfgLijst.AllowUserToAddRows = false;
             this.mfgLijst.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.mfgLijst.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle9.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle9.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.mfgLijst.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle9;
             this.mfgLijst.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.mfgLijst.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.colLijn,
@@ -472,14 +472,14 @@
             this.colBedrag,
             this.colOmschrijving,
             this.colCumulSaldo});
-            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle8.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.mfgLijst.DefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle10.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle10.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle10.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle10.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle10.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.mfgLijst.DefaultCellStyle = dataGridViewCellStyle10;
             this.mfgLijst.Location = new System.Drawing.Point(6, 6);
             this.mfgLijst.MultiSelect = false;
             this.mfgLijst.Name = "mfgLijst";
@@ -541,18 +541,20 @@
             this.Label1.Text = "Label1";
             this.Label1.Visible = false;
             // 
-            // FormProcessBankStatements
+            // FormBankingTransactions
             // 
+            this.AcceptButton = this.Volgende;
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Silver;
-            this.ClientSize = new System.Drawing.Size(859, 495);
+            this.CancelButton = this.ButtonClose;
+            this.ClientSize = new System.Drawing.Size(867, 495);
             this.Controls.Add(this.Label1);
             this.Controls.Add(this.SSTab1);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
-            this.Name = "FormProcessBankStatements";
+            this.Name = "FormBankingTransactions";
             this.Text = "Ctrl+F3 Financiële verrichtingen";
             this.Load += new System.EventHandler(this.FormBankingTransactions_Load);
             this.SSTab1.ResumeLayout(false);

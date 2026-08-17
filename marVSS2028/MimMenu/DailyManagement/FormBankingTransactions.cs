@@ -91,14 +91,7 @@ namespace marVSS2028.MimMenu.DailyManagement
             InitializeComponent();
             WireHighlightEvents(this);
         }
-
-        private static double Val(string value)
-        {
-            if (string.IsNullOrWhiteSpace(value)) return 0d;
-            double.TryParse(value.Replace(',', '.'), NumberStyles.Any, CultureInfo.InvariantCulture, out var result);
-            return result;
-        }
-
+        
         private string MfgTextMatrix(int row, int col)
         {
             if (row < 0 || row >= mfgLijst.Rows.Count || col < 0 || col >= mfgLijst.Columns.Count)
@@ -164,7 +157,7 @@ namespace marVSS2028.MimMenu.DailyManagement
             else
                 Datum.Value = DateTime.Today;
 
-            BeginBalans = (int)Val(String99(64));
+            BeginBalans = (int)DoubleFromString(String99(64));
             ToegestaneKorting = String99(28);
             BekomenKorting = String99(27);
             DefaultRekening = String99(101);
@@ -202,6 +195,7 @@ namespace marVSS2028.MimMenu.DailyManagement
 
             if (KeuzeInfo0.Items.Count > 0)
                 KeuzeInfo0.SelectedIndex = selected < KeuzeInfo0.Items.Count ? selected : 0;
+            KeuzeInfo0.Focus();
         }
 
         private void KeuzeInfo0_SelectedIndexChanged(object sender, EventArgs e)
@@ -217,9 +211,9 @@ namespace marVSS2028.MimMenu.DailyManagement
             string u = Uittreksel[idx] ?? string.Empty;
 
             if (u.Length > 0 && char.IsLetter(u[0]))
-                LabelInfo11.Text = (Val(PartRight(u, 4)) + 1).ToString(CultureInfo.InvariantCulture);
+                LabelInfo11.Text = (DoubleFromString(PartRight(u, 4)) + 1).ToString(CultureInfo.InvariantCulture);
             else
-                LabelInfo11.Text = (Val(u) + 1).ToString(CultureInfo.InvariantCulture);
+                LabelInfo11.Text = (DoubleFromString(u) + 1).ToString(CultureInfo.InvariantCulture);
 
             string key = PartLeft(KeuzeInfo0.Text, 7);
             BGet(TABLE_LEDGERACCOUNTS, 0, VSet(key, 7));
@@ -234,30 +228,30 @@ namespace marVSS2028.MimMenu.DailyManagement
             {
                 if (bhEuro)
                 {
-                    lblInfo0.Text = Val(VBibText(TABLE_LEDGERACCOUNTS, "#e" + (22 + boekjaar).ToString("000", CultureInfo.InvariantCulture) + " #")).ToString("#,##0.00", CultureInfo.InvariantCulture);
-                    LabelInfo12.Text = (Val(lblInfo0.Text) * EURO).ToString("#,##0.00", CultureInfo.InvariantCulture);
+                    lblInfo0.Text = DoubleFromString(VBibText(TABLE_LEDGERACCOUNTS, "#e" + (22 + boekjaar).ToString("000", CultureInfo.InvariantCulture) + " #")).ToString("#,##0.00", CultureInfo.InvariantCulture);
+                    LabelInfo12.Text = (DoubleFromString(lblInfo0.Text) * EURO).ToString("#,##0.00", CultureInfo.InvariantCulture);
                 }
                 else
                 {
-                    LabelInfo12.Text = Val(VBibText(TABLE_LEDGERACCOUNTS, "#v" + (22 + boekjaar).ToString("000", CultureInfo.InvariantCulture) + " #")).ToString("#,##0.00", CultureInfo.InvariantCulture);
-                    lblInfo0.Text = (Val(LabelInfo12.Text) / EURO).ToString("#,##0.00", CultureInfo.InvariantCulture);
+                    LabelInfo12.Text = DoubleFromString(VBibText(TABLE_LEDGERACCOUNTS, "#v" + (22 + boekjaar).ToString("000", CultureInfo.InvariantCulture) + " #")).ToString("#,##0.00", CultureInfo.InvariantCulture);
+                    lblInfo0.Text = (DoubleFromString(LabelInfo12.Text) / EURO).ToString("#,##0.00", CultureInfo.InvariantCulture);
                 }
             }
             else
             {
                 if (bhEuro)
                 {
-                    double begin = Val(VBibText(TABLE_LEDGERACCOUNTS, "#e" + (22 + boekjaar).ToString("000", CultureInfo.InvariantCulture) + " #"));
-                    double move = Val(VBibText(TABLE_LEDGERACCOUNTS, "#e" + (23 + boekjaar).ToString("000", CultureInfo.InvariantCulture) + " #"));
+                    double begin = DoubleFromString(VBibText(TABLE_LEDGERACCOUNTS, "#e" + (22 + boekjaar).ToString("000", CultureInfo.InvariantCulture) + " #"));
+                    double move = DoubleFromString(VBibText(TABLE_LEDGERACCOUNTS, "#e" + (23 + boekjaar).ToString("000", CultureInfo.InvariantCulture) + " #"));
                     lblInfo0.Text = (begin + move).ToString("#,##0.00", CultureInfo.InvariantCulture);
-                    LabelInfo12.Text = Math.Round(Val(lblInfo0.Text) * EURO).ToString("#,##0.00", CultureInfo.InvariantCulture);
+                    LabelInfo12.Text = Math.Round(DoubleFromString(lblInfo0.Text) * EURO).ToString("#,##0.00", CultureInfo.InvariantCulture);
                 }
                 else
                 {
-                    double begin = Val(VBibText(TABLE_LEDGERACCOUNTS, "#v" + (22 + boekjaar).ToString("000", CultureInfo.InvariantCulture) + " #"));
-                    double move = Val(VBibText(TABLE_LEDGERACCOUNTS, "#v" + (23 + boekjaar).ToString("000", CultureInfo.InvariantCulture) + " #"));
+                    double begin = DoubleFromString(VBibText(TABLE_LEDGERACCOUNTS, "#v" + (22 + boekjaar).ToString("000", CultureInfo.InvariantCulture) + " #"));
+                    double move = DoubleFromString(VBibText(TABLE_LEDGERACCOUNTS, "#v" + (23 + boekjaar).ToString("000", CultureInfo.InvariantCulture) + " #"));
                     LabelInfo12.Text = (begin + move).ToString("#,##0.00", CultureInfo.InvariantCulture);
-                    lblInfo0.Text = (Val(LabelInfo12.Text) / EURO).ToString("#,##0.00", CultureInfo.InvariantCulture);
+                    lblInfo0.Text = (DoubleFromString(LabelInfo12.Text) / EURO).ToString("#,##0.00", CultureInfo.InvariantCulture);
                 }
             }
 
@@ -268,7 +262,7 @@ namespace marVSS2028.MimMenu.DailyManagement
 
         private void ApplySaldoColors()
         {
-            double begin = Val(LabelInfo12.Text);
+            double begin = DoubleFromString(LabelInfo12.Text);
             if (begin == 0)
             {
                 LabelInfo12.BackColor = System.Drawing.Color.Silver;
@@ -285,7 +279,7 @@ namespace marVSS2028.MimMenu.DailyManagement
                 lblInfo0.BackColor = System.Drawing.Color.LightCyan;
             }
 
-            double end = Val(LabelInfo13.Text);
+            double end = DoubleFromString(LabelInfo13.Text);
             if (end == 0)
             {
                 LabelInfo13.BackColor = System.Drawing.Color.Silver;
@@ -323,21 +317,7 @@ namespace marVSS2028.MimMenu.DailyManagement
                 }
             }
         }
-
-        private void Annuleren_Click(object sender, EventArgs e)
-        {
-            if (FinancieelDetail.Items.Count > 0)
-            {
-                string msg = "Aangeduide verrichtingen negeren." + Environment.NewLine + Environment.NewLine + "Bent U zeker ?";
-                var ans = MessageBox.Show(msg, string.Empty, MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
-                if (ans != DialogResult.Yes)
-                    return;
-            }
-
-            GridText = string.Empty;
-            Close();
-        }
-
+        
         private void Volgende_Click(object sender, EventArgs e)
         {
             using (var detail = new DetailInfo())
@@ -352,20 +332,20 @@ namespace marVSS2028.MimMenu.DailyManagement
             KeuzeInfo0.Enabled = false;
             FinancieelDetail.Items.Add(GridText);
 
-            double bedrag = Val(PartMid(GridText, 22, 12));
+            double bedrag = DoubleFromString(PartMid(GridText, 22, 12));
             bool ontvangst = PartLeft(GridText, 1) == "+";
 
             if (bhEuro)
             {
-                double huidig = Val(lblInfo1.Text);
+                double huidig = DoubleFromString(lblInfo1.Text);
                 lblInfo1.Text = (ontvangst ? huidig + bedrag : huidig - bedrag).ToString("#,##0.00", CultureInfo.InvariantCulture);
-                LabelInfo13.Text = Math.Round(Val(lblInfo1.Text) * EURO).ToString("#,##0.00", CultureInfo.InvariantCulture);
+                LabelInfo13.Text = Math.Round(DoubleFromString(lblInfo1.Text) * EURO).ToString("#,##0.00", CultureInfo.InvariantCulture);
             }
             else
             {
-                double huidig = Val(LabelInfo13.Text);
+                double huidig = DoubleFromString(LabelInfo13.Text);
                 LabelInfo13.Text = (ontvangst ? huidig + bedrag : huidig - bedrag).ToString("#,##0.00", CultureInfo.InvariantCulture);
-                lblInfo1.Text = (Val(LabelInfo13.Text) / EURO).ToString("#,##0.00", CultureInfo.InvariantCulture);
+                lblInfo1.Text = (DoubleFromString(LabelInfo13.Text) / EURO).ToString("#,##0.00", CultureInfo.InvariantCulture);
             }
 
             ApplySaldoColors();
@@ -454,7 +434,7 @@ namespace marVSS2028.MimMenu.DailyManagement
             int row = mfgLijst.CurrentRow.Index;
             MfgSetTextMatrix(row, 2, result[0]);
             MfgSetTextMatrix(row, 3, result[1]);
-            MfgSetTextMatrix(row, 4, Val(result[2]).ToString(CultureInfo.InvariantCulture));
+            MfgSetTextMatrix(row, 4, DoubleFromString(result[2]).ToString(CultureInfo.InvariantCulture));
             MfgSetTextMatrix(row, 5, result[3]);
             ListIsReady();
         }
@@ -496,7 +476,7 @@ namespace marVSS2028.MimMenu.DailyManagement
                 if (string.IsNullOrWhiteSpace(refString))
                     return string.Empty;
 
-                var amount = Val(lineAmount).ToString(CultureInfo.InvariantCulture);
+                var amount = DoubleFromString(lineAmount).ToString(CultureInfo.InvariantCulture);
                 string query;
 
                 if (isSeller)
@@ -505,7 +485,7 @@ namespace marVSS2028.MimMenu.DailyManagement
                           + "FROM Leveranciers, Dokumenten "
                           + "WHERE Dokumenten.v034 = 'L' + Leveranciers.A110 "
                           + "AND Dokumenten.v039 = '" + refString.Replace("'", "''") + "' "
-                          + "AND Str(Val(Dokumenten.v249)) = '" + amount + "' "
+                          + "AND Str(DoubleFromString(Dokumenten.v249)) = '" + amount + "' "
                           + "ORDER BY Dokumenten.v037";
                 }
                 else
@@ -555,7 +535,7 @@ namespace marVSS2028.MimMenu.DailyManagement
         {
             sRekeningNummer = PartMid(deString, 6, 16);
             sUittreksel = PartMid(deString, 3, 3);
-            cOudSaldo = (decimal)(Val(PartMid(deString, 44, 15)) / 1000d);
+            cOudSaldo = (decimal)(DoubleFromString(PartMid(deString, 44, 15)) / 1000d);
             sDatumOudSaldo = PartMid(deString, 59, 6);
             sNaamRekeninghouder = PartMid(deString, 65, 26);
             sOmschrijvingRekening = PartMid(deString, 91, 35);
@@ -567,7 +547,7 @@ namespace marVSS2028.MimMenu.DailyManagement
         {
             sRekeningNummer2 = PartMid(deString, 5, 12);
             sUittreksel2 = PartMid(deString, 2, 3);
-            cNieuwSaldo = (decimal)(Val(PartMid(deString, 43, 15)) / 1000d);
+            cNieuwSaldo = (decimal)(DoubleFromString(PartMid(deString, 43, 15)) / 1000d);
             sDatumNieuwSaldo = PartMid(deString, 58, 6);
             iOptelControle++;
             return true;
@@ -575,12 +555,12 @@ namespace marVSS2028.MimMenu.DailyManagement
 
         private bool fnEindOpname(string deString)
         {
-            iOptelCtrlCheckUp = (int)Val(PartMid(deString, 17, 6));
+            iOptelCtrlCheckUp = (int)DoubleFromString(PartMid(deString, 17, 6));
             if (iOptelCtrlCheckUp != iOptelControle)
                 SnelHelpPrint("Onlogische situatie", false);
 
-            cDebetSaldo = (decimal)(Val(PartMid(deString, 23, 15)) / 1000d);
-            cCreditSaldo = (decimal)(Val(PartMid(deString, 38, 15)) / 1000d);
+            cDebetSaldo = (decimal)(DoubleFromString(PartMid(deString, 23, 15)) / 1000d);
+            cCreditSaldo = (decimal)(DoubleFromString(PartMid(deString, 38, 15)) / 1000d);
             return PartMid(deString, 128, 1) != "1";
         }
 
@@ -593,7 +573,7 @@ namespace marVSS2028.MimMenu.DailyManagement
             {
                 sRefFinInstelling = PartMid(deString, 11, 21);
                 sDC = PartMid(deString, 32, 1);
-                cBedrag = (decimal)(Val(PartMid(deString, 33, 15)) / 1000d);
+                cBedrag = (decimal)(DoubleFromString(PartMid(deString, 33, 15)) / 1000d);
                 sValutadatum = PartMid(deString, 48, 6);
                 sVerrichting = PartMid(deString, 54, 8);
                 sMededeling = PartMid(deString, 62, 1);
@@ -608,7 +588,7 @@ namespace marVSS2028.MimMenu.DailyManagement
                 sRefKlant[0] = PartMid(deString, 64, 13);
                 sRefKlant[1] = PartMid(deString, 77, 13);
                 sMuntVerrichting = PartMid(deString, 90, 3);
-                cBedragMunt = (decimal)(Val(PartMid(deString, 93, 15)) / 1000d);
+                cBedragMunt = (decimal)(DoubleFromString(PartMid(deString, 93, 15)) / 1000d);
             }
             else if (deel == "3")
             {
@@ -671,5 +651,20 @@ namespace marVSS2028.MimMenu.DailyManagement
                     xdaLinesDATAArray[i, j] = fields[j];
             }
         }
+
+        private void ButtonClose_Click(object sender, EventArgs e)
+        {
+            if (FinancieelDetail.Items.Count > 0)
+            {
+                string msg = "Huidige verrichtingen negeren." + Environment.NewLine + Environment.NewLine + "Bent U zeker ?";
+                var ans = MessageBox.Show(msg, string.Empty, MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
+                if (ans != DialogResult.Yes)
+                    return;
+            }
+
+            GridText = string.Empty;
+            Close();
+        }
     }
 }
+

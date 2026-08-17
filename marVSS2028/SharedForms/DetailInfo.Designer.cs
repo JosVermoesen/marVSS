@@ -11,7 +11,7 @@
         private System.Windows.Forms.TextBox tbBank0;
         private System.Windows.Forms.Button Balans;
         private System.Windows.Forms.Button OK;
-        private System.Windows.Forms.Button Annuleren;
+        private System.Windows.Forms.Button ButtonClose;
         private System.Windows.Forms.TextBox TekstInfo0;
         private System.Windows.Forms.TextBox TekstInfo2;
         private System.Windows.Forms.TextBox TekstInfo1;
@@ -48,7 +48,7 @@
             this.tbBank0 = new System.Windows.Forms.TextBox();
             this.Balans = new System.Windows.Forms.Button();
             this.OK = new System.Windows.Forms.Button();
-            this.Annuleren = new System.Windows.Forms.Button();
+            this.ButtonClose = new System.Windows.Forms.Button();
             this.TekstInfo0 = new System.Windows.Forms.TextBox();
             this.TekstInfo2 = new System.Windows.Forms.TextBox();
             this.TekstInfo1 = new System.Windows.Forms.TextBox();
@@ -135,17 +135,18 @@
             this.OK.UseVisualStyleBackColor = true;
             this.OK.Click += new System.EventHandler(this.Ok_Click);
             // 
-            // Annuleren
+            // ButtonClose
             // 
-            this.Annuleren.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.Annuleren.Location = new System.Drawing.Point(360, 96);
-            this.Annuleren.Name = "Annuleren";
-            this.Annuleren.Size = new System.Drawing.Size(76, 22);
-            this.Annuleren.TabIndex = 14;
-            this.Annuleren.TabStop = false;
-            this.Annuleren.Text = "&Sluiten";
-            this.Annuleren.UseVisualStyleBackColor = true;
-            this.Annuleren.Click += new System.EventHandler(this.Annuleren_Click);
+            this.ButtonClose.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.ButtonClose.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.ButtonClose.Location = new System.Drawing.Point(360, 96);
+            this.ButtonClose.Name = "ButtonClose";
+            this.ButtonClose.Size = new System.Drawing.Size(76, 22);
+            this.ButtonClose.TabIndex = 14;
+            this.ButtonClose.TabStop = false;
+            this.ButtonClose.Text = "&Sluiten";
+            this.ButtonClose.UseVisualStyleBackColor = true;
+            this.ButtonClose.Click += new System.EventHandler(this.ButtonClose_Click);
             // 
             // TekstInfo0
             // 
@@ -336,6 +337,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
+            this.CancelButton = this.ButtonClose;
             this.ClientSize = new System.Drawing.Size(442, 152);
             this.ControlBox = false;
             this.Controls.Add(this.LabelInfo3);
@@ -353,7 +355,7 @@
             this.Controls.Add(this.TekstInfo1);
             this.Controls.Add(this.TekstInfo2);
             this.Controls.Add(this.TekstInfo0);
-            this.Controls.Add(this.Annuleren);
+            this.Controls.Add(this.ButtonClose);
             this.Controls.Add(this.OK);
             this.Controls.Add(this.Balans);
             this.Controls.Add(this.tbBank0);
