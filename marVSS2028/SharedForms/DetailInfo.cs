@@ -23,6 +23,7 @@ namespace marVSS2028.SharedForms
             InitializeComponent();
             WireHighlightEvents(this);
             Load += DetailInfo_Load;
+            Shown += DetailInfo_Shown;
         }
 
         private static double Val(string value)
@@ -37,8 +38,14 @@ namespace marVSS2028.SharedForms
             _defaultKlanten = (String99(9) ?? string.Empty).TrimEnd();
             _defaultLeveranciers = (String99(10) ?? string.Empty).TrimEnd();
             TekstInfo0.Text = _defaultKlanten;
+            Balans.Focus();
         }
-        
+
+        private void DetailInfo_Shown(object sender, EventArgs e)
+        {
+            Balans.Focus();
+        }
+
         private void Balans_Click(object sender, EventArgs e)
         {
             Balans.Text = "Bala&nscontrole";
@@ -198,34 +205,24 @@ namespace marVSS2028.SharedForms
 
         private void TekstInfo_KeyDown(object sender, KeyEventArgs e)
         {
-            if (ReferenceEquals(sender, TekstInfo0))
+            if (ReferenceEquals(sender, TekstInfo0) && e.KeyCode == Keys.ControlKey)
             {
-                if (e.KeyCode == Keys.ControlKey)
-                {
-                    SharedFl = TABLE_LEDGERACCOUNTS;
-                    aIndex = 0;
-                    GridText = TekstInfo0.Text;
+                SharedFl = TABLE_LEDGERACCOUNTS;
+                aIndex = 0;
+                GridText = TekstInfo0.Text;
 
-                    using (var sql = new FormSearchSQL())
-                        sql.ShowDialog(this);
+                using (var sql = new FormSearchSQL())
+                    sql.ShowDialog(this);
 
-                    TekstInfo0.Text = Ktrl == 0 ? FVT[TABLE_LEDGERACCOUNTS, 0] : string.Empty;
-                }
-                else if (e.KeyCode == Keys.Return)
-                {
-                    e.SuppressKeyPress = true;
-                    TekstInfo2.Focus();
-                }
+                TekstInfo0.Text = Ktrl == 0 ? FVT[TABLE_LEDGERACCOUNTS, 0] : string.Empty;
+                return;
             }
-            else if (ReferenceEquals(sender, TekstInfo2) && e.KeyCode == Keys.Return)
+
+            if (sender is TextBox && e.KeyCode == Keys.Return)
             {
                 e.SuppressKeyPress = true;
-                TekstInfo3.Focus();
-            }
-            else if (ReferenceEquals(sender, TekstInfo3) && e.KeyCode == Keys.Return)
-            {
-                e.SuppressKeyPress = true;
-                OK.Focus();
+                e.Handled = true;
+                SelectNextControl((Control)sender, true, true, true, true);
             }
         }
 

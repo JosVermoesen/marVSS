@@ -119,7 +119,7 @@
             this.Balans.Location = new System.Drawing.Point(6, 6);
             this.Balans.Name = "Balans";
             this.Balans.Size = new System.Drawing.Size(121, 25);
-            this.Balans.TabIndex = 16;
+            this.Balans.TabIndex = 0;
             this.Balans.Text = "Bala&nscontrole";
             this.Balans.UseVisualStyleBackColor = true;
             this.Balans.Click += new System.EventHandler(this.Balans_Click);
@@ -334,7 +334,6 @@
             // 
             // DetailInfo
             // 
-            this.AcceptButton = this.Balans;
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
