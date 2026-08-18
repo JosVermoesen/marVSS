@@ -235,8 +235,12 @@ namespace marVSS2028.Classes
             }
 
             if (showResult)
-                MessageBox.Show(result, "SEPA Vieuwer");
-
+            {                
+                var dlg = new FormReactionsDialog();
+                dlg.TextBoxReactions.Text = result;
+                dlg.Text = "SEPA Viewer - " + Path.GetFileName(fileName);
+                dlg.ShowDialog();                
+            }
             return true;
         }
 

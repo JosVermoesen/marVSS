@@ -480,54 +480,190 @@ namespace marVSS2028.MimMenu.DailyManagement
 
         private string CtrlDocuments(bool isSeller, bool refIsCor, bool isCDD, string refString, string ibanAccount, string lineAmount)
         {
-            try
+            string FieldText(Recordset recordset, string fieldName)
             {
-                if (string.IsNullOrWhiteSpace(refString))
-                    return string.Empty;
-
-                var amount = DoubleFromString(lineAmount).ToString(CultureInfo.InvariantCulture);
-                string query;
-
-                if (isSeller)
+                try
                 {
-                    query = "SELECT TOP 1 Leveranciers.A110, Leveranciers.A100, Dokumenten.v033 "
-                          + "FROM Leveranciers, Dokumenten "
-                          + "WHERE Dokumenten.v034 = 'L' + Leveranciers.A110 "
-                          + "AND Dokumenten.v039 = '" + refString.Replace("'", "''") + "' "
-                          + "AND Str(DoubleFromString(Dokumenten.v249)) = '" + amount + "' "
-                          + "ORDER BY Dokumenten.v037";
+                    object value = recordset.Fields[fieldName].Value;
+                    return value == null || value == DBNull.Value ? string.Empty : value.ToString().Trim();
+                }
+                catch
+                {
+                    return string.Empty;
+                }
+            }
+
+            refString = refString ?? string.Empty;
+            ibanAccount = ibanAccount ?? string.Empty;
+
+            double lineAmountValue = DoubleFromString(lineAmount);
+            string formattedAmount = lineAmountValue >= 0d
+                ? " " + lineAmountValue.ToString(CultureInfo.InvariantCulture)
+                : lineAmountValue.ToString(CultureInfo.InvariantCulture);
+
+            string documentKey = string.Empty;
+            int oRefIndex = refString.IndexOf("ORef: ", StringComparison.Ordinal);
+            if (oRefIndex >= 0 && oRefIndex + 6 < refString.Length)
+                documentKey = refString.Substring(oRefIndex + 6);
+
+            int searchOnRvId = 0;
+            string query;
+
+            if (isSeller)
+            {
+                if (string.IsNullOrEmpty(documentKey))
+                {
+                    query = "SELECT Leveranciers.A110, Leveranciers.A100, Leveranciers.v259, "
+                        + "Dokumenten.v033, Dokumenten.v034, Dokumenten.v035, Dokumenten.v036, "
+                        + "Dokumenten.v037, Dokumenten.v038, Dokumenten.v039, Dokumenten.v249, "
+                        + "Dokumenten.v411, Dokumenten.rvDM, Dokumenten.rvID "
+                        + "FROM Leveranciers, Dokumenten "
+                        + "WHERE Dokumenten.v034 = 'L' + Leveranciers.A110 "
+                        + "AND Dokumenten.v039 = '" + refString + "' "
+                        + "AND Leveranciers.v259 = '" + ibanAccount + "' "
+                        + "AND Str(Val(Dokumenten.v249)) = '" + formattedAmount + "' "
+                        + "ORDER BY Dokumenten.v037 ";
                 }
                 else
                 {
-                    query = "SELECT TOP 1 Klanten.A110, Klanten.A100, Dokumenten.v033 "
-                          + "FROM Klanten, Dokumenten "
-                          + "WHERE Dokumenten.v034 = 'K' + Klanten.A110 "
-                          + "AND Dokumenten.v249 <> Dokumenten.v037 "
-                          + "ORDER BY Dokumenten.v035 DESC";
+                    query = "SELECT Leveranciers.A110, Leveranciers.A100, Leveranciers.v259, "
+                        + "Dokumenten.v033, Dokumenten.v034, Dokumenten.v035, Dokumenten.v036, "
+                        + "Dokumenten.v037, Dokumenten.v038, Dokumenten.v039, Dokumenten.v249, "
+                        + "Dokumenten.v411, Dokumenten.rvDM, Dokumenten.rvID "
+                        + "FROM Leveranciers, Dokumenten "
+                        + "WHERE Dokumenten.v034 = 'L' + Leveranciers.A110 "
+                        + "AND Dokumenten.v033 = '" + documentKey + "' ";
+                }
+            }
+            else
+            {
+                query = "SELECT Klanten.A110, Klanten.A100, Klanten.v259, Klanten.rvID, "
+                    + "Dokumenten.v033, Dokumenten.v034, Dokumenten.v035, Dokumenten.v036, "
+                    + "Dokumenten.v037, Dokumenten.v038, Dokumenten.v039, Dokumenten.v249, "
+                    + "Dokumenten.v411, Dokumenten.rvDM, Dokumenten.rvID, Dokumenten.A000 "
+                    + "FROM Klanten, Dokumenten "
+                    + "WHERE Dokumenten.v034 = 'K' + Klanten.A110 ";
+
+                if (refIsCor && PartLeft(refString, 1) == "1")
+                {
+                    string clientNumber = PartMid(refString, 4, 4) + PartMid(refString, 9, 2);
+                    query += "AND Klanten.A110 = '" + clientNumber + "' "
+                        + "AND Str(Val(Dokumenten.v249)) = '" + formattedAmount + "' ";
+                }
+                else if (PartMid(refString, 1, 3) == "999")
+                {
+                    int.TryParse(PartMid(refString, 4, 7).Trim(), out searchOnRvId);
+                    query += "AND Klanten.rvID =" + searchOnRvId.ToString(CultureInfo.InvariantCulture) + " "
+                        + "AND Dokumenten.v249 <> Dokumenten.v037 ";
+                }
+                else if (!refIsCor && isCDD)
+                {
+                    MessageBox.Show("Stop for not refIsCor and isCDD", string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    query += "AND Dokumenten.A000 = '" + refString + "' "
+                        + "AND Str(Val(Dokumenten.v249)) = '" + formattedAmount + "' ";
+                }
+                else
+                {
+                    string groupCode = string.Empty;
+
+                    switch (PartLeft(refString, 1))
+                    {
+                        case "8":
+                            groupCode = "V0";
+                            break;
+                        case "7":
+                            groupCode = "V1";
+                            break;
+                        case "6":
+                            groupCode = "B0";
+                            break;
+                        case "5":
+                            groupCode = "F0";
+                            break;
+                        case "2":
+                            groupCode = "Q0";
+                            break;
+                        default:
+                            MessageBox.Show("onbekende OGM voor klanten?", string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            break;
+                    }
+
+                    if (string.IsNullOrEmpty(groupCode))
+                    {
+                        MessageBox.Show("onbekende OGM voor klanten proberen met IBAN van de klant", string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        query += "AND Klanten.v259 = '" + ibanAccount + "' ";
+                    }
+                    else
+                    {
+                        string referteTxtNoFormat = groupCode + PartMid(refString, 2, 6);
+                        _ = referteTxtNoFormat;
+                    }
                 }
 
-                rsAny = new Recordset();
-                rsAny.CursorLocation = CursorLocationEnum.adUseClient;
-                rsAny.Open(query, adntDB, CursorTypeEnum.adOpenDynamic, LockTypeEnum.adLockOptimistic, 0);
+                query += "ORDER BY Dokumenten.v035 DESC ";
+            }
+
+            rsAny = new Recordset();
+            rsAny.CursorLocation = CursorLocationEnum.adUseClient;
+
+            try
+            {
+                Cursor.Current = Cursors.WaitCursor;
+                SnelHelpPrint(query, BL_LOGGING);
+                rsAny.Open(query, adntDB, CursorTypeEnum.adOpenDynamic, LockTypeEnum.adLockOptimistic, (int)CommandTypeEnum.adCmdText);
+                Cursor.Current = Cursors.Default;
 
                 if (rsAny.EOF)
+                {
+                    MessageBox.Show("Geen documenten gevonden", string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Information);
                     return string.Empty;
+                }
 
-                var doc = rsAny.Fields["v033"].Value != null ? rsAny.Fields["v033"].Value.ToString() : string.Empty;
-                var naam = rsAny.Fields["A100"].Value != null ? rsAny.Fields["A100"].Value.ToString() : string.Empty;
-                var nummer = rsAny.Fields["A110"].Value != null ? rsAny.Fields["A110"].Value.ToString() : string.Empty;
-                return doc + "|" + naam + "|" + nummer;
+                if (rsAny.RecordCount == 1)
+                {
+                    rsAny.MoveFirst();
+                    return FieldText(rsAny, "v033") + "|" + FieldText(rsAny, "A100") + "|" + FieldText(rsAny, "A110");
+                }
+
+                if (PartLeft(refString, 3) == "999" || PartLeft(refString, 3) == "104")
+                {
+                    rsAny.MoveFirst();
+                    return FieldText(rsAny, "v033") + "|" + FieldText(rsAny, "A100") + "|" + FieldText(rsAny, "A110");
+                }
+
+                string ctrlDocuments = string.Empty;
+                while (!rsAny.EOF)
+                {
+                    ctrlDocuments = FieldText(rsAny, "v033") + "|" + FieldText(rsAny, "A100") + "|" + FieldText(rsAny, "A110");
+                    MessageBox.Show("Stop try to validate with first document found" + Environment.NewLine + Environment.NewLine + ctrlDocuments,
+                        string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    rsAny.MoveNext();
+                }
+
+                return ctrlDocuments;
             }
-            catch
+            catch (Exception ex)
             {
+                MessageBox.Show("Bron:" + Environment.NewLine + ex.Source + Environment.NewLine + Environment.NewLine +
+                    "Foutnummer: " + ex.HResult.ToString(CultureInfo.InvariantCulture) + Environment.NewLine + Environment.NewLine +
+                    "Detail:" + Environment.NewLine + ex.Message,
+                    "CtrlDocuments", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return string.Empty;
             }
             finally
             {
-                if (rsAny != null)
+                try
                 {
-                    if (rsAny.State == 1) rsAny.Close();
+                    if (rsAny != null && rsAny.State != (int)ObjectStateEnum.adStateClosed)
+                        rsAny.Close();
+                }
+                catch
+                {
+                }
+                finally
+                {
                     rsAny = null;
+                    Cursor.Current = Cursors.Default;
                 }
             }
         }

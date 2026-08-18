@@ -89,6 +89,7 @@ namespace marVSS2028.SharedForms
             {
                 var dlg = new FormReactionsDialog();
                 dlg.TextBoxReactions.Text = result;
+                dlg.Text = "Reacties aan leverancier";
                 dlg.ShowDialog(this);
             }
         }
@@ -104,8 +105,11 @@ namespace marVSS2028.SharedForms
                 MessageBox.Show("Nog te bevestigen. Vernieuw met MarSync", string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else
-            {
-                MessageBox.Show(result, string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Information);
+            {                
+                var dlg = new FormReactionsDialog();
+                dlg.TextBoxReactions.Text = result;
+                dlg.Text = "Ontvangstbewijs";
+                dlg.ShowDialog(this);
             }
         }
 
