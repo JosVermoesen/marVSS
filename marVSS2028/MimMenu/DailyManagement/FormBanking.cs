@@ -15,7 +15,7 @@ using static marVSS2028.Classes.TextTools;
 
 namespace marVSS2028.MimMenu.DailyManagement
 {
-    public partial class FormBankingTransactions : Form
+    public partial class FormBanking : Form
     {
         private int xdaLineCounter;
         private Recordset rsAny;
@@ -30,14 +30,7 @@ namespace marVSS2028.MimMenu.DailyManagement
 
         private string BekomenKorting = string.Empty;
         private string ToegestaneKorting = string.Empty;
-
-        private string xdaOMS = string.Empty;
-        private string xdaDATA = string.Empty;
-        private string xdaLinesOMS = string.Empty;
-        private string xdaLinesDATA = string.Empty;
-        private string[] xdaOMSArray = new string[0];
-        private string[] xdaDATAArray = new string[0];
-        private string[] xdaLinesOMSArray = new string[0];
+                
         private string[,] xdaLinesDATAArray = new string[0, 0];
 
         private bool bCtrl;
@@ -86,7 +79,7 @@ namespace marVSS2028.MimMenu.DailyManagement
         private decimal cDebetSaldo;
         private decimal cCreditSaldo;
 
-        public FormBankingTransactions()
+        public FormBanking()
         {
             InitializeComponent();
             WireHighlightEvents(this);
@@ -120,6 +113,28 @@ namespace marVSS2028.MimMenu.DailyManagement
             var cells = new object[7];
             for (int i = 0; i < cells.Length; i++)
                 cells[i] = i < parts.Length ? parts[i] : string.Empty;
+
+            // If the only existing row is blank, reuse it instead of adding a new one
+            if (mfgLijst.Rows.Count == 1)
+            {
+                bool isBlank = true;
+                for (int i = 0; i < mfgLijst.Columns.Count; i++)
+                {
+                    if (mfgLijst.Rows[0].Cells[i].Value != null &&
+                        !string.IsNullOrEmpty(mfgLijst.Rows[0].Cells[i].Value.ToString()))
+                    {
+                        isBlank = false;
+                        break;
+                    }
+                }
+                if (isBlank)
+                {
+                    for (int i = 0; i < cells.Length && i < mfgLijst.Columns.Count; i++)
+                        mfgLijst.Rows[0].Cells[i].Value = cells[i];
+                    return;
+                }
+            }
+
             mfgLijst.Rows.Add(cells);
         }
 
@@ -147,6 +162,9 @@ namespace marVSS2028.MimMenu.DailyManagement
         private void FormBankingTransactions_Load(object sender, EventArgs e)
         {
             xdaLineCounter = 0;
+            mfgLijst.Columns[2].Width = 81;
+            mfgLijst.Columns[5].Width = 292;
+
             if (mfgLijst.Rows.Count == 0)
                 mfgLijst.Rows.Add();
 
@@ -394,34 +412,396 @@ namespace marVSS2028.MimMenu.DailyManagement
 
         private void ButtonReadCamt053_Click(object sender, EventArgs e)
         {
+            string SafeLineValue(int row, int col)
+            {
+                if (row < 0 || col < 0 || row >= xdaLinesDATAArray.GetLength(0) || col >= xdaLinesDATAArray.GetLength(1))
+                    return string.Empty;
+                return xdaLinesDATAArray[row, col] ?? string.Empty;
+            }
+
+            string FormatVal(string value)
+            {
+                return DoubleFromString(value).ToString(CultureInfo.InvariantCulture);
+            }
+
             string xdaLocation = (LaadTekstOLD("dnnInstellingen", "CodaIOMap") ?? string.Empty).ToLowerInvariant();
             if (string.IsNullOrEmpty(xdaLocation))
                 xdaLocation = (LOCATION_DESKTOP ?? string.Empty).ToLowerInvariant();
 
+            string filePath;
+            string selectedFileTitle;
+
             using (var ofd = new OpenFileDialog())
             {
+                ofd.FileName = string.Empty;
                 ofd.InitialDirectory = xdaLocation;
                 ofd.Filter = "Alle bestanden (*.xda)|*.xda";
                 if (ofd.ShowDialog(this) != DialogResult.OK)
                     return;
 
-                bool actionResult = ReadCamt053XDA(ofd.FileName.ToLowerInvariant(), CheckBoxSepaViewer.Checked);
-                if (!actionResult)
+                filePath = (ofd.FileName ?? string.Empty).ToLowerInvariant();
+                selectedFileTitle = ofd.SafeFileName ?? string.Empty;
+
+                string selectedDir = (System.IO.Path.GetDirectoryName(ofd.FileName) ?? string.Empty).ToLowerInvariant();
+                if (!string.IsNullOrEmpty(selectedDir) && !selectedDir.EndsWith("\\", StringComparison.Ordinal))
+                    selectedDir += "\\";
+
+                string baseDir = xdaLocation;
+                if (!string.IsNullOrEmpty(baseDir) && !baseDir.EndsWith("\\", StringComparison.Ordinal))
+                    baseDir += "\\";
+
+                if (!string.Equals(baseDir, selectedDir, StringComparison.OrdinalIgnoreCase))
+                {
+                    if (selectedDir.IndexOf("coda\\in", StringComparison.OrdinalIgnoreCase) >= 0)
+                    {
+                        MessageBox.Show("Inladen van verwerkte documenten is verboden", string.Empty,
+                            MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+
+                    string msg = ".XDA en .XML voor SEPA betaalbestanden locatie staat ingesteld op:" + Environment.NewLine
+                        + baseDir + Environment.NewLine + Environment.NewLine
+                        + "Mag de standaard locatie vanaf nu gewijzigd worden naar:" + Environment.NewLine
+                        + selectedDir;
+
+                    var answer = MessageBox.Show(msg, "Uittreksel afsluiten",
+                        MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
+                    if (answer == DialogResult.Yes)
+                    {
+                        BeWaarTekst("dnnInstellingen", "CodaIOMap", selectedDir);
+                        MessageBox.Show("Herstart het inladen van het document", string.Empty,
+                            MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Probeer opnieuw", string.Empty,
+                            MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    }
                     return;
-
-                xdaOMS = marVSS2028.Classes.Globals.xdaOMS ?? string.Empty;
-                xdaDATA = marVSS2028.Classes.Globals.xdaDATA ?? string.Empty;
-                xdaLinesOMS = marVSS2028.Classes.Globals.xdaLinesOMS ?? string.Empty;
-                xdaLinesDATA = marVSS2028.Classes.Globals.xdaLinesDATA ?? string.Empty;
-
-                xdaOMSArray = xdaOMS.Split('\t');
-                xdaDATAArray = xdaDATA.Split('\t');
-                xdaLinesOMSArray = xdaLinesOMS.Split('\t');
-                xdaParseToArray(xdaLinesDATA);
-
-                MessageBox.Show("XDA data geladen. Controleer en wijs ontbrekende lijnen toe.", string.Empty,
-                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
             }
+
+            bool actionResult = ReadCamt053XDA(filePath, CheckBoxSepaViewer.Checked);
+            if (!actionResult)
+                return;
+
+            xdaOMS = xdaOMS ?? string.Empty;
+            xdaDATA = xdaDATA ?? string.Empty;
+            xdaLinesOMS = xdaLinesOMS ?? string.Empty;
+            xdaLinesDATA = xdaLinesDATA ?? string.Empty;
+
+            xdaOMSArray = xdaOMS.Split('\t');
+            xdaDATAArray = xdaDATA.Split('\t');
+            xdaLinesOMSArray = xdaLinesOMS.Split('\t');
+            xdaParseToArray(xdaLinesDATA);
+
+            int qualityOfBeginning = 0;
+            double beginSaldoXDA = xdaDATAArray.Length > 6 ? DoubleFromString(xdaDATAArray[6]) : 0d;
+            double cumulSaldo;
+
+            if (xdaDATAArray.Length > 3 && !string.IsNullOrWhiteSpace(xdaDATAArray[3]))
+            {
+                if (DoubleFromString(LabelInfo11.Text) == DoubleFromString(xdaDATAArray[3]))
+                    qualityOfBeginning++;
+            }
+
+            if (beginSaldoXDA == DoubleFromString(lblInfo0.Text))
+                qualityOfBeginning++;
+
+            bool addOnlyTransactionLines = false;
+            if (qualityOfBeginning == 0)
+            {
+                if (mfgLijst.Rows.Count == 2)
+                {
+                }
+                else if (beginSaldoXDA == DoubleFromString(MfgTextMatrix(mfgLijst.Rows.Count - 2, 6)))
+                {
+                    cumulSaldo = beginSaldoXDA;
+                    addOnlyTransactionLines = true;
+                }
+                else
+                {
+                    string msg = "Noch teller (niet essentieel), noch beginsaldo (essentieel)" + Environment.NewLine
+                        + "Bij beheer van meerdere rekeningen, duidt eerst de rekening aan voor .XDA import en probeer opnieuw";
+                    MessageBox.Show(msg, string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                }
+            }
+            else if (qualityOfBeginning == 1)
+            {
+                SnelHelpPrint("Beginsaldo ok", BL_LOGGING);
+            }
+            else
+            {
+                SnelHelpPrint("Volgnummer + beginsaldo ok", BL_LOGGING);
+            }
+
+            if (!addOnlyTransactionLines && mfgLijst.Rows.Count == 1)
+            {
+                string startLine = "\t\t\t\t\tBEGINSALDO\t" + beginSaldoXDA.ToString(CultureInfo.InvariantCulture);
+                MfgAddItem(startLine);
+            }
+
+            cumulSaldo = beginSaldoXDA;
+            SnelHelpPrint("Preparing book list with xdaLinesData", BL_LOGGING);
+
+            int rowCount = xdaLinesDATAArray.GetLength(0);
+            for (int t = 0; t < rowCount - 1; t++)
+            {
+                xdaLineCounter++;
+
+                string lineCode = SafeLineValue(t, 2).Trim();
+                string amountToCheck;
+                double bedragTransactie;
+
+                if (string.IsNullOrWhiteSpace(SafeLineValue(t, 4)))
+                {
+                    bedragTransactie = DoubleFromString(SafeLineValue(t, 1));
+                    amountToCheck = SafeLineValue(t, 1);
+                }
+                else
+                {
+                    bedragTransactie = DoubleFromString(SafeLineValue(t, 4));
+                    amountToCheck = SafeLineValue(t, 4);
+                }
+
+                string aa = Dec(xdaLineCounter, "000") + "\t" + lineCode + "\t";
+                string lineReference;
+                string resultReturn;
+                string[] resultArray;
+                bool isCor;
+
+                switch (lineCode)
+                {
+                    case "0101000":
+                        bedragTransactie = -bedragTransactie;
+                        MessageBox.Show("Stop", string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        aa += "-\t??????\t" + FormatVal(amountToCheck) + "\t\t";
+                        break;
+
+                    case "0103000":
+                        bedragTransactie = -bedragTransactie;
+                        MessageBox.Show("Stop", string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        if (SafeLineValue(t, 9).Length == 12)
+                        {
+                            isCor = true;
+                            lineReference = SafeLineValue(t, 9);
+                        }
+                        else
+                        {
+                            isCor = false;
+                            if (SafeLineValue(t, 10).Length == 0)
+                            {
+                                MessageBox.Show("Empty Ustrd, Logic?", string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                lineReference = SafeLineValue(t, 5);
+                            }
+                            else
+                            {
+                                lineReference = SafeLineValue(t, 10);
+                            }
+                        }
+
+                        resultReturn = CtrlDocuments(true, isCor, false, lineReference, SafeLineValue(t, 7), amountToCheck);
+                        if (string.IsNullOrEmpty(resultReturn))
+                        {
+                            aa += "-\t??????\t" + FormatVal(amountToCheck) + "\t" + lineReference + "\t";
+                        }
+                        else
+                        {
+                            resultArray = resultReturn.Split('|');
+                            aa += "+" + (resultArray.Length > 0 ? resultArray[0] : string.Empty) + "\t"
+                                + String99(9) + "\t"
+                                + FormatVal(amountToCheck) + "\t"
+                                + (resultArray.Length > 1 ? resultArray[1] : string.Empty) + "\t";
+                        }
+                        break;
+
+                    case "0107000":
+                        bedragTransactie = -bedragTransactie;
+                        if (SafeLineValue(t, 9).Length == 12)
+                        {
+                            isCor = true;
+                            lineReference = SafeLineValue(t, 9);
+                        }
+                        else
+                        {
+                            isCor = false;
+                            if (SafeLineValue(t, 10).Length == 0)
+                            {
+                                MessageBox.Show("Empty Ustrd, Logic?", string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                lineReference = "-";
+                            }
+                            else
+                            {
+                                lineReference = SafeLineValue(t, 10);
+                            }
+                        }
+
+                        resultReturn = CtrlDocuments(true, isCor, false, lineReference, SafeLineValue(t, 7), amountToCheck);
+                        if (string.IsNullOrEmpty(resultReturn))
+                        {
+                            MessageBox.Show("Geen resultaat", string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                            aa += "-\t??????\t" + FormatVal(amountToCheck) + "\t" + SafeLineValue(5, 1) + "\t";
+                        }
+                        else
+                        {
+                            resultArray = resultReturn.Split('|');
+                            aa += "-" + (resultArray.Length > 0 ? resultArray[0] : string.Empty) + "\t"
+                                + String99(10) + "\t"
+                                + FormatVal(amountToCheck) + "\t"
+                                + (resultArray.Length > 1 ? resultArray[1] : string.Empty) + "\t";
+                        }
+                        break;
+
+                    case "0201000":
+                        bedragTransactie = -bedragTransactie;
+                        MessageBox.Show("Stop", string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        aa += "-\t??????\t" + FormatVal(amountToCheck) + "\t\t";
+                        break;
+
+                    case "0402000":
+                        bedragTransactie = -bedragTransactie;
+                        MessageBox.Show("Stop", string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        aa += "-\t??????\t" + FormatVal(amountToCheck) + "\t" + SafeLineValue(t, 10) + "\t";
+                        break;
+
+                    case "0404000":
+                        MessageBox.Show("Cash Afname", string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        bedragTransactie = -bedragTransactie;
+                        aa += "-\t??????\t" + FormatVal(amountToCheck) + "\t" + SafeLineValue(t, 10) + "\t";
+                        break;
+
+                    case "0501000":
+                        bedragTransactie = -bedragTransactie;
+                        MessageBox.Show("Stop", string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        aa += "-\t??????\t" + FormatVal(amountToCheck) + "\t" + SafeLineValue(t, 5) + "\t";
+                        break;
+
+                    case "0503000":
+                        bedragTransactie = -bedragTransactie;
+                        MessageBox.Show("Stop", string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        aa += "-\t??????\t" + FormatVal(amountToCheck) + "\t" + SafeLineValue(t, 6) + "\t";
+                        break;
+
+                    case "8022000":
+                        bedragTransactie = -bedragTransactie;
+                        MessageBox.Show("Stop", string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        aa += "-\t??????\t" + FormatVal(amountToCheck) + "\t" + SafeLineValue(t, 10) + "\t";
+                        break;
+
+                    case "0150000":
+                    case "0250000":
+                        MessageBox.Show("stop", string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        if (SafeLineValue(t, 9).Length == 12)
+                        {
+                            isCor = true;
+                            lineReference = SafeLineValue(t, 9);
+                        }
+                        else
+                        {
+                            isCor = false;
+                            if (SafeLineValue(t, 10).Length == 0)
+                            {
+                                MessageBox.Show("Empty Ustrd, Logic?", string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                lineReference = SafeLineValue(t, 6);
+                            }
+                            else
+                            {
+                                lineReference = SafeLineValue(t, 10);
+                            }
+                        }
+
+                        if (lineReference.Length > 25)
+                        {
+                            aa += "+\t??????\t" + FormatVal(amountToCheck) + "\t" + SafeLineValue(t, 6) + "\t";
+                        }
+                        else
+                        {
+                            resultReturn = CtrlDocuments(false, isCor, false, lineReference, SafeLineValue(t, 7), amountToCheck);
+                            if (string.IsNullOrEmpty(resultReturn))
+                            {
+                                MessageBox.Show("Geen resultaat", string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                                aa += "+\t??????\t" + FormatVal(amountToCheck) + "\t" + SafeLineValue(t, 6) + "\t";
+                            }
+                            else
+                            {
+                                resultArray = resultReturn.Split('|');
+                                aa += "+" + (resultArray.Length > 0 ? resultArray[0] : string.Empty) + "\t"
+                                    + String99(9) + "\t"
+                                    + FormatVal(amountToCheck) + "\t"
+                                    + (resultArray.Length > 1 ? resultArray[1] : string.Empty) + "\t";
+                            }
+                        }
+                        break;
+
+                    case "0254000":
+                        MessageBox.Show("Stop", string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        aa += "+\t??????\t" + FormatVal(amountToCheck) + "\t\t";
+                        break;
+
+                    case "0550000":
+                        MessageBox.Show("Stop VSOFT CDD", string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        if (SafeLineValue(t, 9).Length == 12)
+                        {
+                            isCor = true;
+                            lineReference = SafeLineValue(t, 9);
+                        }
+                        else
+                        {
+                            isCor = false;
+                            if (SafeLineValue(t, 10).Length == 0)
+                            {
+                                MessageBox.Show("Empty Ustrd, Logic?", string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                lineReference = "-";
+                            }
+                            else
+                            {
+                                lineReference = SafeLineValue(t, 10);
+                            }
+                        }
+
+                        if (lineReference.Length > 25)
+                        {
+                            aa += "+\t??????\t" + FormatVal(amountToCheck) + "\t" + SafeLineValue(t, 6) + "\t";
+                        }
+                        else
+                        {
+                            resultReturn = CtrlDocuments(false, isCor, true, lineReference, SafeLineValue(t, 7), amountToCheck);
+                            if (string.IsNullOrEmpty(resultReturn))
+                            {
+                                MessageBox.Show("Geen resultaat", string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                                aa += "+\t??????\t" + FormatVal(amountToCheck) + "\t" + SafeLineValue(t, 6) + "\t";
+                            }
+                            else
+                            {
+                                resultArray = resultReturn.Split('|');
+                                aa += "+" + (resultArray.Length > 0 ? resultArray[0] : string.Empty) + "\t"
+                                    + String99(9) + "\t"
+                                    + FormatVal(amountToCheck) + "\t"
+                                    + (resultArray.Length > 1 ? resultArray[1] : string.Empty) + "\t";
+                            }
+                        }
+                        break;
+
+                    default:
+                        MessageBox.Show("BBA buiten controle: " + lineCode, string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+                }
+
+                cumulSaldo += bedragTransactie;
+                aa += cumulSaldo.ToString(CultureInfo.InvariantCulture);
+                MfgAddItem(aa);
+            }
+
+            MessageBox.Show("TODO: give chance to edit for lines not 100% sure", string.Empty,
+                MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show("TODO: book or [Esc]!", string.Empty,
+                MessageBoxButtons.OK, MessageBoxIcon.Information);
+            ListIsReady();
+
+            // VB6 flow exits here before moving/deleting source file.
+            // Keep same behavior for now.
+            _ = selectedFileTitle;
         }
 
         private void ButtonAssign_Click(object sender, EventArgs e)

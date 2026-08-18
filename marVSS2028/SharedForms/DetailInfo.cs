@@ -48,7 +48,7 @@ namespace marVSS2028.SharedForms
 
         private void Balans_Click(object sender, EventArgs e)
         {
-            Balans.Text = "Bala&nscontrole";
+            // Balans.Text = "Bala&nscontrole";
             SharedFl = Partij.Checked ? TABLE_CUSTOMERS : TABLE_SUPPLIERS;
             GridText = string.Empty;
             aIndex = 1;
@@ -67,12 +67,12 @@ namespace marVSS2028.SharedForms
         {
             if (Bewerking.Checked)
             {
-                Bewerking.Text = "= Ontvangst";
+                Bewerking.Text = "= &Ontvangst";
                 Partij.Checked = true;
             }
             else
             {
-                Bewerking.Text = "= Uitgave";
+                Bewerking.Text = "= &Uitgave";
                 Partij.Checked = false;
             }
 
@@ -98,7 +98,7 @@ namespace marVSS2028.SharedForms
         {
             if (Dokument.Checked)
             {
-                Dokument.Text = "= dokument";
+                Dokument.Text = "= &Document";
                 Balans.Enabled = true;
                 TekstInfo1.Visible = true;
                 LabelInfo1.Visible = true;
@@ -108,7 +108,7 @@ namespace marVSS2028.SharedForms
             }
             else
             {
-                Dokument.Text = "= Geen DOK";
+                Dokument.Text = "= Geen &DOK";
                 Partij.Visible = false;
                 TekstInfo1.Visible = false;
                 LabelInfo1.Visible = false;
@@ -142,7 +142,8 @@ namespace marVSS2028.SharedForms
                 BGet(TABLE_INVOICES, 0, VSet(TekstInfo5.Text ?? string.Empty, 11));
                 if (Ktrl != 0)
                 {
-                    MessageBox.Show("dokumentnummer onbekend !!!");
+                    MessageBox.Show("Documentnummer onbekend !!!");
+                    Dokument.Focus();
                     return;
                 }
             }
@@ -171,19 +172,19 @@ namespace marVSS2028.SharedForms
         {
             if (Partij.Checked)
             {
-                Partij.Text = "= Klant";
+                Partij.Text = "= &Klant";
                 TekstInfo0.Text = _defaultKlanten;
             }
             else
             {
-                Partij.Text = "= Leverancier";
+                Partij.Text = "= &Leverancier";
                 TekstInfo0.Text = _defaultLeveranciers;
             }
         }
 
         private void TekstInfo_GotFocus(object sender, EventArgs e)
         {
-            Balans.Text = "Bala&nscontrole";
+            // Balans.Text = "Bala&nscontrole";
 
             var tb = sender as TextBox;
             if (tb != null)
@@ -194,7 +195,7 @@ namespace marVSS2028.SharedForms
                 SnelHelpPrint("[Ctrl] voor geïndexeerd zoeken", BL_LOGGING);
                 Bewerking.Enabled = false;
                 Dokument.Enabled = false;
-                Partij.Enabled = false;
+                Partij.Enabled = false;                
             }
             else if (ReferenceEquals(sender, TekstInfo5))
             {
@@ -528,6 +529,7 @@ namespace marVSS2028.SharedForms
             Bewerking.Enabled = false;
             Dokument.Enabled = false;
             Partij.Enabled = false;
+            Balans.Enabled = false;
             if (!OK.Enabled)
                 OK.Enabled = true;
             OK.Focus();

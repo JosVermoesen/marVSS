@@ -120,7 +120,7 @@
             this.Balans.Name = "Balans";
             this.Balans.Size = new System.Drawing.Size(121, 25);
             this.Balans.TabIndex = 0;
-            this.Balans.Text = "Bala&nscontrole";
+            this.Balans.Text = "&Balanscontrole";
             this.Balans.UseVisualStyleBackColor = true;
             this.Balans.Click += new System.EventHandler(this.Balans_Click);
             // 
@@ -130,7 +130,7 @@
             this.OK.Location = new System.Drawing.Point(360, 4);
             this.OK.Name = "OK";
             this.OK.Size = new System.Drawing.Size(76, 22);
-            this.OK.TabIndex = 13;
+            this.OK.TabIndex = 9;
             this.OK.Text = "&Ok";
             this.OK.UseVisualStyleBackColor = true;
             this.OK.Click += new System.EventHandler(this.Ok_Click);
@@ -144,7 +144,7 @@
             this.ButtonClose.Size = new System.Drawing.Size(76, 22);
             this.ButtonClose.TabIndex = 14;
             this.ButtonClose.TabStop = false;
-            this.ButtonClose.Text = "&Sluiten";
+            this.ButtonClose.Text = "Sluiten";
             this.ButtonClose.UseVisualStyleBackColor = true;
             this.ButtonClose.Click += new System.EventHandler(this.ButtonClose_Click);
             // 
@@ -154,7 +154,7 @@
             this.TekstInfo0.Location = new System.Drawing.Point(260, 18);
             this.TekstInfo0.Name = "TekstInfo0";
             this.TekstInfo0.Size = new System.Drawing.Size(93, 20);
-            this.TekstInfo0.TabIndex = 6;
+            this.TekstInfo0.TabIndex = 5;
             this.TekstInfo0.GotFocus += new System.EventHandler(this.TekstInfo_GotFocus);
             this.TekstInfo0.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TekstInfo_KeyDown);
             this.TekstInfo0.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TekstInfo_KeyPress);
@@ -166,7 +166,7 @@
             this.TekstInfo2.Location = new System.Drawing.Point(244, 58);
             this.TekstInfo2.Name = "TekstInfo2";
             this.TekstInfo2.Size = new System.Drawing.Size(109, 20);
-            this.TekstInfo2.TabIndex = 8;
+            this.TekstInfo2.TabIndex = 6;
             this.TekstInfo2.GotFocus += new System.EventHandler(this.TekstInfo_GotFocus);
             this.TekstInfo2.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TekstInfo_KeyDown);
             this.TekstInfo2.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TekstInfo_KeyPress);
@@ -178,7 +178,7 @@
             this.TekstInfo1.Location = new System.Drawing.Point(244, 78);
             this.TekstInfo1.Name = "TekstInfo1";
             this.TekstInfo1.Size = new System.Drawing.Size(109, 20);
-            this.TekstInfo1.TabIndex = 10;
+            this.TekstInfo1.TabIndex = 7;
             this.TekstInfo1.GotFocus += new System.EventHandler(this.TekstInfo_GotFocus);
             this.TekstInfo1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TekstInfo_KeyDown);
             this.TekstInfo1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TekstInfo_KeyPress);
@@ -190,7 +190,7 @@
             this.TekstInfo3.Location = new System.Drawing.Point(144, 100);
             this.TekstInfo3.Name = "TekstInfo3";
             this.TekstInfo3.Size = new System.Drawing.Size(209, 20);
-            this.TekstInfo3.TabIndex = 12;
+            this.TekstInfo3.TabIndex = 8;
             this.TekstInfo3.GotFocus += new System.EventHandler(this.TekstInfo_GotFocus);
             this.TekstInfo3.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TekstInfo_KeyDown);
             this.TekstInfo3.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TekstInfo_KeyPress);
@@ -217,8 +217,8 @@
             this.Bewerking.Location = new System.Drawing.Point(14, 40);
             this.Bewerking.Name = "Bewerking";
             this.Bewerking.Size = new System.Drawing.Size(84, 17);
-            this.Bewerking.TabIndex = 0;
-            this.Bewerking.Text = "= Ontvangst";
+            this.Bewerking.TabIndex = 1;
+            this.Bewerking.Text = "= &Ontvangst";
             this.Bewerking.UseVisualStyleBackColor = true;
             this.Bewerking.CheckedChanged += new System.EventHandler(this.Bewerking_CheckedChanged);
             // 
@@ -231,8 +231,8 @@
             this.Dokument.Location = new System.Drawing.Point(14, 56);
             this.Dokument.Name = "Dokument";
             this.Dokument.Size = new System.Drawing.Size(84, 17);
-            this.Dokument.TabIndex = 1;
-            this.Dokument.Text = "= Document";
+            this.Dokument.TabIndex = 2;
+            this.Dokument.Text = "= &Document";
             this.Dokument.UseVisualStyleBackColor = true;
             this.Dokument.CheckedChanged += new System.EventHandler(this.Dokument_CheckedChanged);
             this.Dokument.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Dokument_KeyPress);
@@ -246,8 +246,8 @@
             this.Partij.Location = new System.Drawing.Point(14, 72);
             this.Partij.Name = "Partij";
             this.Partij.Size = new System.Drawing.Size(59, 17);
-            this.Partij.TabIndex = 2;
-            this.Partij.Text = "= Klant";
+            this.Partij.TabIndex = 3;
+            this.Partij.Text = "= &Klant";
             this.Partij.UseVisualStyleBackColor = true;
             this.Partij.CheckedChanged += new System.EventHandler(this.Partij_CheckedChanged);
             // 
@@ -281,7 +281,7 @@
             this.LabelInfo5.Name = "LabelInfo5";
             this.LabelInfo5.Size = new System.Drawing.Size(82, 18);
             this.LabelInfo5.TabIndex = 3;
-            this.LabelInfo5.Text = "&Doc. nummer";
+            this.LabelInfo5.Text = "Doc. nummer";
             // 
             // LabelInfo0
             // 
@@ -310,7 +310,7 @@
             this.LabelInfo2.Name = "LabelInfo2";
             this.LabelInfo2.Size = new System.Drawing.Size(95, 17);
             this.LabelInfo2.TabIndex = 7;
-            this.LabelInfo2.Text = "&Betaling";
+            this.LabelInfo2.Text = "Betaling";
             // 
             // LabelInfo1
             // 
@@ -320,7 +320,7 @@
             this.LabelInfo1.Name = "LabelInfo1";
             this.LabelInfo1.Size = new System.Drawing.Size(95, 17);
             this.LabelInfo1.TabIndex = 9;
-            this.LabelInfo1.Text = "Financ. &Korting";
+            this.LabelInfo1.Text = "Financ. Korting";
             // 
             // LabelInfo3
             // 
@@ -334,6 +334,7 @@
             // 
             // DetailInfo
             // 
+            this.AcceptButton = this.Balans;
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
