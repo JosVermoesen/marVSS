@@ -19,6 +19,14 @@ marIntegraal stands for: complete bookkeeping around the Minimum Classification 
 - This latest version of our open source program is written in C# 7.3 using .NET Framework 4.8 with an MS Access database backend. With lot of help from GitHub Copilot Chat, we are converting the VB6 code to C# code step by step.
 - Have fun!
 
+## Peppol4MarIntegraal
+
+[Peppol Document Validator](https://peppol-tools.ademico-software.com/ui/document-validator)
+
+[Peppol Billing 3.0](https://docs.peppol.eu/poacc/billing/3.0/)
+
+[Vertex eInvoicing Belgium Overview](https://developer.vertexinc.com/einvoicing/docs/belgium-overview)
+
 ### [ClickOnce NET version testing possibilities][ClickOnceNet]
 
 [ClickOnce]: https://clickonce.vsoft.be/marVSS2027/publish.htm
