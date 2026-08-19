@@ -557,7 +557,7 @@
             this.MaximizeBox = false;
             this.Name = "FormBankingTransactions";
             this.Text = "Ctrl+F3 Financiële verrichtingen";
-            this.Load += new System.EventHandler(this.FormBankingTransactions_Load);
+            this.Load += new System.EventHandler(this.FormBanking_Load);
             this.SSTab1.ResumeLayout(false);
             this.TabManueel.ResumeLayout(false);
             this.TabManueel.PerformLayout();

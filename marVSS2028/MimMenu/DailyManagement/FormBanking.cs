@@ -83,10 +83,76 @@ namespace marVSS2028.MimMenu.DailyManagement
         {
             InitializeComponent();
             WireHighlightEvents(this);
-            Shown += FormBankingTransactions_Shown;
+            Shown += FormBanking_Shown;
         }
 
-        private void FormBankingTransactions_Shown(object sender, EventArgs e)
+        private void FormBanking_Load(object sender, EventArgs e)
+        {
+            xdaLineCounter = 0;
+            mfgLijst.Columns[2].Width = 81;
+            mfgLijst.Columns[5].Width = 292;
+
+            if (mfgLijst.Rows.Count == 0)
+                mfgLijst.Rows.Add();
+
+            if (string.IsNullOrEmpty(LaadTekst("dnnInstellingen", "CodaIOMap")))
+                BeWaarTekst("dnnInstellingen", "CodaIOMap", LOCATION_DESKTOP);
+
+            if (PartRight(LOCATION_COMPANYDATA, 5) == "\\098\\" || PartRight(LOCATION_COMPANYDATA, 5) == "\\099\\")
+                TextBoxWarningTestCompany.Visible = true;
+
+            LabelInfo2.Text = " Document    TegenR.       Bedrag Omschrijving                    Fin. Kort.";
+
+            DateTime dt;
+            if (DateTime.TryParseExact(MIM_GLOBAL_DATE, "yyyyMMdd", CultureInfo.InvariantCulture, DateTimeStyles.None, out dt))
+                Datum.Value = dt;
+            else
+                Datum.Value = DateTime.Today;
+
+            BeginBalans = (int)DoubleFromString(String99(64));
+            ToegestaneKorting = String99(28);
+            BekomenKorting = String99(27);
+            DefaultRekening = String99(101);
+
+            int[] recs = { 31, 32, 33, 34, 35, 38, 215, 216, 217, 218 };
+            int[] rek = { 41, 42, 43, 44, 45, 39, 211, 212, 213, 214 };
+            int selected = 0;
+
+            KeuzeInfo0.Items.Clear();
+            for (int t = 0; t < 10; t++)
+            {
+                RecNummer[t] = recs[t];
+                RekeningNummer[t] = String99(rek[t]);
+                Uittreksel[t] = (String99(recs[t]) ?? string.Empty).Trim();
+
+                if (!string.IsNullOrWhiteSpace(RekeningNummer[t]))
+                {
+                    BGet(TABLE_LEDGERACCOUNTS, 0, RekeningNummer[t]);
+                    string item;
+                    if (Ktrl != 0)
+                    {
+                        item = RekeningNummer[t] + "|Niet aanwezig. Installeer via Setup Boekjaar.";
+                    }
+                    else
+                    {
+                        RecordToVeld(TABLE_LEDGERACCOUNTS);
+                        item = VSet(RekeningNummer[t], 7) + "|" + (VBibText(TABLE_LEDGERACCOUNTS, "#v020 #") ?? string.Empty).TrimEnd();
+                    }
+
+                    KeuzeInfo0.Items.Add(item);
+                    if (DefaultRekening == RekeningNummer[t])
+                        selected = KeuzeInfo0.Items.Count - 1;
+                }
+            }
+
+            if (KeuzeInfo0.Items.Count > 0)
+                KeuzeInfo0.SelectedIndex = selected < KeuzeInfo0.Items.Count ? selected : 0;
+
+            // Set initial focus
+            ActiveControl = KeuzeInfo0;
+        }
+
+        private void FormBanking_Shown(object sender, EventArgs e)
         {
             // Ensure KeuzeInfo0 receives focus when the form is fully displayed
             KeuzeInfo0.Focus();
@@ -158,73 +224,7 @@ namespace marVSS2028.MimMenu.DailyManagement
             LabelCounter.Text = countMissing.ToString(CultureInfo.InvariantCulture);
             return false;
         }
-
-        private void FormBankingTransactions_Load(object sender, EventArgs e)
-        {
-            xdaLineCounter = 0;
-            mfgLijst.Columns[2].Width = 81;
-            mfgLijst.Columns[5].Width = 292;
-
-            if (mfgLijst.Rows.Count == 0)
-                mfgLijst.Rows.Add();
-
-            if (string.IsNullOrEmpty(LaadTekst("dnnInstellingen", "CodaIOMap")))
-                BeWaarTekst("dnnInstellingen", "CodaIOMap", LOCATION_DESKTOP);
-
-            if (PartRight(LOCATION_COMPANYDATA, 5) == "\\098\\" || PartRight(LOCATION_COMPANYDATA, 5) == "\\099\\")
-                TextBoxWarningTestCompany.Visible = true;
-
-            LabelInfo2.Text = " Document    TegenR.       Bedrag Omschrijving                    Fin. Kort.";
-
-            DateTime dt;
-            if (DateTime.TryParseExact(MIM_GLOBAL_DATE, "yyyyMMdd", CultureInfo.InvariantCulture, DateTimeStyles.None, out dt))
-                Datum.Value = dt;
-            else
-                Datum.Value = DateTime.Today;
-
-            BeginBalans = (int)DoubleFromString(String99(64));
-            ToegestaneKorting = String99(28);
-            BekomenKorting = String99(27);
-            DefaultRekening = String99(101);
-
-            int[] recs = { 31, 32, 33, 34, 35, 38, 215, 216, 217, 218 };
-            int[] rek = { 41, 42, 43, 44, 45, 39, 211, 212, 213, 214 };
-            int selected = 0;
-
-            KeuzeInfo0.Items.Clear();
-            for (int t = 0; t < 10; t++)
-            {
-                RecNummer[t] = recs[t];
-                RekeningNummer[t] = String99(rek[t]);
-                Uittreksel[t] = (String99(recs[t]) ?? string.Empty).Trim();
-
-                if (!string.IsNullOrWhiteSpace(RekeningNummer[t]))
-                {
-                    BGet(TABLE_LEDGERACCOUNTS, 0, RekeningNummer[t]);
-                    string item;
-                    if (Ktrl != 0)
-                    {
-                        item = RekeningNummer[t] + "|Niet aanwezig. Installeer via Setup Boekjaar.";
-                    }
-                    else
-                    {
-                        RecordToVeld(TABLE_LEDGERACCOUNTS);
-                        item = VSet(RekeningNummer[t],7) + "|" + (VBibText(TABLE_LEDGERACCOUNTS, "#v020 #") ?? string.Empty).TrimEnd();
-                    }
-
-                    KeuzeInfo0.Items.Add(item);
-                    if (DefaultRekening == RekeningNummer[t])
-                        selected = KeuzeInfo0.Items.Count - 1;
-                }
-            }
-
-            if (KeuzeInfo0.Items.Count > 0)
-                KeuzeInfo0.SelectedIndex = selected < KeuzeInfo0.Items.Count ? selected : 0;
-
-            // Set initial focus
-            ActiveControl = KeuzeInfo0;
-        }
-
+        
         private void KeuzeInfo0_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (KeuzeInfo0.SelectedIndex < 0) return;
@@ -347,7 +347,7 @@ namespace marVSS2028.MimMenu.DailyManagement
         
         private void Volgende_Click(object sender, EventArgs e)
         {
-            using (var detail = new DetailInfo())
+            using (var detail = new FormDetailInfo())
             {
                 GridText = string.Empty;
                 detail.ShowDialog(this);
@@ -808,7 +808,7 @@ namespace marVSS2028.MimMenu.DailyManagement
         {
             if (mfgLijst.CurrentRow == null) return;
 
-            using (var detail = new DetailInfo())
+            using (var detail = new FormDetailInfo())
             {
                 GridText = string.Empty;
                 detail.ShowDialog(this);

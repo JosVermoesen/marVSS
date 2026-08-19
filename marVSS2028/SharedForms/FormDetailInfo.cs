@@ -12,38 +12,31 @@ using static marVSS2028.Classes.TextTools;
 
 namespace marVSS2028.SharedForms
 {
-    public partial class DetailInfo : Form
+    public partial class FormDetailInfo : Form
     {
         private string _tegenrekening = string.Empty;
         private string _defaultKlanten = string.Empty;
         private string _defaultLeveranciers = string.Empty;
 
-        public DetailInfo()
+        public FormDetailInfo()
         {
             InitializeComponent();
             WireHighlightEvents(this);
             Load += DetailInfo_Load;
             Shown += DetailInfo_Shown;
         }
-
-        private static double Val(string value)
-        {
-            if (string.IsNullOrWhiteSpace(value)) return 0d;
-            double.TryParse(value.Replace(',', '.'), NumberStyles.Any, CultureInfo.InvariantCulture, out var result);
-            return result;
-        }
-
+        
         private void DetailInfo_Load(object sender, EventArgs e)
         {
             _defaultKlanten = (String99(9) ?? string.Empty).TrimEnd();
             _defaultLeveranciers = (String99(10) ?? string.Empty).TrimEnd();
             TekstInfo0.Text = _defaultKlanten;
-            Balans.Focus();
+            Bewerking.Focus();
         }
 
         private void DetailInfo_Shown(object sender, EventArgs e)
         {
-            Balans.Focus();
+            Bewerking.Focus();
         }
 
         private void Balans_Click(object sender, EventArgs e)
@@ -62,24 +55,7 @@ namespace marVSS2028.SharedForms
                 KTRLBalans(SharedFl);
             }
         }
-
-        private void Bewerking_CheckedChanged(object sender, EventArgs e)
-        {
-            if (Bewerking.Checked)
-            {
-                Bewerking.Text = "= &Ontvangst";
-                Partij.Checked = true;
-            }
-            else
-            {
-                Bewerking.Text = "= &Uitgave";
-                Partij.Checked = false;
-            }
-
-            Partij_CheckedChanged(sender, e);
-            Dokument.Focus();
-        }
-
+        
         private void CmdBank_Click(object sender, EventArgs e)
         {
             if (ReferenceEquals(sender, cmdBank0))
@@ -93,41 +69,7 @@ namespace marVSS2028.SharedForms
                     MessageBox.Show("test voor sepa webservice", string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
-
-        private void Dokument_CheckedChanged(object sender, EventArgs e)
-        {
-            if (Dokument.Checked)
-            {
-                Dokument.Text = "= &Document";
-                Balans.Enabled = true;
-                TekstInfo1.Visible = true;
-                LabelInfo1.Visible = true;
-                TekstInfo5.Visible = true;
-                Partij.Visible = true;
-                TekstInfo0.Text = Partij.Checked ? _defaultKlanten : _defaultLeveranciers;
-            }
-            else
-            {
-                Dokument.Text = "= Geen &DOK";
-                Partij.Visible = false;
-                TekstInfo1.Visible = false;
-                LabelInfo1.Visible = false;
-                TekstInfo5.Visible = false;
-                Balans.Enabled = false;
-                TekstInfo0.Text = string.Empty;
-                TekstInfo1.Text = string.Empty;
-            }
-        }
-
-        private void Dokument_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (e.KeyChar == (char)Keys.Return)
-            {
-                e.Handled = true;
-                SendKeys.Send("{TAB}");
-            }
-        }
-
+                
         private void Ok_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrWhiteSpace(TekstInfo0.Text))
@@ -166,21 +108,7 @@ namespace marVSS2028.SharedForms
 
             if (Application.OpenForms["FormBankingTransactions"] is Form inbreng)
                 inbreng.Focus();
-        }
-
-        private void Partij_CheckedChanged(object sender, EventArgs e)
-        {
-            if (Partij.Checked)
-            {
-                Partij.Text = "= &Klant";
-                TekstInfo0.Text = _defaultKlanten;
-            }
-            else
-            {
-                Partij.Text = "= &Leverancier";
-                TekstInfo0.Text = _defaultLeveranciers;
-            }
-        }
+        }        
 
         private void TekstInfo_GotFocus(object sender, EventArgs e)
         {
@@ -398,6 +326,77 @@ namespace marVSS2028.SharedForms
             OK.Enabled = true;
             OK.Focus();
         }
+        
+        private void ButtonClose_Click(object sender, EventArgs e)
+        {
+            GridText = string.Empty;
+            Hide();
+
+            // if (Application.OpenForms["FormBankingTransactions"] is Form inbreng)
+            //     inbreng.Focus();
+        }
+        
+        private void Bewerking_CheckedChanged(object sender, EventArgs e)
+        {
+            if (Bewerking.Checked)
+            {
+                Bewerking.Text = "= Ontvangst";
+                Partij.Checked = true;
+            }
+            else
+            {
+                Bewerking.Text = "= Uitgave";
+                Partij.Checked = false;
+            }
+
+            Partij_CheckedChanged(sender, e);
+        }
+
+        private void Dokument_CheckedChanged(object sender, EventArgs e)
+        {
+            if (Dokument.Checked)
+            {
+                Dokument.Text = "= Document";
+                Balans.Enabled = true;
+                TekstInfo1.Visible = true;
+                LabelInfo1.Visible = true;
+                TekstInfo5.Visible = true;
+                Partij.Visible = true;
+                TekstInfo0.Text = Partij.Checked ? _defaultKlanten : _defaultLeveranciers;
+            }
+            else
+            {
+                Dokument.Text = "= Geen Document";
+                Partij.Visible = false;
+                TekstInfo1.Visible = false;
+                LabelInfo1.Visible = false;
+                TekstInfo5.Visible = false;
+                Balans.Enabled = false;
+                TekstInfo0.Text = string.Empty;
+                TekstInfo1.Text = string.Empty;
+            }
+        }
+
+        private void Partij_CheckedChanged(object sender, EventArgs e)
+        {
+            if (Partij.Checked)
+            {
+                Partij.Text = "= &Klant";
+                TekstInfo0.Text = _defaultKlanten;
+            }
+            else
+            {
+                Partij.Text = "= &Leverancier";
+                TekstInfo0.Text = _defaultLeveranciers;
+            }
+        }
+
+        private static double Val(string value)
+        {
+            if (string.IsNullOrWhiteSpace(value)) return 0d;
+            double.TryParse(value.Replace(',', '.'), NumberStyles.Any, CultureInfo.InvariantCulture, out var result);
+            return result;
+        }
 
         private void KTRLBalans(int fl)
         {
@@ -611,15 +610,6 @@ namespace marVSS2028.SharedForms
                     dBetaald.ToString("#,##0.00", CultureInfo.InvariantCulture),
                     cumul.ToString("#,##0.00", CultureInfo.InvariantCulture));
             }
-        }
-
-        private void ButtonClose_Click(object sender, EventArgs e)
-        {
-            GridText = string.Empty;
-            Hide();
-
-            // if (Application.OpenForms["FormBankingTransactions"] is Form inbreng)
-            //     inbreng.Focus();
         }
     }    
 }
