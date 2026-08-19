@@ -394,8 +394,7 @@ namespace marVSS2028.MimMenu.DailyManagement
             }
 
             if (FinancieelDetail.Items.Count == 0)
-            {
-                System.Media.SystemSounds.Beep.Play();
+            {                
                 MessageBox.Show("Verrichtingen inbrengen a.u.b. !!!");
                 return;
             }
@@ -406,8 +405,161 @@ namespace marVSS2028.MimMenu.DailyManagement
 
         private void Struktuur_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Gestructureerde verrichting is beschikbaar als basisconversie. Gebruik manuele invoer of vul deze flow projectspecifiek aan.",
-                string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Information);
+            string referteTxt;
+            string dummyText = string.Empty;
+            double bedragTekst;
+            double bedragKtrl = 0d;
+            string defaultKlanten = VSet(String99(9), 7);
+
+            SnelHelpPrint(" ", BL_LOGGING);
+
+            string msg = "Breng mededeling in" + Environment.NewLine
+                + "met masker nnnnnnnnnnnn" + Environment.NewLine + Environment.NewLine
+                + "Waarbij n staat voor elk" + Environment.NewLine
+                + "van de 12 verplichte cijfers" + Environment.NewLine + Environment.NewLine;
+
+            referteTxt = Microsoft.VisualBasic.Interaction.InputBox(msg, "Gestruktureerde betaling");
+            if (string.IsNullOrWhiteSpace(referteTxt))
+                return;
+
+            string referteDigits = new string(referteTxt.Where(char.IsDigit).ToArray());
+            if (referteDigits.Length != 12)
+            {
+                MessageBox.Show("Ongeldige invoer", "Gebruikersfout", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return;
+            }
+
+            double controleBron = DoubleFromString(PartLeft(referteDigits, 10));
+            string sPip = ((int)(controleBron - Math.Floor(controleBron / 97d) * 97d)).ToString("00", CultureInfo.InvariantCulture);
+            if (sPip == "00") sPip = "97";
+
+            string referteControle = PartRight(referteDigits, 2);
+            if (!string.Equals(sPip, referteControle, StringComparison.Ordinal))
+            {
+                MessageBox.Show(
+                    "Ongeldige invoer" + Environment.NewLine + Environment.NewLine
+                    + sPip + " <> " + referteControle + Environment.NewLine + Environment.NewLine
+                    + "Een gestructureerde referte heeft een kontrolesysteem.  Uw invoer is ongeldig!",
+                    "Gebruikersfout",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Exclamation);
+                return;
+            }
+
+            if (PartMid(referteDigits, 8, 1) != "0")
+            {
+                MessageBox.Show("Geen R&V Gestruktureerde mededeling.", string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return;
+            }
+
+            BGet(TABLE_CUSTOMERS, 0, PartMid(referteDigits, 4, 4) + PartMid(referteDigits, 9, 2));
+            if (Ktrl != 0)
+                return;
+
+            RecordToVeld(TABLE_CUSTOMERS);
+
+            msg = "Breng bedrag in voor" + Environment.NewLine
+                + "totaal van " + PartLeft(referteDigits, 1) + " kwijtingen" + Environment.NewLine + Environment.NewLine
+                + "klant :" + Environment.NewLine + Environment.NewLine
+                + (VBibText(TABLE_CUSTOMERS, "#A100 #") + " " + VBibText(TABLE_CUSTOMERS, "#A101 #")).TrimEnd()
+                + " "
+                + (VBibText(TABLE_CUSTOMERS, "#A125 #") + " " + VBibText(TABLE_CUSTOMERS, "#A127 #")).TrimEnd()
+                + Environment.NewLine
+                + "Rekeningen:"
+                + VBibText(TABLE_CUSTOMERS, "#A170 #") + " " + VBibText(TABLE_CUSTOMERS, "#v251 #");
+
+            string bedragInput = Microsoft.VisualBasic.Interaction.InputBox(msg, "Totaal betaling");
+            bedragTekst = DoubleFromString(bedragInput);
+            if (bedragTekst == 0d)
+                return;
+
+            BGetOrGreater(TABLE_INVOICES, 1, "K" + VBibText(TABLE_CUSTOMERS, "#A110 #"));
+            if (Ktrl != 0)
+                return;
+
+            RecordToVeld(TABLE_INVOICES);
+
+            string invoicePrefix = VSet("K" + VBibText(TABLE_CUSTOMERS, "#A110 #"), 13);
+            if (!string.Equals(VSet(KEY_BUF[TABLE_INVOICES], 13), invoicePrefix, StringComparison.Ordinal))
+                return;
+
+            void LijnErBij()
+            {
+                if (Math.Abs(bedragKtrl - bedragTekst) < 0.0001)
+                    return;
+
+                double betaald = DoubleFromString(VBibText(TABLE_INVOICES, "#v037 #"));
+                double totaal = DoubleFromString(VBibText(TABLE_INVOICES, "#v249 #"));
+                if (Math.Abs(betaald - totaal) < 0.0001)
+                    return;
+
+                if (PartLeft(VBibText(TABLE_INVOICES, "#v033 #"), 1) != "Q")
+                    return;
+
+                if (Math.Abs(bedragTekst - totaal) >= 0.0001)
+                    return;
+
+                double openstaand = totaal - betaald;
+                dummyText += VBibText(TABLE_INVOICES, "#v033 #") + "|";
+                dummyText += Dec(openstaand, MASK_EURBH) + Environment.NewLine;
+                bedragKtrl += openstaand;
+            }
+
+            LijnErBij();
+
+            while (true)
+            {
+                BNext(TABLE_INVOICES);
+                if (Ktrl != 0 || !string.Equals(VSet(KEY_BUF[TABLE_INVOICES], 13), invoicePrefix, StringComparison.Ordinal))
+                    break;
+
+                RecordToVeld(TABLE_INVOICES);
+                LijnErBij();
+            }
+
+            if (Math.Abs(bedragKtrl - bedragTekst) >= 0.0001)
+            {
+                MessageBox.Show("Opzoeking zonder succes, dokumentenstand : " + Environment.NewLine + Environment.NewLine + dummyText);
+                return;
+            }
+
+            while (!string.IsNullOrEmpty(dummyText))
+            {
+                if (dummyText.Length < 26)
+                    break;
+
+                string lijn = PartLeft(dummyText, 26);
+                string bedragLijn = PartMid(lijn, 13, 12);
+
+                if (bedragLijn != new string(' ', 12))
+                {
+                    GridText = "+" + PartLeft(lijn, 11)
+                        + "|" + defaultKlanten
+                        + "|" + bedragLijn
+                        + "|" + VSet(VBibText(TABLE_CUSTOMERS, "#A100 #"), 29)
+                        + "|" + new string(' ', 12);
+
+                    FinancieelDetail.Items.Add(GridText);
+
+                    if (bhEuro)
+                    {
+                        double nieuwSaldo = DoubleFromString(lblInfo1.Text) + DoubleFromString(PartMid(GridText, 22, 12));
+                        lblInfo1.Text = nieuwSaldo.ToString("#,##0.00", CultureInfo.InvariantCulture);
+                        LabelInfo13.Text = Math.Round(DoubleFromString(lblInfo1.Text) * EURO).ToString("#,##0.00", CultureInfo.InvariantCulture);
+                    }
+                    else
+                    {
+                        double nieuwSaldo = DoubleFromString(LabelInfo13.Text) + DoubleFromString(PartMid(GridText, 22, 12));
+                        LabelInfo13.Text = nieuwSaldo.ToString("#,##0.00", CultureInfo.InvariantCulture);
+                        lblInfo1.Text = (DoubleFromString(LabelInfo13.Text) / EURO).ToString("#,##0.00", CultureInfo.InvariantCulture);
+                    }
+                }
+
+                dummyText = PartRight(dummyText, dummyText.Length - 26);
+            }
+
+            ApplySaldoColors();
+            SnelHelpPrint(GridText + " met succes bijgevoegd !", BL_LOGGING);
         }
 
         private void ButtonReadCamt053_Click(object sender, EventArgs e)
@@ -833,6 +985,194 @@ namespace marVSS2028.MimMenu.DailyManagement
             MessageBox.Show("TODO: Overnemen", string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
+        private bool WegBoekFout(FormBoeking boekingForm)
+        {
+            Cursor.Current = Cursors.WaitCursor;
+
+            try
+            {
+                DKTRL_CUMUL = 0;
+                DKTRL_BEF = 0;
+                DKTRL_EUR = 0;
+                JournaalLocked = false;
+
+                boekingForm.Hide();
+
+                TLB_RECORD[TABLE_JOURNAL] = string.Empty;
+
+                string rekening = PartLeft(KeuzeInfo0.Text ?? string.Empty, 7);
+                string datumSleutel = Datum.Value.ToString("yyyyMMdd", CultureInfo.InvariantCulture);
+
+                VBib(TABLE_JOURNAL, rekening, "v019");
+                VBib(TABLE_JOURNAL, datumSleutel, "v066");
+                VBib(TABLE_JOURNAL, datumSleutel, "v035");
+
+                BGet(TABLE_LEDGERACCOUNTS, 0, rekening);
+                if (Ktrl != 0)
+                    return true;
+
+                RecordToVeld(TABLE_LEDGERACCOUNTS);
+                string rekeningNaam = (VBibText(TABLE_LEDGERACCOUNTS, "#v020 #") ?? string.Empty).ToUpperInvariant();
+                dokumentSleutel = PartLeft(rekeningNaam, 2)
+                    + Datum.Value.ToString("yy", CultureInfo.InvariantCulture)
+                    + ((int)DoubleFromString(LabelInfo11.Text)).ToString("0000", CultureInfo.InvariantCulture);
+
+                VBib(TABLE_JOURNAL, dokumentSleutel, "v038");
+
+                if (bhEuro)
+                {
+                    double beginSaldo = DoubleFromString(lblInfo0.Text);
+                    double eindSaldo = DoubleFromString(lblInfo1.Text);
+                    double verschilSaldo = eindSaldo - beginSaldo;
+
+                    VBib(TABLE_JOURNAL,
+                        "Sld:" + Dec(beginSaldo, MASK_EURBH) + "/" + Dec(eindSaldo, MASK_EURBH),
+                        "v067");
+                    VBib(TABLE_JOURNAL, Dec(verschilSaldo, MASK_SY[2]), "v068");
+                }
+                else
+                {
+                    double beginSaldo = DoubleFromString(LabelInfo12.Text);
+                    double eindSaldo = DoubleFromString(LabelInfo13.Text);
+
+                    VBib(TABLE_JOURNAL,
+                        "Sld : " + Dec(beginSaldo, MASK_SY[0]) + " - " + Dec(eindSaldo, MASK_SY[0]),
+                        "v067");
+                    VBib(TABLE_JOURNAL, Dec(eindSaldo - beginSaldo, MASK_SY[0]), "v068");
+                }
+
+                BInsert(TABLE_JOURNAL, 2, boekingForm);
+                if (Ktrl != 0)
+                    return true;
+
+                VBib(TABLE_JOURNAL, rekening, "v069");
+
+                for (int t = 0; t < FinancieelDetail.Items.Count; t++)
+                {
+                    string detailLijn = Convert.ToString(FinancieelDetail.Items[t]) ?? string.Empty;
+                    bool ontvangst = PartLeft(detailLijn, 1) == "+";
+
+                    string docSleutel = PartMid(detailLijn, 2, 11);
+                    if (docSleutel == new string(' ', 11))
+                    {
+                        VBib(TABLE_JOURNAL, " ", "v033");
+                        VBib(TABLE_JOURNAL, " ", "v034");
+                    }
+                    else
+                    {
+                        BGet(TABLE_INVOICES, 0, docSleutel);
+                        if (Ktrl != 0)
+                            return true;
+
+                        RecordToVeld(TABLE_INVOICES);
+                        VBib(TABLE_JOURNAL, VBibText(TABLE_INVOICES, "#v033 #"), "v033");
+                        VBib(TABLE_JOURNAL, VBibText(TABLE_INVOICES, "#v034 #"), "v034");
+                    }
+
+                    double totaalBedrag = DoubleFromString(PartMid(detailLijn, 22, 12));
+                    VBib(TABLE_JOURNAL, PartMid(detailLijn, 35, 29).Trim(), "v067");
+
+                    double finKort = DoubleFromString(PartMid(detailLijn, 65, 12));
+                    if (finKort != 0)
+                    {
+                        totaalBedrag += finKort;
+                        if (ontvangst)
+                        {
+                            VBib(TABLE_JOURNAL, finKort.ToString(CultureInfo.InvariantCulture), "v068");
+                            VBib(TABLE_JOURNAL, ToegestaneKorting, "v019");
+                        }
+                        else
+                        {
+                            VBib(TABLE_JOURNAL, (-finKort).ToString(CultureInfo.InvariantCulture), "v068");
+                            VBib(TABLE_JOURNAL, BekomenKorting, "v019");
+                        }
+
+                        BInsert(TABLE_JOURNAL, 2, boekingForm);
+                        if (Ktrl != 0)
+                            return true;
+                    }
+
+                    VBib(TABLE_JOURNAL, PartMid(detailLijn, 14, 7), "v019");
+                    VBib(TABLE_JOURNAL,
+                        ontvangst
+                            ? (-totaalBedrag).ToString(CultureInfo.InvariantCulture)
+                            : totaalBedrag.ToString(CultureInfo.InvariantCulture),
+                        "v068");
+
+                    BInsert(TABLE_JOURNAL, 2, boekingForm);
+                    if (Ktrl != 0)
+                        return true;
+
+                    if (!string.IsNullOrWhiteSpace(VBibText(TABLE_JOURNAL, "#v033 #")))
+                    {
+                        double reedsBetaald = DoubleFromString(VBibText(TABLE_INVOICES, "#v037 #"));
+                        double updateBedrag = XisEuroWisBEF ? Math.Round(totaalBedrag / EURO, 2) : totaalBedrag;
+
+                        VBib(TABLE_INVOICES, (reedsBetaald + updateBedrag).ToString(CultureInfo.InvariantCulture), "v037");
+                        VBib(TABLE_INVOICES, VBibText(TABLE_JOURNAL, "#v038 #"), "v038");
+                        BUpdate(TABLE_INVOICES, 0);
+                        if (Ktrl != 0)
+                            return true;
+                    }
+                }
+
+                DKTRL_CUMUL = DoubleFromString(Dec(DKTRL_CUMUL, MASK_EURBH));
+                DKTRL_EUR = DoubleFromString(Dec(DKTRL_EUR, MASK_EURBH));
+                DKTRL_BEF = DoubleFromString(Dec(DKTRL_BEF, MASK_BEF));
+
+                if (DKTRL_CUMUL != 0)
+                {
+                    SetControlEnabledIfPresent(boekingForm, "cmdBoeken", false);
+                    MessageBox.Show(
+                        "LogikaFout bij vierkantskontrole journaal." + Environment.NewLine + Environment.NewLine
+                        + "Deze verrichting wordt geannuleerd.  Controleer zelf eerst en/of raadpleeg ons.",
+                        string.Empty,
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Information);
+                    boekingForm.ShowDialog(this);
+                    return true;
+                }
+
+                if (JournaalLocked)
+                {
+                    SetControlEnabledIfPresent(boekingForm, "cmdBoeken", false);
+                    boekingForm.ShowDialog(this);
+                    return true;
+                }
+
+                switch (Mim != null ? Mim.GetWegBoekModus() : "0")
+                {
+                    case "0":
+                        break;
+                    case "1":
+                        if (DKTRL_BEF != 0 || DKTRL_EUR != 0)
+                            boekingForm.ShowDialog(this);
+                        break;
+                    case "2":
+                        boekingForm.ShowDialog(this);
+                        break;
+                    default:
+                        MessageBox.Show("situatie...", string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        break;
+                }
+
+                return DKTRL_CUMUL != 0;
+            }
+            finally
+            {
+                Cursor.Current = Cursors.Default;
+            }
+        }
+
+        private static void SetControlEnabledIfPresent(Form form, string controlName, bool enabled)
+        {
+            Control[] matches = form.Controls.Find(controlName, true);
+            if (matches.Length > 0)
+            {
+                matches[0].Enabled = enabled;
+            }
+        }
+
         private void mfgLijst_SelectionChanged(object sender, EventArgs e)
         {
             if (mfgLijst.CurrentRow == null)
@@ -1047,115 +1387,7 @@ namespace marVSS2028.MimMenu.DailyManagement
                 }
             }
         }
-
-        private bool fnBeginOpname(string deString)
-        {
-            sDatumAanmaak = PartMid(deString, 6, 6);
-            sToepassingsCode = PartMid(deString, 15, 2);
-            sNaamBestemmeling = PartMid(deString, 35, 26);
-            return sToepassingsCode == "05";
-        }
-
-        private bool fnOudSaldo(string deString)
-        {
-            sRekeningNummer = PartMid(deString, 6, 16);
-            sUittreksel = PartMid(deString, 3, 3);
-            cOudSaldo = (decimal)(DoubleFromString(PartMid(deString, 44, 15)) / 1000d);
-            sDatumOudSaldo = PartMid(deString, 59, 6);
-            sNaamRekeninghouder = PartMid(deString, 65, 26);
-            sOmschrijvingRekening = PartMid(deString, 91, 35);
-            iOptelControle++;
-            return true;
-        }
-
-        private bool fnNieuwSaldo(string deString)
-        {
-            sRekeningNummer2 = PartMid(deString, 5, 12);
-            sUittreksel2 = PartMid(deString, 2, 3);
-            cNieuwSaldo = (decimal)(DoubleFromString(PartMid(deString, 43, 15)) / 1000d);
-            sDatumNieuwSaldo = PartMid(deString, 58, 6);
-            iOptelControle++;
-            return true;
-        }
-
-        private bool fnEindOpname(string deString)
-        {
-            iOptelCtrlCheckUp = (int)DoubleFromString(PartMid(deString, 17, 6));
-            if (iOptelCtrlCheckUp != iOptelControle)
-                SnelHelpPrint("Onlogische situatie", false);
-
-            cDebetSaldo = (decimal)(DoubleFromString(PartMid(deString, 23, 15)) / 1000d);
-            cCreditSaldo = (decimal)(DoubleFromString(PartMid(deString, 38, 15)) / 1000d);
-            return PartMid(deString, 128, 1) != "1";
-        }
-
-        private bool fnBeweging(string deString)
-        {
-            iOptelControle++;
-            var deel = PartMid(deString, 2, 1);
-
-            if (deel == "1")
-            {
-                sRefFinInstelling = PartMid(deString, 11, 21);
-                sDC = PartMid(deString, 32, 1);
-                cBedrag = (decimal)(DoubleFromString(PartMid(deString, 33, 15)) / 1000d);
-                sValutadatum = PartMid(deString, 48, 6);
-                sVerrichting = PartMid(deString, 54, 8);
-                sMededeling = PartMid(deString, 62, 1);
-                sMDDZone1 = PartMid(deString, 63, 3);
-                sMDDZone2 = PartMid(deString, 66, 50);
-                sBoekDatum = PartMid(deString, 116, 6);
-                sDagAfschriftVolgNummer = PartMid(deString, 122, 3);
-            }
-            else if (deel == "2")
-            {
-                sMededeling2 = PartMid(deString, 11, 53);
-                sRefKlant[0] = PartMid(deString, 64, 13);
-                sRefKlant[1] = PartMid(deString, 77, 13);
-                sMuntVerrichting = PartMid(deString, 90, 3);
-                cBedragMunt = (decimal)(DoubleFromString(PartMid(deString, 93, 15)) / 1000d);
-            }
-            else if (deel == "3")
-            {
-                sRekeningTP = PartMid(deString, 11, 37);
-                sITcodesTP = PartMid(deString, 23, 10);
-                sRekeningTPextra = PartMid(deString, 33, 15);
-                sNaamEnAdres[0] = PartMid(deString, 48, 35);
-            }
-            else
-            {
-                MessageBox.Show("Onlogische situatie", string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-
-            return PartMid(deString, 126, 1) != "0";
-        }
-
-        private void BewegingSchoon()
-        {
-            sRefFinInstelling = string.Empty;
-            sRefFinInstelling2 = string.Empty;
-            sDC = string.Empty;
-            cBedrag = 0;
-            sVerrichting = string.Empty;
-            sMededeling = string.Empty;
-            sMDDZone1 = string.Empty;
-            sMDDZone2 = string.Empty;
-            sBoekDatum = string.Empty;
-            sDagAfschriftVolgNummer = string.Empty;
-            sValutadatum = string.Empty;
-            sMededeling2 = string.Empty;
-            sRefKlant[0] = string.Empty;
-            sRefKlant[1] = string.Empty;
-            sMuntVerrichting = string.Empty;
-            cBedragMunt = 0;
-            sRekeningTP = string.Empty;
-            sITcodesTP = string.Empty;
-            sRekeningTPextra = string.Empty;
-            sNaamEnAdres[0] = string.Empty;
-            sNaamEnAdres[1] = string.Empty;
-            sNaamEnAdres[2] = string.Empty;
-        }
-
+                
         private void xdaParseToArray(string inputText)
         {
             var lines = (inputText ?? string.Empty).Split(new[] { "\r\n" }, StringSplitOptions.None);
