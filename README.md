@@ -1,4 +1,4 @@
-# marIntegraal-{LocalFirst} 2028 Preview
+# marIntegraal-{LocalFirst} 2028 (Evaluation version)
 
 ## [ClickOnce][ClickOnce]
 
