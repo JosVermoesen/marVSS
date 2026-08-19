@@ -386,6 +386,7 @@ namespace marVSS2028.MimMenu.DailyManagement
 
         private void Afsluiten_Click(object sender, EventArgs e)
         {
+            // Validate date against period
             if (!DateCheck(Datum.Value.ToString("dd/MM/yyyy", CultureInfo.InvariantCulture), PERIODAS_TEXT))
             {
                 System.Media.SystemSounds.Beep.Play();
@@ -393,14 +394,144 @@ namespace marVSS2028.MimMenu.DailyManagement
                 return;
             }
 
+            // Check if there are transactions
             if (FinancieelDetail.Items.Count == 0)
-            {                
-                MessageBox.Show("Verrichtingen inbrengen a.u.b. !!!");
+            {
+                System.Media.SystemSounds.Beep.Play();
+                MessageBox.Show("Verrichtingen inbrengen a.u.b. !!!", string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
-            MessageBox.Show("Boeken-stroom is geconverteerd tot basisgedrag; verdere journaalboeking blijft projectspecifiek.",
-                "Uittreksel afsluiten", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            // Get ledger account information
+            BGet(TABLE_LEDGERACCOUNTS, 0, PartLeft(KeuzeInfo0.Text, 7));
+            if (Ktrl != 0)
+            {
+                MessageBox.Show("onlogische situatie", string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            RecordToVeld(TABLE_LEDGERACCOUNTS);
+
+            // Check for existing statements with higher dates
+            string accountPrefix = PartLeft(VBibText(TABLE_LEDGERACCOUNTS, "#v020 #"), 2).ToUpperInvariant();
+            string yearSuffix = PartRight(Datum.Value.ToString("dd/MM/yyyy", CultureInfo.InvariantCulture), 2);
+            int statementNumber = (int)DoubleFromString(LabelInfo11.Text) - 1;
+            string previousStatementKey = accountPrefix + yearSuffix + statementNumber.ToString("0000", CultureInfo.InvariantCulture);
+
+            BGet(TABLE_JOURNAL, 2, previousStatementKey);
+            if (Ktrl != 0)
+            {
+                MessageBox.Show("Dit zou het eerste uittreksel binnen het WERKELIJK jaar moeten zijn...  Kontroleer eventueel",
+                    string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else
+            {
+                RecordToVeld(TABLE_JOURNAL);
+                string lastStatementDate = VBibText(TABLE_JOURNAL, "#v066 #");
+                string currentDate = Datum.Value.ToString("yyyyMMdd", CultureInfo.InvariantCulture);
+
+                if (string.Compare(lastStatementDate, currentDate, StringComparison.Ordinal) > 0)
+                {
+                    Msg = "Er zijn reeds uittreksels met een hogere datum !" + Environment.NewLine + Environment.NewLine;
+                    Msg += "Laatste uittreksel nr. " + previousStatementKey + " dateert van : " + DateText(lastStatementDate) + Environment.NewLine + Environment.NewLine;
+                    Msg += "Vervolg.  Bent U zeker ?";
+
+                    DialogResult result = MessageBox.Show(Msg, "Uittreksel afsluiten", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
+                    if (result == DialogResult.No)
+                        return;
+                }
+            }
+
+            // Final confirmation message
+            string currentStatementKey = accountPrefix + yearSuffix + ((int)DoubleFromString(LabelInfo11.Text)).ToString("0000", CultureInfo.InvariantCulture);
+
+            if (bhEuro)
+            {
+                Msg = "Datum uittreksel " + Datum.Value.ToString("dd/MM/yyyy", CultureInfo.InvariantCulture) +
+                      " en bekomen eindsaldo EUR " + lblInfo1.Text + Environment.NewLine + Environment.NewLine +
+                      "Hierna wordt de boekhouding bijgewerkt.  Bent U zeker ?";
+            }
+            else
+            {
+                Msg = "Datum uittreksel " + Datum.Value.ToString("dd/MM/yyyy", CultureInfo.InvariantCulture) +
+                      " en bekomen eindsaldo BEF " + LabelInfo13.Text + Environment.NewLine + Environment.NewLine +
+                      "Hierna wordt de boekhouding bijgewerkt.  Bent U zeker ?";
+            }
+
+            DialogResult confirmResult = MessageBox.Show(Msg, "Uittreksel : " + currentStatementKey,
+                MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
+
+            if (confirmResult == DialogResult.Yes)
+            {
+                BBegin();
+
+                using (var boekingForm = new SharedForms.FormBoeking())
+                {
+                    if (WegBoekFout(boekingForm))
+                    {
+                        BAbort();
+                        return;
+                    }
+
+                    BEnd();
+
+                    // Update counter for statement number
+                    string dummySleutel = "s" + RecNummer[KeuzeInfo0.SelectedIndex].ToString("000", CultureInfo.InvariantCulture);
+                    BGet(TABLE_COUNTERS, 0, dummySleutel);
+
+                    if (Ktrl != 0)
+                    {
+                        MessageBox.Show("TellerStop " + dummySleutel + ".  kontakteer R&Vsoft", string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                    else
+                    {
+                        RecordToVeld(TABLE_COUNTERS);
+                        FL99_RECORD = ((int)DoubleFromString(LabelInfo11.Text)).ToString(CultureInfo.InvariantCulture);
+
+                        if (BAModus == 1)
+                            VBib(TABLE_COUNTERS, FL99_RECORD, "v217 ");
+                        else
+                            VBib(TABLE_COUNTERS, FL99_RECORD, dummySleutel);
+
+                        BUpdate(TABLE_COUNTERS, 0);
+
+                        if (Ktrl != 0)
+                        {
+                            MessageBox.Show("Update TellerStop " + dummySleutel + ".  contacteer Vsoft 1985", string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                    }
+
+                    // Update default account counter
+                    dummySleutel = "s101";
+                    BGet(TABLE_COUNTERS, 0, dummySleutel);
+
+                    if (Ktrl != 0)
+                    {
+                        MessageBox.Show("TellerStop.  Versiekonflikt !  Kontakteer R&Vsoft", string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                    else
+                    {
+                        RecordToVeld(TABLE_COUNTERS);
+                        FL99_RECORD = PartLeft(KeuzeInfo0.Text, 7);
+
+                        if (BAModus == 1)
+                            VBib(TABLE_COUNTERS, FL99_RECORD, "v217 ");
+                        else
+                            VBib(TABLE_COUNTERS, FL99_RECORD, dummySleutel);
+
+                        BUpdate(TABLE_COUNTERS, 0);
+
+                        if (Ktrl != 0)
+                        {
+                            MessageBox.Show("UpdateStop Teller. kontakteer R&Vsoft", string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                    }
+
+                    BClose(TABLE_COUNTERS);
+                    GridText = string.Empty;
+                    Close();
+                }
+            }
         }
 
         private void Struktuur_Click(object sender, EventArgs e)
