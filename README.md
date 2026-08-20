@@ -21,9 +21,9 @@ marIntegraal stands for: complete bookkeeping around the Minimum Classification 
 
 ## Peppol4MarIntegraal
 
-[Peppol Document Validator](https://peppol-tools.ademico-software.com/ui/document-validator)
-
 [Peppol Billing 3.0](https://docs.peppol.eu/poacc/billing/3.0/)
+
+[Peppol Document Validator](https://peppol-tools.ademico-software.com/ui/document-validator)
 
 [Vertex eInvoicing Belgium Overview](https://developer.vertexinc.com/einvoicing/docs/belgium-overview)
 
