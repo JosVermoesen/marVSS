@@ -24,6 +24,9 @@
             this.Groepen = new System.Windows.Forms.ToolStripMenuItem();
             this.v = new System.Windows.Forms.TabControl();
             this.tabDefault = new System.Windows.Forms.TabPage();
+            this.label9 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.chkFilter0 = new System.Windows.Forms.CheckBox();
             this.chkFilter1 = new System.Windows.Forms.CheckBox();
@@ -71,9 +74,6 @@
             this.tabFtp = new System.Windows.Forms.TabPage();
             this.tabJournaal = new System.Windows.Forms.TabPage();
             this.msfJournaal = new System.Windows.Forms.DataGridView();
-            this.label7 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
             this.MainMenu.SuspendLayout();
             this.v.SuspendLayout();
             this.tabDefault.SuspendLayout();
@@ -90,7 +90,7 @@
             this.Opties});
             this.MainMenu.Location = new System.Drawing.Point(0, 0);
             this.MainMenu.Name = "MainMenu";
-            this.MainMenu.Size = new System.Drawing.Size(843, 24);
+            this.MainMenu.Size = new System.Drawing.Size(838, 24);
             this.MainMenu.TabIndex = 0;
             // 
             // Opties
@@ -134,7 +134,7 @@
             this.v.Location = new System.Drawing.Point(0, 24);
             this.v.Name = "v";
             this.v.SelectedIndex = 0;
-            this.v.Size = new System.Drawing.Size(843, 559);
+            this.v.Size = new System.Drawing.Size(838, 500);
             this.v.TabIndex = 1;
             this.v.SelectedIndexChanged += new System.EventHandler(this.v_SelectedIndexChanged);
             // 
@@ -180,10 +180,37 @@
             this.tabDefault.Location = new System.Drawing.Point(4, 22);
             this.tabDefault.Name = "tabDefault";
             this.tabDefault.Padding = new System.Windows.Forms.Padding(3);
-            this.tabDefault.Size = new System.Drawing.Size(835, 533);
+            this.tabDefault.Size = new System.Drawing.Size(830, 474);
             this.tabDefault.TabIndex = 0;
             this.tabDefault.Text = "Default";
             this.tabDefault.UseVisualStyleBackColor = true;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(378, 359);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(27, 13);
+            this.label9.TabIndex = 55;
+            this.label9.Text = "Link";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(378, 314);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(133, 13);
+            this.label8.TabIndex = 54;
+            this.label8.Text = "&Y. Recupel/Bebat/Auvibel";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(579, 386);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(31, 13);
+            this.label7.TabIndex = 53;
+            this.label7.Text = "Merk";
             // 
             // groupBox1
             // 
@@ -290,7 +317,7 @@
             // 
             this.cmdRBAcontrole.Location = new System.Drawing.Point(748, 329);
             this.cmdRBAcontrole.Name = "cmdRBAcontrole";
-            this.cmdRBAcontrole.Size = new System.Drawing.Size(72, 20);
+            this.cmdRBAcontrole.Size = new System.Drawing.Size(57, 20);
             this.cmdRBAcontrole.TabIndex = 30;
             this.cmdRBAcontrole.Text = "&Controle";
             this.cmdRBAcontrole.UseVisualStyleBackColor = true;
@@ -305,9 +332,9 @@
             // 
             // cmdTonen
             // 
-            this.cmdTonen.Location = new System.Drawing.Point(748, 374);
+            this.cmdTonen.Location = new System.Drawing.Point(748, 356);
             this.cmdTonen.Name = "cmdTonen";
-            this.cmdTonen.Size = new System.Drawing.Size(72, 20);
+            this.cmdTonen.Size = new System.Drawing.Size(57, 20);
             this.cmdTonen.TabIndex = 32;
             this.cmdTonen.Text = "&Tonen";
             this.cmdTonen.UseVisualStyleBackColor = true;
@@ -315,14 +342,14 @@
             // 
             // txtLink
             // 
-            this.txtLink.Location = new System.Drawing.Point(377, 375);
+            this.txtLink.Location = new System.Drawing.Point(411, 356);
             this.txtLink.Name = "txtLink";
-            this.txtLink.Size = new System.Drawing.Size(365, 20);
+            this.txtLink.Size = new System.Drawing.Size(331, 20);
             this.txtLink.TabIndex = 31;
             // 
             // cmdSwitch
             // 
-            this.cmdSwitch.Location = new System.Drawing.Point(379, 398);
+            this.cmdSwitch.Location = new System.Drawing.Point(718, 440);
             this.cmdSwitch.Name = "cmdSwitch";
             this.cmdSwitch.Size = new System.Drawing.Size(85, 27);
             this.cmdSwitch.TabIndex = 6;
@@ -335,7 +362,7 @@
             // 
             this.cbCategorie.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbCategorie.FormattingEnabled = true;
-            this.cbCategorie.Location = new System.Drawing.Point(381, 468);
+            this.cbCategorie.Location = new System.Drawing.Point(377, 403);
             this.cbCategorie.Name = "cbCategorie";
             this.cbCategorie.Size = new System.Drawing.Size(193, 21);
             this.cbCategorie.TabIndex = 33;
@@ -344,7 +371,7 @@
             // 
             this.cbMerk.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbMerk.FormattingEnabled = true;
-            this.cbMerk.Location = new System.Drawing.Point(580, 467);
+            this.cbMerk.Location = new System.Drawing.Point(576, 402);
             this.cbMerk.Name = "cbMerk";
             this.cbMerk.Size = new System.Drawing.Size(169, 21);
             this.cbMerk.TabIndex = 34;
@@ -358,7 +385,7 @@
             // 
             // ButtonTab
             // 
-            this.ButtonTab.Location = new System.Drawing.Point(377, 505);
+            this.ButtonTab.Location = new System.Drawing.Point(379, 443);
             this.ButtonTab.Name = "ButtonTab";
             this.ButtonTab.Size = new System.Drawing.Size(72, 20);
             this.ButtonTab.TabIndex = 35;
@@ -488,7 +515,7 @@
             // lblCijfers2
             // 
             this.lblCijfers2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.lblCijfers2.Location = new System.Drawing.Point(473, 401);
+            this.lblCijfers2.Location = new System.Drawing.Point(456, 443);
             this.lblCijfers2.Name = "lblCijfers2";
             this.lblCijfers2.Size = new System.Drawing.Size(124, 20);
             this.lblCijfers2.TabIndex = 39;
@@ -499,7 +526,7 @@
             // lblCijfers3
             // 
             this.lblCijfers3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.lblCijfers3.Location = new System.Drawing.Point(605, 401);
+            this.lblCijfers3.Location = new System.Drawing.Point(588, 443);
             this.lblCijfers3.Name = "lblCijfers3";
             this.lblCijfers3.Size = new System.Drawing.Size(124, 20);
             this.lblCijfers3.TabIndex = 40;
@@ -543,7 +570,7 @@
             // lblInfo
             // 
             this.lblInfo.AutoSize = true;
-            this.lblInfo.Location = new System.Drawing.Point(384, 452);
+            this.lblInfo.Location = new System.Drawing.Point(380, 387);
             this.lblInfo.Name = "lblInfo";
             this.lblInfo.Size = new System.Drawing.Size(52, 13);
             this.lblInfo.TabIndex = 44;
@@ -570,7 +597,7 @@
             this.pnlTxtInfo.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 26F));
             this.pnlTxtInfo.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 26F));
             this.pnlTxtInfo.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 26F));
-            this.pnlTxtInfo.Size = new System.Drawing.Size(352, 515);
+            this.pnlTxtInfo.Size = new System.Drawing.Size(352, 461);
             this.pnlTxtInfo.TabIndex = 10;
             // 
             // tabSql
@@ -675,40 +702,13 @@
             this.msfJournaal.Size = new System.Drawing.Size(829, 527);
             this.msfJournaal.TabIndex = 0;
             // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(583, 451);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(31, 13);
-            this.label7.TabIndex = 53;
-            this.label7.Text = "Merk";
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(378, 314);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(133, 13);
-            this.label8.TabIndex = 54;
-            this.label8.Text = "&Y. Recupel/Bebat/Auvibel";
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(378, 359);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(27, 13);
-            this.label9.TabIndex = 55;
-            this.label9.Text = "Link";
-            // 
             // FormProductBasicTable
             // 
             this.AcceptButton = this.ButtonTab;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.ButtonClose;
-            this.ClientSize = new System.Drawing.Size(843, 583);
+            this.ClientSize = new System.Drawing.Size(838, 524);
             this.Controls.Add(this.v);
             this.Controls.Add(this.MainMenu);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;

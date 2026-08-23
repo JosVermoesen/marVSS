@@ -118,7 +118,7 @@ namespace marVSS2028.MimMenu.DailyManagement
             int[] rek = { 41, 42, 43, 44, 45, 39, 211, 212, 213, 214 };
             int selected = 0;
 
-            KeuzeInfo0.Items.Clear();
+            ComboBoxSelectedBancAccount.Items.Clear();
             for (int t = 0; t < 10; t++)
             {
                 RecNummer[t] = recs[t];
@@ -139,23 +139,23 @@ namespace marVSS2028.MimMenu.DailyManagement
                         item = VSet(RekeningNummer[t], 7) + "|" + (VBibText(TABLE_LEDGERACCOUNTS, "#v020 #") ?? string.Empty).TrimEnd();
                     }
 
-                    KeuzeInfo0.Items.Add(item);
+                    ComboBoxSelectedBancAccount.Items.Add(item);
                     if (DefaultRekening == RekeningNummer[t])
-                        selected = KeuzeInfo0.Items.Count - 1;
+                        selected = ComboBoxSelectedBancAccount.Items.Count - 1;
                 }
             }
 
-            if (KeuzeInfo0.Items.Count > 0)
-                KeuzeInfo0.SelectedIndex = selected < KeuzeInfo0.Items.Count ? selected : 0;
+            if (ComboBoxSelectedBancAccount.Items.Count > 0)
+                ComboBoxSelectedBancAccount.SelectedIndex = selected < ComboBoxSelectedBancAccount.Items.Count ? selected : 0;
 
             // Set initial focus
-            ActiveControl = KeuzeInfo0;
+            ActiveControl = ComboBoxSelectedBancAccount;
         }
 
         private void FormBanking_Shown(object sender, EventArgs e)
         {
-            // Ensure KeuzeInfo0 receives focus when the form is fully displayed
-            KeuzeInfo0.Focus();
+            // Ensure ComboBoxSelectedBancAccount receives focus when the form is fully displayed
+            ComboBoxSelectedBancAccount.Focus();
         }
 
         private string MfgTextMatrix(int row, int col)
@@ -225,16 +225,16 @@ namespace marVSS2028.MimMenu.DailyManagement
             return false;
         }
         
-        private void KeuzeInfo0_SelectedIndexChanged(object sender, EventArgs e)
+        private void ComboBoxSelectedBancAccount_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (KeuzeInfo0.SelectedIndex < 0) return;
+            if (ComboBoxSelectedBancAccount.SelectedIndex < 0) return;
 
             string locationDesktop = LaadTekstOLD("dnnInstellingen", "CodaIOMap");
             bool hasXda = System.IO.Directory.Exists(locationDesktop) && System.IO.Directory.GetFiles(locationDesktop, "*.xda").Length > 0;
             ButtonReadCamt053.Enabled = hasXda;
             CheckBoxSepaViewer.Visible = hasXda;
 
-            int idx = Math.Min(KeuzeInfo0.SelectedIndex, Uittreksel.Length - 1);
+            int idx = Math.Min(ComboBoxSelectedBancAccount.SelectedIndex, Uittreksel.Length - 1);
             string u = Uittreksel[idx] ?? string.Empty;
 
             if (u.Length > 0 && char.IsLetter(u[0]))
@@ -242,7 +242,7 @@ namespace marVSS2028.MimMenu.DailyManagement
             else
                 LabelInfo11.Text = (DoubleFromString(u) + 1).ToString(CultureInfo.InvariantCulture);
 
-            string key = PartLeft(KeuzeInfo0.Text, 7);
+            string key = PartLeft(ComboBoxSelectedBancAccount.Text, 7);
             BGet(TABLE_LEDGERACCOUNTS, 0, VSet(key, 7));
             if (Ktrl != 0) return;
 
@@ -324,12 +324,12 @@ namespace marVSS2028.MimMenu.DailyManagement
             }
         }
 
-        private void KeuzeInfo0_Leave(object sender, EventArgs e)
+        private void ComboBoxSelectedBankAccount_Leave(object sender, EventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(KeuzeInfo0.Text))
+            if (string.IsNullOrWhiteSpace(ComboBoxSelectedBancAccount.Text))
             {
                 System.Media.SystemSounds.Beep.Play();
-                KeuzeInfo0.Focus();
+                ComboBoxSelectedBancAccount.Focus();
             }
         }
 
@@ -345,7 +345,7 @@ namespace marVSS2028.MimMenu.DailyManagement
             }
         }
         
-        private void Volgende_Click(object sender, EventArgs e)
+        private void ButtonManual_Click(object sender, EventArgs e)
         {
             using (var detail = new FormDetailInfo())
             {
@@ -356,8 +356,8 @@ namespace marVSS2028.MimMenu.DailyManagement
             if (string.IsNullOrEmpty(GridText))
                 return;
 
-            KeuzeInfo0.Enabled = false;
-            FinancieelDetail.Items.Add(GridText);
+            ComboBoxSelectedBancAccount.Enabled = false;
+            ListBoxFinancialDetail.Items.Add(GridText);
 
             double bedrag = DoubleFromString(PartMid(GridText, 22, 12));
             bool ontvangst = PartLeft(GridText, 1) == "+";
@@ -378,13 +378,13 @@ namespace marVSS2028.MimMenu.DailyManagement
             ApplySaldoColors();
         }
 
-        private void FinancieelDetail_KeyDown(object sender, KeyEventArgs e)
+        private void ListBoxFinancialDetail_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Insert || e.KeyCode == Keys.Add)
-                Volgende_Click(sender, e);
+                ButtonManual_Click(sender, e);
         }
 
-        private void Afsluiten_Click(object sender, EventArgs e)
+        private void ButtonBookIt_Click(object sender, EventArgs e)
         {
             // Validate date against period
             if (!DateCheck(Datum.Value.ToString("dd/MM/yyyy", CultureInfo.InvariantCulture), PERIODAS_TEXT))
@@ -395,7 +395,7 @@ namespace marVSS2028.MimMenu.DailyManagement
             }
 
             // Check if there are transactions
-            if (FinancieelDetail.Items.Count == 0)
+            if (ListBoxFinancialDetail.Items.Count == 0)
             {
                 System.Media.SystemSounds.Beep.Play();
                 MessageBox.Show("Verrichtingen inbrengen a.u.b. !!!", string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -403,7 +403,7 @@ namespace marVSS2028.MimMenu.DailyManagement
             }
 
             // Get ledger account information
-            BGet(TABLE_LEDGERACCOUNTS, 0, PartLeft(KeuzeInfo0.Text, 7));
+            BGet(TABLE_LEDGERACCOUNTS, 0, PartLeft(ComboBoxSelectedBancAccount.Text, 7));
             if (Ktrl != 0)
             {
                 MessageBox.Show("onlogische situatie", string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -476,7 +476,7 @@ namespace marVSS2028.MimMenu.DailyManagement
                     BEnd();
 
                     // Update counter for statement number
-                    string dummySleutel = "s" + RecNummer[KeuzeInfo0.SelectedIndex].ToString("000", CultureInfo.InvariantCulture);
+                    string dummySleutel = "s" + RecNummer[ComboBoxSelectedBancAccount.SelectedIndex].ToString("000", CultureInfo.InvariantCulture);
                     BGet(TABLE_COUNTERS, 0, dummySleutel);
 
                     if (Ktrl != 0)
@@ -512,7 +512,7 @@ namespace marVSS2028.MimMenu.DailyManagement
                     else
                     {
                         RecordToVeld(TABLE_COUNTERS);
-                        FL99_RECORD = PartLeft(KeuzeInfo0.Text, 7);
+                        FL99_RECORD = PartLeft(ComboBoxSelectedBancAccount.Text, 7);
 
                         if (BAModus == 1)
                             VBib(TABLE_COUNTERS, FL99_RECORD, "v217 ");
@@ -670,7 +670,7 @@ namespace marVSS2028.MimMenu.DailyManagement
                         + "|" + VSet(VBibText(TABLE_CUSTOMERS, "#A100 #"), 29)
                         + "|" + new string(' ', 12);
 
-                    FinancieelDetail.Items.Add(GridText);
+                    ListBoxFinancialDetail.Items.Add(GridText);
 
                     if (bhEuro)
                     {
@@ -821,7 +821,7 @@ namespace marVSS2028.MimMenu.DailyManagement
 
             if (!addOnlyTransactionLines && mfgLijst.Rows.Count == 1)
             {
-                string startLine = "\t\t\t\t\tBEGINSALDO\t" + beginSaldoXDA.ToString(CultureInfo.InvariantCulture);
+                string startLine = "\t\t\t\t\tBeginsaldo uittreksel\t" + beginSaldoXDA.ToString(CultureInfo.InvariantCulture);
                 MfgAddItem(startLine);
             }
 
@@ -1131,7 +1131,7 @@ namespace marVSS2028.MimMenu.DailyManagement
 
                 TLB_RECORD[TABLE_JOURNAL] = string.Empty;
 
-                string rekening = PartLeft(KeuzeInfo0.Text ?? string.Empty, 7);
+                string rekening = PartLeft(ComboBoxSelectedBancAccount.Text ?? string.Empty, 7);
                 string datumSleutel = Datum.Value.ToString("yyyyMMdd", CultureInfo.InvariantCulture);
 
                 VBib(TABLE_JOURNAL, rekening, "v019");
@@ -1178,9 +1178,9 @@ namespace marVSS2028.MimMenu.DailyManagement
 
                 VBib(TABLE_JOURNAL, rekening, "v069");
 
-                for (int t = 0; t < FinancieelDetail.Items.Count; t++)
+                for (int t = 0; t < ListBoxFinancialDetail.Items.Count; t++)
                 {
-                    string detailLijn = Convert.ToString(FinancieelDetail.Items[t]) ?? string.Empty;
+                    string detailLijn = Convert.ToString(ListBoxFinancialDetail.Items[t]) ?? string.Empty;
                     bool ontvangst = PartLeft(detailLijn, 1) == "+";
 
                     string docSleutel = PartMid(detailLijn, 2, 11);
@@ -1320,12 +1320,14 @@ namespace marVSS2028.MimMenu.DailyManagement
         {
             if (SSTab1.SelectedIndex == 0)
             {
-                Volgende.Enabled = false;
+                // TODO : Disable the "Volgende" later when importing is 100% checked and ready to book.
+                // For now, keep it enabled so manual input is still allowed.
+                ButtonManual.Enabled = false;
             }
             else if (SSTab1.SelectedIndex == 1)
             {
-                Volgende.Enabled = true;
-                Volgende.Focus();
+                ButtonManual.Enabled = true;
+                ButtonManual.Focus();
             }
         }
 
@@ -1542,7 +1544,7 @@ namespace marVSS2028.MimMenu.DailyManagement
 
         private void ButtonClose_Click(object sender, EventArgs e)
         {
-            if (FinancieelDetail.Items.Count > 0)
+            if (ListBoxFinancialDetail.Items.Count > 0)
             {
                 string msg = "Huidige verrichtingen negeren." + Environment.NewLine + Environment.NewLine + "Bent U zeker ?";
                 var ans = MessageBox.Show(msg, string.Empty, MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);

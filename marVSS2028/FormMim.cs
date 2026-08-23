@@ -839,10 +839,13 @@ namespace marVSS2028
 
         private void ToolStripProducts_Click(object sender, EventArgs e)
         {
-            FormProductBasicTable productBasicTable = new FormProductBasicTable
-            {
+            ShowSingleMdiChild<FormProductBasicTable>();
+            LayoutMdi(MdiLayout.Cascade);
+
+            // FormProductBasicTable productBasicTable = new FormProductBasicTable
+            // {
                 // MdiParent = this
-            }; productBasicTable.Show();
+            // }; productBasicTable.Show();
         }
 
         private void ToolStripBuying_Click(object sender, EventArgs e)

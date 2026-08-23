@@ -23,10 +23,10 @@
         private System.Windows.Forms.Label lblInfo4;
 
         private System.Windows.Forms.DateTimePicker Datum;
-        private System.Windows.Forms.ComboBox KeuzeInfo0;
-        private System.Windows.Forms.Button Volgende;
+        private System.Windows.Forms.ComboBox ComboBoxSelectedBancAccount;
+        private System.Windows.Forms.Button ButtonManual;
         private System.Windows.Forms.Button Afsluiten;
-        private System.Windows.Forms.ListBox FinancieelDetail;
+        private System.Windows.Forms.ListBox ListBoxFinancialDetail;
         private System.Windows.Forms.Button ButtonClose;
         private System.Windows.Forms.Button Struktuur;
         private System.Windows.Forms.TextBox TextBoxWarningTestCompany;
@@ -57,8 +57,8 @@
 
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.SSTab1 = new System.Windows.Forms.TabControl();
             this.TabManueel = new System.Windows.Forms.TabPage();
             this.CheckBoxSepaViewer = new System.Windows.Forms.CheckBox();
@@ -66,10 +66,10 @@
             this.TextBoxWarningTestCompany = new System.Windows.Forms.TextBox();
             this.Struktuur = new System.Windows.Forms.Button();
             this.ButtonClose = new System.Windows.Forms.Button();
-            this.FinancieelDetail = new System.Windows.Forms.ListBox();
+            this.ListBoxFinancialDetail = new System.Windows.Forms.ListBox();
             this.Afsluiten = new System.Windows.Forms.Button();
-            this.Volgende = new System.Windows.Forms.Button();
-            this.KeuzeInfo0 = new System.Windows.Forms.ComboBox();
+            this.ButtonManual = new System.Windows.Forms.Button();
+            this.ComboBoxSelectedBancAccount = new System.Windows.Forms.ComboBox();
             this.Datum = new System.Windows.Forms.DateTimePicker();
             this.lblInfo4 = new System.Windows.Forms.Label();
             this.LabelInfo2 = new System.Windows.Forms.Label();
@@ -127,10 +127,10 @@
             this.TabManueel.Controls.Add(this.TextBoxWarningTestCompany);
             this.TabManueel.Controls.Add(this.Struktuur);
             this.TabManueel.Controls.Add(this.ButtonClose);
-            this.TabManueel.Controls.Add(this.FinancieelDetail);
+            this.TabManueel.Controls.Add(this.ListBoxFinancialDetail);
             this.TabManueel.Controls.Add(this.Afsluiten);
-            this.TabManueel.Controls.Add(this.Volgende);
-            this.TabManueel.Controls.Add(this.KeuzeInfo0);
+            this.TabManueel.Controls.Add(this.ButtonManual);
+            this.TabManueel.Controls.Add(this.ComboBoxSelectedBancAccount);
             this.TabManueel.Controls.Add(this.Datum);
             this.TabManueel.Controls.Add(this.lblInfo4);
             this.TabManueel.Controls.Add(this.LabelInfo2);
@@ -212,16 +212,16 @@
             this.ButtonClose.UseVisualStyleBackColor = true;
             this.ButtonClose.Click += new System.EventHandler(this.ButtonClose_Click);
             // 
-            // FinancieelDetail
+            // ListBoxFinancialDetail
             // 
-            this.FinancieelDetail.Font = new System.Drawing.Font("Courier New", 9F);
-            this.FinancieelDetail.FormattingEnabled = true;
-            this.FinancieelDetail.ItemHeight = 15;
-            this.FinancieelDetail.Location = new System.Drawing.Point(6, 173);
-            this.FinancieelDetail.Name = "FinancieelDetail";
-            this.FinancieelDetail.Size = new System.Drawing.Size(847, 229);
-            this.FinancieelDetail.TabIndex = 4;
-            this.FinancieelDetail.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FinancieelDetail_KeyDown);
+            this.ListBoxFinancialDetail.Font = new System.Drawing.Font("Courier New", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ListBoxFinancialDetail.FormattingEnabled = true;
+            this.ListBoxFinancialDetail.ItemHeight = 17;
+            this.ListBoxFinancialDetail.Location = new System.Drawing.Point(6, 173);
+            this.ListBoxFinancialDetail.Name = "ListBoxFinancialDetail";
+            this.ListBoxFinancialDetail.Size = new System.Drawing.Size(847, 225);
+            this.ListBoxFinancialDetail.TabIndex = 4;
+            this.ListBoxFinancialDetail.KeyDown += new System.Windows.Forms.KeyEventHandler(this.ListBoxFinancialDetail_KeyDown);
             // 
             // Afsluiten
             // 
@@ -233,31 +233,31 @@
             this.Afsluiten.TabStop = false;
             this.Afsluiten.Text = "&Boeken";
             this.Afsluiten.UseVisualStyleBackColor = true;
-            this.Afsluiten.Click += new System.EventHandler(this.Afsluiten_Click);
+            this.Afsluiten.Click += new System.EventHandler(this.ButtonBookIt_Click);
             // 
-            // Volgende
+            // ButtonManual
             // 
-            this.Volgende.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.Volgende.Location = new System.Drawing.Point(505, 71);
-            this.Volgende.Name = "Volgende";
-            this.Volgende.Size = new System.Drawing.Size(144, 25);
-            this.Volgende.TabIndex = 7;
-            this.Volgende.TabStop = false;
-            this.Volgende.Text = "Ma&nueel";
-            this.Volgende.UseVisualStyleBackColor = true;
-            this.Volgende.Click += new System.EventHandler(this.Volgende_Click);
+            this.ButtonManual.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.ButtonManual.Location = new System.Drawing.Point(505, 71);
+            this.ButtonManual.Name = "ButtonManual";
+            this.ButtonManual.Size = new System.Drawing.Size(144, 25);
+            this.ButtonManual.TabIndex = 7;
+            this.ButtonManual.TabStop = false;
+            this.ButtonManual.Text = "Ma&nueel";
+            this.ButtonManual.UseVisualStyleBackColor = true;
+            this.ButtonManual.Click += new System.EventHandler(this.ButtonManual_Click);
             // 
-            // KeuzeInfo0
+            // ComboBoxSelectedBancAccount
             // 
-            this.KeuzeInfo0.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.KeuzeInfo0.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.KeuzeInfo0.FormattingEnabled = true;
-            this.KeuzeInfo0.Location = new System.Drawing.Point(12, 35);
-            this.KeuzeInfo0.Name = "KeuzeInfo0";
-            this.KeuzeInfo0.Size = new System.Drawing.Size(372, 21);
-            this.KeuzeInfo0.TabIndex = 0;
-            this.KeuzeInfo0.SelectedIndexChanged += new System.EventHandler(this.KeuzeInfo0_SelectedIndexChanged);
-            this.KeuzeInfo0.Leave += new System.EventHandler(this.KeuzeInfo0_Leave);
+            this.ComboBoxSelectedBancAccount.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.ComboBoxSelectedBancAccount.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.ComboBoxSelectedBancAccount.FormattingEnabled = true;
+            this.ComboBoxSelectedBancAccount.Location = new System.Drawing.Point(12, 35);
+            this.ComboBoxSelectedBancAccount.Name = "ComboBoxSelectedBancAccount";
+            this.ComboBoxSelectedBancAccount.Size = new System.Drawing.Size(372, 21);
+            this.ComboBoxSelectedBancAccount.TabIndex = 0;
+            this.ComboBoxSelectedBancAccount.SelectedIndexChanged += new System.EventHandler(this.ComboBoxSelectedBancAccount_SelectedIndexChanged);
+            this.ComboBoxSelectedBancAccount.Leave += new System.EventHandler(this.ComboBoxSelectedBankAccount_Leave);
             // 
             // Datum
             // 
@@ -285,7 +285,7 @@
             // LabelInfo2
             // 
             this.LabelInfo2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.LabelInfo2.Font = new System.Drawing.Font("Courier New", 9F);
+            this.LabelInfo2.Font = new System.Drawing.Font("Courier New", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LabelInfo2.Location = new System.Drawing.Point(6, 149);
             this.LabelInfo2.Name = "LabelInfo2";
             this.LabelInfo2.Size = new System.Drawing.Size(847, 22);
@@ -456,14 +456,14 @@
             // 
             this.mfgLijst.AllowUserToAddRows = false;
             this.mfgLijst.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.mfgLijst.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.mfgLijst.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.mfgLijst.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.mfgLijst.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.colLijn,
@@ -473,14 +473,14 @@
             this.colBedrag,
             this.colOmschrijving,
             this.colCumulSaldo});
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.mfgLijst.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.mfgLijst.DefaultCellStyle = dataGridViewCellStyle2;
             this.mfgLijst.Location = new System.Drawing.Point(6, 6);
             this.mfgLijst.MultiSelect = false;
             this.mfgLijst.Name = "mfgLijst";
@@ -542,9 +542,9 @@
             this.Label1.Text = "Label1";
             this.Label1.Visible = false;
             // 
-            // FormBankingTransactions
+            // FormBanking
             // 
-            this.AcceptButton = this.Volgende;
+            this.AcceptButton = this.ButtonManual;
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Silver;
@@ -555,7 +555,7 @@
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
-            this.Name = "FormBankingTransactions";
+            this.Name = "FormBanking";
             this.Text = "Ctrl+F3 Financiële verrichtingen";
             this.Load += new System.EventHandler(this.FormBanking_Load);
             this.SSTab1.ResumeLayout(false);
