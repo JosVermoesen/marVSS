@@ -117,20 +117,24 @@ namespace marVSS2028.SharedForms
                 TekstInfo4.Text = VBibText(TABLE_VARIOUS, "#v087 #").TrimEnd();
                 TekstInfo5.Text = VBibText(TABLE_VARIOUS, "#v088 #").TrimEnd();
 
-                if (string.Equals(TekstInfo6.Text, TekstInfo0.Text, StringComparison.Ordinal))
+                double bedrag1 = ParseVbVal(VBibText(TABLE_VARIOUS, "#v084 #"));
+                double bedrag2 = ParseVbVal(PartMid(GridText ?? string.Empty, 11, 12));
+                
+                if (string.Equals(TekstInfo6.Text, TekstInfo0.Text, StringComparison.Ordinal) && bedrag1 == bedrag2)
                 {
-                    string msg = "Opgelet, laatste bijwerking op dezelfde dag\r\n" +
+                    string msg = "Opgelet, laatste bijwerking dezelfde dag én zelfde bedrag\r\n" +
                                  "reeds aanwezig.  Vermijdt dubbele optellingen !\r\n\r\n" +
                                  "Kies Sluiten indien U zopas de fiche reeds bijgewerkt hebt.";
-                    MessageBox.Show(msg, "Investeringsfiche éénzelfde datum", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    MessageBox.Show(msg, "Investeringsfiche zelfde datum en zelfde bedrag", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 }
                 else if (!DateCheck(TekstInfo6.Text, BOOKYEARAS_TEXT))
                 {
                     string msg = "Opgelet, U probeert een investeringsfiche\r\n" +
                                  "van een ander boekjaar bij te werken !\r\n\r\n" +
-                                 "Kies Sluiten en neem de juiste rekening.";
-                    MessageBox.Show(msg, "Gebruikersfout !", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    Ok.Enabled = false;
+                                 "Duidt EERST in de fiche van de leverancier een investeringsrekening aan geldig voor dit boekjaar en probeer daarna opnieuw.";
+                    MessageBox.Show(msg, "Boekhoudkundige gebruikersfout", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    InvestWarning = true;
+                    this.Close();                    
                 }
             }
         }
@@ -141,10 +145,11 @@ namespace marVSS2028.SharedForms
         }
 
         private void Annuleren_Click(object sender, EventArgs e)
-        {
-            const string msg = "InvesteringFiche negeren !  Bent U zeker ?";
+        {            
+            Msg = "InvesteringFiche negeren, bent U zeker?" + Environment.NewLine + Environment.NewLine +
+                  "Opgelet: U dient dan alle lijnen voor dit document over te slaan.";
             DialogResult result = MessageBox.Show(
-                msg,
+                Msg,
                 "Investeringsfiche overslaan",
                 MessageBoxButtons.YesNo,
                 MessageBoxIcon.Question,
@@ -173,7 +178,7 @@ namespace marVSS2028.SharedForms
                 "Fiche bijwerken/wegschrijven",
                 MessageBoxButtons.YesNo,
                 MessageBoxIcon.Question,
-                MessageBoxDefaultButton.Button2);
+                MessageBoxDefaultButton.Button1);
 
             if (result != DialogResult.Yes)
             {

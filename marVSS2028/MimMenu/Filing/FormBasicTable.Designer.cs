@@ -70,6 +70,7 @@ namespace marVSS2028
             this.MasketEditBoxInfo.Name = "MasketEditBoxInfo";
             this.MasketEditBoxInfo.Size = new System.Drawing.Size(240, 20);
             this.MasketEditBoxInfo.TabIndex = 2;
+            this.MasketEditBoxInfo.TextChanged += new System.EventHandler(this.MasketEditBoxInfo_TextChanged);
             // 
             // ButtonLast
             // 

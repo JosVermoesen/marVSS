@@ -16,7 +16,11 @@ namespace marVSS2028.Classes
         public static void Main()
         {
             // Set version manually to match ClickOnce publish version format (major.minor.build.revision)
-            Globals.MAR_VERSION = "0.1.0.16";
+            // The first number (0) stands for evaluation version
+            // The second (3) stands for how many booking tools are already working (journal, buying, financial)
+            // The third (0) stands for working on another booking tool (i.e. selling or others)
+            // The fourth (1) stands for the first release of this version
+            Globals.MAR_VERSION = "0.3.0.3";
             BeWaarTekst("marIntegraal", "VersionNumber", Globals.MAR_VERSION);
             Globals.IsPreviewMode = true;
 

@@ -328,5 +328,10 @@ namespace marVSS2028
             }
             catch { }
         }
+
+        private void MasketEditBoxInfo_TextChanged(object sender, EventArgs e)
+        {
+            ButtonEdit.Enabled = !string.IsNullOrEmpty(MasketEditBoxInfo.Text);
+        }
     }
 }

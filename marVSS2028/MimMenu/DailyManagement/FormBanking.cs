@@ -140,7 +140,7 @@ namespace marVSS2028.MimMenu.DailyManagement
                     }
 
                     ComboBoxSelectedBancAccount.Items.Add(item);
-                    if (DefaultRekening == RekeningNummer[t])
+                    if (DefaultRekening == VSet(RekeningNummer[t], 7))
                         selected = ComboBoxSelectedBancAccount.Items.Count - 1;
                 }
             }
@@ -501,13 +501,13 @@ namespace marVSS2028.MimMenu.DailyManagement
                         }
                     }
 
-                    // Update default account counter
+                    // Update account last used
                     dummySleutel = "s101";
                     BGet(TABLE_COUNTERS, 0, dummySleutel);
 
                     if (Ktrl != 0)
                     {
-                        MessageBox.Show("TellerStop.  Versiekonflikt !  Kontakteer R&Vsoft", string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("TellerStop.  Versieconflict !  Contacteer Vsoft 1985", string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                     else
                     {
@@ -523,7 +523,7 @@ namespace marVSS2028.MimMenu.DailyManagement
 
                         if (Ktrl != 0)
                         {
-                            MessageBox.Show("UpdateStop Teller. kontakteer R&Vsoft", string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            MessageBox.Show("UpdateStop Teller. contacteer Vsoft 1985", string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
                     }
 

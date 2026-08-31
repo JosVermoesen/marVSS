@@ -273,6 +273,7 @@ namespace marVSS2028.SharedForms
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.Annuleren;
             this.ClientSize = new System.Drawing.Size(406, 181);
+            this.ControlBox = false;
             this.Controls.Add(this.Label1_10);
             this.Controls.Add(this.Label1_8);
             this.Controls.Add(this.Label1_7);

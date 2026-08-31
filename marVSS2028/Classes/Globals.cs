@@ -275,5 +275,6 @@ namespace marVSS2028.Classes
         public static string appTitleAndVersion;
         public static FormMim Mim { get; set; }
         public static bool IsPreviewMode = true;
+        public static bool InvestWarning = false;
     }
 }

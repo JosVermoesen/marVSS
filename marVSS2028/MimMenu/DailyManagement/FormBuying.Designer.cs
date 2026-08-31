@@ -166,7 +166,6 @@ namespace marVSS2028.MimMenu.DailyManagement
             this.cbImportUBL.TabIndex = 53;
             this.cbImportUBL.TabStop = false;
             this.cbImportUBL.Text = "&UBL B2B IN";
-            this.cbImportUBL.UseMnemonic = true;
             this.cbImportUBL.UseVisualStyleBackColor = true;
             // 
             // Schoonvegen

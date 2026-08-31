@@ -114,8 +114,7 @@ namespace marVSS2028.MimMenu.DailyManagement
             TekstInfo5.TextChanged += TekstInfo5_TextChanged;
 
             ListView1.Click += ListView1_Click;
-            ListView1.KeyDown += ListView1_KeyDown;
-            SSTab1.SelectedIndexChanged += SSTab1_SelectedIndexChanged;
+            ListView1.KeyDown += ListView1_KeyDown;            
             SSTab1.KeyDown += SSTab1_KeyDown;
 
             WireTextField(TekstInfo0, TekstInfo0_KeyDown, TekstInfo0_Enter, TekstInfo0_Leave, TekstInfo0_KeyPress, null);
@@ -677,8 +676,15 @@ namespace marVSS2028.MimMenu.DailyManagement
                     wijzigen.ShowDialog(this);
                 if (!string.IsNullOrEmpty(GridText) && GridText.Length >= 7 && RekeningOK(GridText.Substring(0, 7)))
                 {
-                    AankoopDetail.Items.Add(GridText);
+                    string tmpGridText = GridText;
                     InvestKtrl();
+                    if (InvestWarning)
+                    {
+                        InvestWarning = false;
+                        return;
+                    }
+                    GridText = tmpGridText;
+                    AankoopDetail.Items.Add(GridText);                    
                 }
             }
 
@@ -857,11 +863,21 @@ namespace marVSS2028.MimMenu.DailyManagement
             }
 
             // Populate AankoopDetail with lines
-            string supplierAccount = VBibText(TABLE_SUPPLIERS, "#v016 #").Trim();
-            if (string.IsNullOrWhiteSpace(supplierAccount))
+            string supplierAccount = VSet(VBibText(TABLE_SUPPLIERS, "#v016 #").Trim(), 7);
+            
+            BGet(TABLE_LEDGERACCOUNTS, 0, supplierAccount);
+            if (Ktrl != 0)
             {
-                supplierAccount = "604000";
+                Msg = "Gekoppelde rekening " + supplierAccount + " niet gevonden in grootboekrekeningen." + Environment.NewLine + Environment.NewLine;
+                Msg += "Controleer EERST of de rekening bestaat en correct is ingegeven in leveranciersfiche.";
+                MessageBox.Show(Msg, string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return;
             }
+            else
+            {
+                RecordToVeld(TABLE_LEDGERACCOUNTS);                
+            }
+
 
             if (AankoopDetail.Items.Count == 0 && Globals.documentLinesDATAArray != null && Globals.documentLinesDATAArray.GetLength(0) > 2)
             {
@@ -908,11 +924,19 @@ namespace marVSS2028.MimMenu.DailyManagement
                         fieldName = (fieldName.Length > 40 ? fieldName.Substring(0, 40) : fieldName.PadRight(40));
                     }
 
-                    string gridText = (supplierAccount.Length > 7 ? supplierAccount.Substring(0, 7) : supplierAccount.PadRight(7)) + "|" + fieldName + "|" + lineStringValue + "|";
+                    GridText = (supplierAccount.Length > 7 ? supplierAccount.Substring(0, 7) : supplierAccount.PadRight(7)) + "|" + fieldName + "|" + lineStringValue + "|";
 
                     if (RekeningOK(supplierAccount))
                     {
-                        AankoopDetail.Items.Add(gridText);
+                        string tmpGridText = GridText;
+                        InvestKtrl();
+                        if (InvestWarning)
+                        {
+                            InvestWarning = false;
+                            return;
+                        }
+                        GridText = tmpGridText;
+                        AankoopDetail.Items.Add(GridText);
                     }
                 }
             }
@@ -1051,15 +1075,7 @@ namespace marVSS2028.MimMenu.DailyManagement
                 e.Handled = true;
             }
         }
-
-        private void SSTab1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (SSTab1.SelectedIndex == 0 && string.IsNullOrWhiteSpace(LeverancierInfo.Text))
-            {
-                SQLZoekLeverancier();
-            }
-        }
-
+                
         private void SSTab1_KeyDown(object sender, KeyEventArgs e)
         {
             if (SSTab1.SelectedIndex == 2)
@@ -1128,7 +1144,8 @@ namespace marVSS2028.MimMenu.DailyManagement
                 Msg += "Investeringen  : vanaf " + VSet(_grensDetail[0], 7) + " tot " + VSet(_grensDetail[0].Substring(7, 7), 7) + Environment.NewLine;
                 Msg += "Schulden/privé : vanaf " + VSet(_grensDetail[1], 7) + " tot " + VSet(_grensDetail[1].Substring(7, 7), 7) + Environment.NewLine;
                 Msg += "Handelsgoed    : vanaf " + VSet(_grensDetail[2], 7) + " tot " + VSet(_grensDetail[2].Substring(7, 7), 7) + Environment.NewLine;
-                Msg += "Diverse kosten : vanaf " + VSet(_grensDetail[3], 7) + " tot " + VSet(_grensDetail[3].Substring(7, 7), 7);
+                Msg += "Diverse kosten : vanaf " + VSet(_grensDetail[3], 7) + " tot " + VSet(_grensDetail[3].Substring(7, 7), 7) + Environment.NewLine +Environment.NewLine;
+                Msg += "Controleer de leveranciersfiche en probeer opnieuw";
                 MessageBox.Show(Msg, string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return false;
             }
@@ -1146,6 +1163,14 @@ namespace marVSS2028.MimMenu.DailyManagement
                 using (var investmentSheet = new FormPurchaseInvestmentSheet())
                 {
                     investmentSheet.ShowDialog(this);
+                    BGet(TABLE_LEDGERACCOUNTS, 0, fRekNum);
+                    if (Ktrl == 0)
+                    {
+                        RecordToVeld(TABLE_LEDGERACCOUNTS);                     
+                    } else
+                    {
+                        MessageBox.Show("Rekening " + fRekNum + " niet teruggevonden in grootboekrekeningen.", string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
                 }
             }
             return 0;
@@ -1179,18 +1204,32 @@ namespace marVSS2028.MimMenu.DailyManagement
 
             if (editingExisting)
             {
-                AankoopDetail.Items[_positie] = GridText;
+                string tmpGridText = GridText;
                 InvestKtrl();
+                if (InvestWarning)
+                {
+                    InvestWarning = false;
+                    return;
+                }
+                GridText = tmpGridText;
+                AankoopDetail.Items[_positie] = GridText;                
                 AankoopDetail.SelectedIndex = _positie;
             }
             else
             {
+                string tmpGridText = GridText;
+                InvestKtrl();
+                if (InvestWarning)
+                {
+                    InvestWarning = false;
+                    return;
+                }
+                GridText = tmpGridText;
                 int insertIndex = Math.Max(0, _positie + 1);
                 if (insertIndex >= AankoopDetail.Items.Count)
                     AankoopDetail.Items.Add(GridText);
                 else
-                    AankoopDetail.Items.Insert(insertIndex, GridText);
-                InvestKtrl();
+                    AankoopDetail.Items.Insert(insertIndex, GridText);                
             }
 
             AankoopDetail.Focus();
@@ -1831,7 +1870,7 @@ namespace marVSS2028.MimMenu.DailyManagement
             TekstInfo10.Text = _rbtwVak[4];
 
             RasterSchoon();
-            SSTab1.SelectedIndex = 1;
+            SSTab1.SelectedIndex = 0;
             cmdXLog.Enabled = false;
             LabelInfoXlog.Visible = true;
             AankoopOptie0.Checked = true;
