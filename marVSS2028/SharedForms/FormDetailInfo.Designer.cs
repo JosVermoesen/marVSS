@@ -157,6 +157,7 @@
             this.TekstInfo0.GotFocus += new System.EventHandler(this.TekstInfo_GotFocus);
             this.TekstInfo0.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TekstInfo_KeyDown);
             this.TekstInfo0.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TekstInfo_KeyPress);
+            this.TekstInfo0.Leave += new System.EventHandler(this.TekstInfo0_Leave);
             this.TekstInfo0.LostFocus += new System.EventHandler(this.TekstInfo_LostFocus);
             // 
             // TekstInfo2
@@ -335,7 +336,7 @@
             this.LabelInfo3.TabIndex = 11;
             this.LabelInfo3.Text = "Omschrijvin&G";
             // 
-            // DetailInfo
+            // FormDetailInfo
             // 
             this.AcceptButton = this.Balans;
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 13F);
@@ -368,7 +369,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "DetailInfo";
+            this.Name = "FormDetailInfo";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "DetailInfo";
             this.Shape1.ResumeLayout(false);

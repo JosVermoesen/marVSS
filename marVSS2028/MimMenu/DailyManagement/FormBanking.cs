@@ -12,6 +12,7 @@ using static marVSS2028.Classes.MimEnvironment;
 using static marVSS2028.Classes.OleDbTools;
 using static marVSS2028.Classes.PeppolTools;
 using static marVSS2028.Classes.TextTools;
+using System.Windows.Forms.VisualStyles;
 
 namespace marVSS2028.MimMenu.DailyManagement
 {
@@ -119,6 +120,8 @@ namespace marVSS2028.MimMenu.DailyManagement
             int selected = 0;
 
             ComboBoxSelectedBancAccount.Items.Clear();
+            bankNumberArray = new string[10];
+            int ttR = 0;
             for (int t = 0; t < 10; t++)
             {
                 RecNummer[t] = recs[t];
@@ -127,6 +130,8 @@ namespace marVSS2028.MimMenu.DailyManagement
 
                 if (!string.IsNullOrWhiteSpace(RekeningNummer[t]))
                 {
+                    bankNumberArray[ttR] = RekeningNummer[t];
+                    ttR++;
                     BGet(TABLE_LEDGERACCOUNTS, 0, RekeningNummer[t]);
                     string item;
                     if (Ktrl != 0)

@@ -190,6 +190,24 @@ namespace marVSS2028.SharedForms
             {
                 if (!string.IsNullOrWhiteSpace(TekstInfo0.Text))
                 {
+                    int ttR = 0;
+                    while (bankNumberArray != null
+                        && ttR < bankNumberArray.Length
+                        && !string.IsNullOrEmpty(bankNumberArray[ttR]))
+                    {
+                        if (string.Equals((TekstInfo0.Text ?? string.Empty).Trim(), bankNumberArray[ttR], StringComparison.Ordinal))
+                        {
+                            Msg = "Een actieve bankrekening als tegenrekening is niet toegelaten"
+                                + Environment.NewLine + Environment.NewLine
+                                + "Voor transferten gebruik de tussenrekening 580000 Geldbewegingen";
+                            MessageBox.Show(Msg, "Boekhoudbeginselen", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                            TekstInfo0.Focus();
+                            return;
+                        }
+
+                        ttR++;
+                    }
+
                     BGet(TABLE_LEDGERACCOUNTS, 0, VSet(TekstInfo0.Text, 7));
                     if (Ktrl != 0)
                     {
@@ -609,6 +627,15 @@ namespace marVSS2028.SharedForms
                     VBibText(TABLE_INVOICES, "#v038 #"),
                     dBetaald.ToString("#,##0.00", CultureInfo.InvariantCulture),
                     cumul.ToString("#,##0.00", CultureInfo.InvariantCulture));
+            }
+        }
+
+        private void TekstInfo0_Leave(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrWhiteSpace(TekstInfo0.Text))
+            {
+
+
             }
         }
     }    

@@ -20,7 +20,7 @@ namespace marVSS2028.Classes
             // The second (3) stands for how many booking tools are already working (journal, buying, financial)
             // The third (0) stands for working on another booking tool (i.e. selling or others)
             // The fourth (1) stands for the first release of this version
-            Globals.MAR_VERSION = "0.3.0.3";
+            Globals.MAR_VERSION = "0.3.0.4";
             BeWaarTekst("marIntegraal", "VersionNumber", Globals.MAR_VERSION);
             Globals.IsPreviewMode = true;
 
