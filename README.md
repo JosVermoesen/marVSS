@@ -1,8 +1,20 @@
-# marIntegraal-{LocalFirst} 2028 (Evaluation version)
+# marIntegraal-{LocalFirst} 2028 (Evaluation)
 
 ## [ClickOnce][ClickOnce]
 
 ![MARINTEGRAAL](img/Mar.png)
+
+### Version 0.3.0.3
+
+The first number (0) stands for evaluation version.
+The second number (3) stands for how many major functions are implemented in this version.
+
+1. General accounting and reporting (including VAT)
+2. Bookkeeping for received invoices and credit notes, including peppol integration
+3. Bookkeeping for financial transactions
+
+The third number (0) stands for the minor version about development progress of other functions.
+The fourth number (3) stands for the patch version, indicating small fixes and improvements.
 
 ## History
 
@@ -29,5 +41,5 @@ marIntegraal stands for: complete bookkeeping around the Minimum Classification 
 
 ### [ClickOnce NET version testing possibilities][ClickOnceNet]
 
-[ClickOnce]: https://clickonce.vsoft.be/marVSS2027/publish.htm
+[ClickOnce]: https://clickonce.vsoft.be/marVSS2028/publish.htm
 [ClickOnceNet]: https://clickonce.vsoft.be/marVSSNET/publish.html
