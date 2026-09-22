@@ -943,8 +943,40 @@ namespace marVSS2028.MimMenu.DailyManagement
 
                     case "0201000":
                         bedragTransactie = -bedragTransactie;
-                        MessageBox.Show("Stop", string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        aa += "-\t??????\t" + FormatVal(amountToCheck) + "\t\t";
+
+                        if (SafeLineValue(t, 9).Length == 12)
+                        {
+                            isCor = true;
+                            lineReference = SafeLineValue(t, 9);
+                        }
+                        else
+                        {
+                            isCor = false;
+                            if (SafeLineValue(t, 10).Length == 0)
+                            {
+                                MessageBox.Show("Empty Ustrd, Logic?", string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                lineReference = "-";
+                            }
+                            else
+                            {
+                                lineReference = SafeLineValue(t, 10);
+                            }
+                        }
+
+                        resultReturn = CtrlDocuments(true, isCor, false, lineReference, SafeLineValue(t, 7), amountToCheck);
+                        if (string.IsNullOrEmpty(resultReturn))
+                        {
+                            MessageBox.Show("Geen resultaat", string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                            aa += "-\t??????\t" + FormatVal(amountToCheck) + "\t" + SafeLineValue(5, 1) + "\t";
+                        }
+                        else
+                        {
+                            resultArray = resultReturn.Split('|');
+                            aa += "-" + (resultArray.Length > 0 ? resultArray[0] : string.Empty) + "\t"
+                                + String99(10) + "\t"
+                                + FormatVal(amountToCheck) + "\t"
+                                + (resultArray.Length > 1 ? resultArray[1] : string.Empty) + "\t";
+                        }
                         break;
 
                     case "0402000":
@@ -962,7 +994,47 @@ namespace marVSS2028.MimMenu.DailyManagement
                     case "0501000":
                         bedragTransactie = -bedragTransactie;
                         MessageBox.Show("Stop", string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        aa += "-\t??????\t" + FormatVal(amountToCheck) + "\t" + SafeLineValue(t, 5) + "\t";
+
+                        if (SafeLineValue(t, 9).Length == 12)
+                        {
+                            isCor = true;
+                            lineReference = SafeLineValue(t, 9);
+                        }
+                        else
+                        {
+                            isCor = false;
+                            if (SafeLineValue(t, 10).Length == 0)
+                            {
+                                MessageBox.Show("Empty Ustrd, Logic?", string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                lineReference = SafeLineValue(t, 6);
+                            }
+                            else
+                            {
+                                lineReference = SafeLineValue(t, 10);
+                            }
+                        }
+
+                        if (lineReference.Length == 12)
+                        {
+                            resultReturn = CtrlDocuments(true, isCor, false, lineReference, SafeLineValue(t, 7), amountToCheck);
+                            if (string.IsNullOrEmpty(resultReturn))
+                            {
+                                MessageBox.Show("Geen resultaat", string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                                aa += "-\t??????\t" + FormatVal(amountToCheck) + "\t" + SafeLineValue(t, 5) + "\t";
+                            }
+                            else
+                            {
+                                resultArray = resultReturn.Split('|');
+                                aa += "-" + (resultArray.Length > 0 ? resultArray[0] : string.Empty) + "\t"
+                                    + String99(9) + "\t"
+                                    + FormatVal(amountToCheck) + "\t"
+                                    + (resultArray.Length > 1 ? resultArray[1] : string.Empty) + "\t";
+                            }
+                        }
+                        else
+                        {
+                            aa += "-\t??????\t" + FormatVal(amountToCheck) + "\t" + SafeLineValue(t, 5) + "\t";
+                        }
                         break;
 
                     case "0503000":
