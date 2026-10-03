@@ -1631,7 +1631,7 @@ namespace marVSS2028.MimMenu.DailyManagement
 
             GridText = string.Empty;
             Close();
-        }
+        }        
     }
 }
 

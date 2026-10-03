@@ -49,6 +49,9 @@ namespace marVSS2028.MimMenu.DailyManagement
         private bool _startBlad;
         private int _ar;
 
+        private int counterToBook = 0;
+        private int counterBooked = 0;
+
         private string _veldRekening = "";
         private string _veldNaam = "";
         private string _veldBedrag = "";
@@ -762,7 +765,7 @@ namespace marVSS2028.MimMenu.DailyManagement
             }
             else if (_aankoopFlg == 0)
             {
-                TekstInfo5.Text = (ParseDouble(GetSafeArrayValue(uitwisselingDATAArray, 21)) - ParseDouble(GetSafeArrayValue(uitwisselingDATAArray, 20))).ToString(CultureInfo.CurrentCulture);
+                TekstInfo5.Text = Dec(ParseDouble(GetSafeArrayValue(uitwisselingDATAArray, 21)) - ParseDouble(GetSafeArrayValue(uitwisselingDATAArray, 20)),".##");
                 TekstInfo5.Enabled = false;
             }
             else
@@ -1667,8 +1670,8 @@ namespace marVSS2028.MimMenu.DailyManagement
 
         private void cbImportUBL_Click(object sender, EventArgs e)
         {
-            int counterToBook = 0;
-            int counterBooked = 0;
+            counterToBook = 0;
+            counterBooked = 0;
             string ublFileUrl = string.Empty;
 
             _ifSupplierInsertWarning = false;
@@ -1877,13 +1880,18 @@ namespace marVSS2028.MimMenu.DailyManagement
             _supplierCompanyId = string.Empty;
             _supplierCountryCode = string.Empty;
             _supplierVatNumber = string.Empty;
+            if (counterBooked + counterToBook > 0)
+            {
+                // Your logic here
+                cbImportUBL.Focus();
+            }
         }
 
         private void SchoonVegen_Click(object sender, EventArgs e)
         {
             RasterSchoon();
             Schoon();
-            SSTab1.Focus();
+            // SSTab1.Focus();
         }
 
         private void Annuleren_Click(object sender, EventArgs e)
@@ -2089,7 +2097,7 @@ namespace marVSS2028.MimMenu.DailyManagement
                 Text = "Direkte aankoopverrichting         (" + _documentKey + ")";
                 RefreshReference();
                 SchoonVegen_Click(sender, EventArgs.Empty);
-                SSTab1.Focus();
+                // SSTab1.Focus();
             }
         }
 
@@ -2450,6 +2458,15 @@ namespace marVSS2028.MimMenu.DailyManagement
             }
 
             return checkSupplier;
+        }
+
+        private void FormBuying_Enter(object sender, EventArgs e)
+        {
+            if (counterBooked + counterToBook > 0)
+            {
+                // Your logic here
+                cbImportUBL.Focus();
+            }
         }
     }
 }

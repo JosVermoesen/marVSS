@@ -874,14 +874,14 @@ namespace marVSS2028
             // LinkObsidian
             // 
             this.LinkObsidian.Name = "LinkObsidian";
-            this.LinkObsidian.Size = new System.Drawing.Size(176, 22);
-            this.LinkObsidian.Text = "Obsidian 18.0.65";
+            this.LinkObsidian.Size = new System.Drawing.Size(180, 22);
+            this.LinkObsidian.Text = "Obsidian 18.0.80";
             this.LinkObsidian.Click += new System.EventHandler(this.LinkObsidian_Click);
             // 
             // LinkWebmail
             // 
             this.LinkWebmail.Name = "LinkWebmail";
-            this.LinkWebmail.Size = new System.Drawing.Size(176, 22);
+            this.LinkWebmail.Size = new System.Drawing.Size(180, 22);
             this.LinkWebmail.Text = "Webmail rvServices";
             this.LinkWebmail.Click += new System.EventHandler(this.LinkWebmail_Click);
             // 
@@ -919,21 +919,21 @@ namespace marVSS2028
             // LinkPeppolValidator
             // 
             this.LinkPeppolValidator.Name = "LinkPeppolValidator";
-            this.LinkPeppolValidator.Size = new System.Drawing.Size(179, 22);
+            this.LinkPeppolValidator.Size = new System.Drawing.Size(180, 22);
             this.LinkPeppolValidator.Text = "Document Validator";
             this.LinkPeppolValidator.Click += new System.EventHandler(this.LinkPeppolValidator_Click);
             // 
             // LinkPeppolDocs
             // 
             this.LinkPeppolDocs.Name = "LinkPeppolDocs";
-            this.LinkPeppolDocs.Size = new System.Drawing.Size(179, 22);
+            this.LinkPeppolDocs.Size = new System.Drawing.Size(180, 22);
             this.LinkPeppolDocs.Text = "BIS Billing 3.0";
             this.LinkPeppolDocs.Click += new System.EventHandler(this.LinkPeppolDocs_Click);
             // 
             // LinkMarSyncClickOnce
             // 
             this.LinkMarSyncClickOnce.Name = "LinkMarSyncClickOnce";
-            this.LinkMarSyncClickOnce.Size = new System.Drawing.Size(179, 22);
+            this.LinkMarSyncClickOnce.Size = new System.Drawing.Size(180, 22);
             this.LinkMarSyncClickOnce.Text = "ClickOnce MarSync";
             this.LinkMarSyncClickOnce.Click += new System.EventHandler(this.LinkMarSyncClickOnce_Click);
             // 

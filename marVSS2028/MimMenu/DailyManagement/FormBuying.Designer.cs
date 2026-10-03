@@ -675,6 +675,7 @@ namespace marVSS2028.MimMenu.DailyManagement
             this.MinimizeBox = false;
             this.Name = "FormBuying";
             this.Text = "Direkte aankoopverrichting";
+            this.Enter += new System.EventHandler(this.FormBuying_Enter);
             this.SSTab1.ResumeLayout(false);
             this.TabPageLeverancier.ResumeLayout(false);
             this.TabPageBewerken.ResumeLayout(false);

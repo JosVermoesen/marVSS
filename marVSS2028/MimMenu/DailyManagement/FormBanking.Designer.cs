@@ -57,8 +57,8 @@
 
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             this.SSTab1 = new System.Windows.Forms.TabControl();
             this.TabManueel = new System.Windows.Forms.TabPage();
             this.CheckBoxSepaViewer = new System.Windows.Forms.CheckBox();
@@ -419,22 +419,22 @@
             this.TabCoda.Padding = new System.Windows.Forms.Padding(3);
             this.TabCoda.Size = new System.Drawing.Size(859, 463);
             this.TabCoda.TabIndex = 1;
-            this.TabCoda.Text = "Full CODA (versie 2.1)";
+            this.TabCoda.Text = "Full CODA (.xda)";
             // 
             // LabelCounter
             // 
-            this.LabelCounter.Location = new System.Drawing.Point(560, 429);
+            this.LabelCounter.Location = new System.Drawing.Point(147, 427);
             this.LabelCounter.Name = "LabelCounter";
-            this.LabelCounter.Size = new System.Drawing.Size(121, 25);
+            this.LabelCounter.Size = new System.Drawing.Size(135, 30);
             this.LabelCounter.TabIndex = 27;
             this.LabelCounter.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // ButtonAssign
             // 
             this.ButtonAssign.Enabled = false;
-            this.ButtonAssign.Location = new System.Drawing.Point(692, 424);
+            this.ButtonAssign.Location = new System.Drawing.Point(6, 424);
             this.ButtonAssign.Name = "ButtonAssign";
-            this.ButtonAssign.Size = new System.Drawing.Size(135, 30);
+            this.ButtonAssign.Size = new System.Drawing.Size(135, 33);
             this.ButtonAssign.TabIndex = 25;
             this.ButtonAssign.Text = "Toewijzen";
             this.ButtonAssign.UseVisualStyleBackColor = true;
@@ -444,9 +444,9 @@
             // ButtonTransfer
             // 
             this.ButtonTransfer.Enabled = false;
-            this.ButtonTransfer.Location = new System.Drawing.Point(548, 424);
+            this.ButtonTransfer.Location = new System.Drawing.Point(692, 424);
             this.ButtonTransfer.Name = "ButtonTransfer";
-            this.ButtonTransfer.Size = new System.Drawing.Size(135, 30);
+            this.ButtonTransfer.Size = new System.Drawing.Size(135, 33);
             this.ButtonTransfer.TabIndex = 24;
             this.ButtonTransfer.Text = "Overnemen";
             this.ButtonTransfer.UseVisualStyleBackColor = true;
@@ -456,14 +456,14 @@
             // 
             this.mfgLijst.AllowUserToAddRows = false;
             this.mfgLijst.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.mfgLijst.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.mfgLijst.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
             this.mfgLijst.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.mfgLijst.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.colLijn,
@@ -473,14 +473,14 @@
             this.colBedrag,
             this.colOmschrijving,
             this.colCumulSaldo});
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.mfgLijst.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.mfgLijst.DefaultCellStyle = dataGridViewCellStyle6;
             this.mfgLijst.Location = new System.Drawing.Point(6, 6);
             this.mfgLijst.MultiSelect = false;
             this.mfgLijst.Name = "mfgLijst";

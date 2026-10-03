@@ -430,8 +430,34 @@ namespace marVSS2028.Classes
                 msg = "Supplier info\r\n-------------\r\n";
 
                 valueToUse = GetNodeText(supplierNode, "cbc:EndpointID");
+
                 if (valueToUse.Length == 12 && valueToUse.Contains("BE"))
-                    valueToUse = valueToUse.Substring(2);
+                {
+                    // Get only the VAT part of number
+                    valueToUse = PartMid(valueToUse, 3, valueToUse.Length - 2);
+                }
+                else if (valueToUse.Length == 13 && PartLeft(valueToUse, 2) == "54")
+                {
+                    // Global Location Number company in Belgium or Luxembourg
+                    valueToUse = GetNodeText(supplierNode, "cac:PartyIdentification/cbc:ID");
+                    if (valueToUse.Length == 10)
+                    {
+                        // ok
+                    }
+                    else
+                    {
+                        MessageBox.Show("VAT number? " + valueToUse, string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                }
+                else if (valueToUse.Length == 13)
+                {
+                    // Global Location Number of company outside Belgium
+                    MessageBox.Show("Global Company Number Outside Belgium" + Environment.NewLine + Environment.NewLine + valueToUse, 
+                        string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    valueToUse = GetNodeText(supplierNode, "cac:PartyIdentification/cbc:ID");
+                }
+
+                tmpSupplierId = valueToUse;
                 uitwisselingOMS += "\tsupplierCompanyIdToCheck";
                 uitwisselingDATA += "\t" + valueToUse;
                 
