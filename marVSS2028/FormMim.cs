@@ -859,5 +859,13 @@ namespace marVSS2028
             ShowSingleMdiChild<FormBanking>();
             LayoutMdi(MdiLayout.Cascade);
         }
+
+        private void ToolStripPaymentFiles_Click(object sender, EventArgs e)
+        {
+            using (var paymentFiles = new FormOGM())
+            {   
+                paymentFiles.ShowDialog();
+            }
+        }
     }
 }

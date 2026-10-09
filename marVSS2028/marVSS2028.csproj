@@ -189,6 +189,12 @@
     <Compile Include="MimMenu\DailyManagement\FormBanking.Designer.cs">
       <DependentUpon>FormBanking.cs</DependentUpon>
     </Compile>
+    <Compile Include="MimMenu\DailyManagement\FormOGM.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MimMenu\DailyManagement\FormOGM.Designer.cs">
+      <DependentUpon>FormOGM.cs</DependentUpon>
+    </Compile>
     <Compile Include="MimMenu\Filing\FormBasicTableReporting.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -755,6 +761,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="MimMenu\DailyManagement\FormBanking.resx">
       <DependentUpon>FormBanking.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MimMenu\DailyManagement\FormOGM.resx">
+      <DependentUpon>FormOGM.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MimMenu\Filing\FormBasicTableReporting.resx">
       <DependentUpon>FormBasicTableReporting.cs</DependentUpon>
