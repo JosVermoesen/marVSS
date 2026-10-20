@@ -23,10 +23,12 @@ namespace marVSS2028.SharedForms
 
         private Recordset _rsBuyerUBL;
 
+        
+
         public FormPurchasePeppolMonitor()
         {
             InitializeComponent();
-            _rsBuyerUBL = new Recordset();
+            _rsBuyerUBL = new Recordset();        
         }
 
         // -------------------------------------------------------------------------
@@ -314,7 +316,7 @@ namespace marVSS2028.SharedForms
                 _rsBuyerUBL.CursorLocation = CursorLocationEnum.adUseClient;
 
                 string sSQL =
-                    "SELECT Dokumenten.v033, Dokumenten.v406, Dokumenten.v408 " +
+                    "SELECT Dokumenten.v033, Dokumenten.v034, Dokumenten.v406, Dokumenten.v408 " +
                     "FROM Dokumenten " +
                     "WHERE Dokumenten.v033 = '" + vDocument + "'";
 
@@ -322,15 +324,75 @@ namespace marVSS2028.SharedForms
                 _rsBuyerUBL.Open(sSQL, adntDB, CursorTypeEnum.adOpenForwardOnly, LockTypeEnum.adLockReadOnly, (int)CommandTypeEnum.adCmdText);
                 Cursor.Current = Cursors.Default;
 
-                if (_rsBuyerUBL.EOF) return "Niets gevonden";
+                if (_rsBuyerUBL.EOF)
+                    return "Niets gevonden";
 
                 string sentID = string.Empty;
-                if (asSeller == 1)
-                    sentID = _rsBuyerUBL.Fields["v406"].Value?.ToString().Trim() ?? string.Empty;
-                else if (asSeller == 2)
-                    sentID = _rsBuyerUBL.Fields["v408"].Value?.ToString().Trim() ?? string.Empty;
 
-                return string.IsNullOrEmpty(sentID) ? "Geen" : sentID;
+                if (asSeller == 1)
+                {
+                    sentID = (_rsBuyerUBL.Fields["v406"].Value?.ToString() ?? string.Empty).Trim();
+                    return string.IsNullOrEmpty(sentID) ? "Geen" : sentID;
+                }
+                else if (asSeller == 2)
+                {
+                    Recordset rsBuyerRECORD = new ADODB.Recordset();
+
+                    try
+                    {
+                        string getV034 = _rsBuyerUBL.Fields["v034"].Value.ToString();
+
+                        sSQL = "SELECT Leveranciers.A110, Leveranciers.A100, Leveranciers.v410 " +
+                            "FROM Leveranciers " +
+                            "WHERE Leveranciers.A110 = '" + getV034.Substring(1) + "' ";
+
+                        rsBuyerRECORD.CursorLocation = ADODB.CursorLocationEnum.adUseClient;
+                        rsBuyerRECORD.Open(sSQL, adntDB, ADODB.CursorTypeEnum.adOpenForwardOnly, ADODB.LockTypeEnum.adLockReadOnly);
+
+                        if (rsBuyerRECORD.RecordCount == 0)
+                        {
+                            return "Logicafout: Code leverancier Niet gevonden";
+                        }
+                        else if (rsBuyerRECORD.RecordCount == 1)
+                        {
+                            // Check if seller accepts ApplicationResponse
+                            string v410Value = (rsBuyerRECORD.Fields["v410"].Value?.ToString() ?? string.Empty).Trim();
+                            int allowedCheckFound = v410Value.IndexOf("ApplicationResponse");
+
+                            if (allowedCheckFound == -1)
+                            {
+                                string a110 = (rsBuyerRECORD.Fields["A110"].Value?.ToString() ?? string.Empty).Trim();
+                                string a100 = (rsBuyerRECORD.Fields["A100"].Value?.ToString() ?? string.Empty).Trim();
+                                return $"Leverancier {a110} {a100}\r\n\r\nAanvaardt geen reacties via Peppol. Gebruik de klassieke wegen (mail, telefoon, brief al dan niet aangetekend).";
+                            }
+                            else
+                            {
+                                sentID = (_rsBuyerUBL.Fields["v408"].Value?.ToString() ?? string.Empty).Trim();
+                                return string.IsNullOrEmpty(sentID) ? "Geen" : sentID;
+                            }
+                        }
+                        else
+                        {
+                            return "Logicafout: Meer dan één leverancier gevonden";
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        return $"Bron:\r\n{ex.Source}\r\n\r\nFoutnummer: {ex.HResult}\r\n\r\nDetail:\r\n{ex.Message}";
+                    }
+                    finally
+                    {
+                        if (rsBuyerRECORD != null)
+                        {
+                            if (rsBuyerRECORD.State == (int)ADODB.ObjectStateEnum.adStateOpen)
+                                rsBuyerRECORD.Close();
+
+                            System.Runtime.InteropServices.Marshal.ReleaseComObject(rsBuyerRECORD);
+                            rsBuyerRECORD = null;
+                        }
+                    }
+                }
+                return "Geen";
             }
             catch (Exception ex)
             {
@@ -345,7 +407,7 @@ namespace marVSS2028.SharedForms
         // -------------------------------------------------------------------------
         // mfgToBook grid events
         // -------------------------------------------------------------------------
-        
+
         private void mfgToBook_GotFocus(object sender, EventArgs e)
         {
             SetButtonStatesForToBookGrid();

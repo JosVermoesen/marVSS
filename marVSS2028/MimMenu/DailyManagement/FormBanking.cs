@@ -954,8 +954,8 @@ namespace marVSS2028.MimMenu.DailyManagement
                             isCor = false;
                             if (SafeLineValue(t, 10).Length == 0)
                             {
-                                MessageBox.Show("Empty Ustrd, Logic?", string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Information);
-                                lineReference = "-";
+                                // MessageBox.Show("Empty Ustrd, Logic?", string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                lineReference = SafeLineValue(t, 5);
                             }
                             else
                             {
@@ -966,8 +966,8 @@ namespace marVSS2028.MimMenu.DailyManagement
                         resultReturn = CtrlDocuments(true, isCor, false, lineReference, SafeLineValue(t, 7), amountToCheck);
                         if (string.IsNullOrEmpty(resultReturn))
                         {
-                            MessageBox.Show("Geen resultaat", string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                            aa += "-\t??????\t" + FormatVal(amountToCheck) + "\t" + SafeLineValue(5, 1) + "\t";
+                            // MessageBox.Show("Geen resultaat", string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                            aa += "-\t??????\t" + FormatVal(amountToCheck) + "\t" + SafeLineValue(t, 5) + "\t";
                         }
                         else
                         {
@@ -1488,7 +1488,7 @@ namespace marVSS2028.MimMenu.DailyManagement
                 }
                 else if (!refIsCor && isCDD)
                 {
-                    MessageBox.Show("Stop for not refIsCor and isCDD", string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    // MessageBox.Show("Stop for not refIsCor and isCDD", string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Information);
                     query += "AND Dokumenten.A000 = '" + refString + "' "
                         + "AND Str(Val(Dokumenten.v249)) = '" + formattedAmount + "' ";
                 }
@@ -1514,7 +1514,7 @@ namespace marVSS2028.MimMenu.DailyManagement
                             groupCode = "Q0";
                             break;
                         default:
-                            MessageBox.Show("onbekende OGM voor klanten?", string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            MessageBox.Show("onbekende referte voor klanten?", string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Information);
                             break;
                     }
 
@@ -1545,7 +1545,11 @@ namespace marVSS2028.MimMenu.DailyManagement
 
                 if (rsAny.EOF)
                 {
-                    MessageBox.Show("Geen documenten gevonden", string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    if (refIsCor)
+                    {
+                        MessageBox.Show("Geen documenten gevonden voor referte: " + refString + Environment.NewLine + Environment.NewLine +
+                            "Controleer of de referte correct is en/of raadpleeg ons.", string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }           
                     return string.Empty;
                 }
 
