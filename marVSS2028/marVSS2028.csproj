@@ -30,7 +30,7 @@
     <SuiteName>MarIntegraal 365</SuiteName>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>1</ApplicationRevision>
+    <ApplicationRevision>3</ApplicationRevision>
     <ApplicationVersion>0.3.1.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -188,12 +188,6 @@
     </Compile>
     <Compile Include="MimMenu\DailyManagement\FormBanking.Designer.cs">
       <DependentUpon>FormBanking.cs</DependentUpon>
-    </Compile>
-    <Compile Include="MimMenu\DailyManagement\FormOGM.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="MimMenu\DailyManagement\FormOGM.Designer.cs">
-      <DependentUpon>FormOGM.cs</DependentUpon>
     </Compile>
     <Compile Include="MimMenu\Filing\FormBasicTableReporting.cs">
       <SubType>Form</SubType>
@@ -560,6 +554,13 @@
     <Content Include="Content\Intrastat\geo2021nl_intrastat.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\xslt-templates\directdebit-viewer.xslt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\xslt-templates\payment-viewer.xslt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="MdX\Vsoft.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -653,7 +654,7 @@
     <Content Include="Content\xlsx-templates\intrest.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\xml-templates\peppol\peppol-invoice.xslt">
+    <Content Include="Content\xslt-templates\peppol-invoice.xslt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\xml-templates\peppol\peppol_bis_billing_ubl_v3-creditnote.xml">
@@ -761,9 +762,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="MimMenu\DailyManagement\FormBanking.resx">
       <DependentUpon>FormBanking.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="MimMenu\DailyManagement\FormOGM.resx">
-      <DependentUpon>FormOGM.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MimMenu\Filing\FormBasicTableReporting.resx">
       <DependentUpon>FormBasicTableReporting.cs</DependentUpon>

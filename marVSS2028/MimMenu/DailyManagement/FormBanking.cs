@@ -99,9 +99,22 @@ namespace marVSS2028.MimMenu.DailyManagement
             if (string.IsNullOrEmpty(LaadTekst("dnnInstellingen", "CodaIOMap")))
                 BeWaarTekst("dnnInstellingen", "CodaIOMap", LOCATION_DESKTOP);
 
-            if (PartRight(LOCATION_COMPANYDATA, 5) == "\\098\\" || PartRight(LOCATION_COMPANYDATA, 5) == "\\099\\")
-                TextBoxWarningTestCompany.Visible = true;
-
+            // TODO: In preview mode we should only accept company foldernames "091" till "099"
+            string folderName = PartRight(LOCATION_COMPANYDATA, 4);
+            folderName = folderName.TrimEnd('\\');
+            if (int.TryParse(folderName, out int companyNumber))
+            {
+                if (IsPreviewMode && companyNumber >= 91 && companyNumber <= 99)
+                {
+                    TextBoxWarningTestCompany.Visible = true;
+                    return;
+                }
+            }
+            else
+            {
+                MessageBox.Show("Folder name is not a valid number", "Error");
+            }
+            
             LabelInfo2.Text = " Document    TegenR.       Bedrag Omschrijving                    Fin. Kort.";
 
             DateTime dt;

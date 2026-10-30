@@ -862,9 +862,61 @@ namespace marVSS2028
 
         private void ToolStripPaymentFiles_Click(object sender, EventArgs e)
         {
-            using (var paymentFiles = new FormOGM())
-            {   
-                paymentFiles.ShowDialog();
+            //using (var paymentFiles = new FormOGM())
+            //{   
+            //    paymentFiles.ShowDialog();
+            //}
+        }
+
+        private void ToolStripPaymentViewer_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string xsltPath = PROGRAM_LOCATION + @"Content\xslt-templates\payment-viewer.xslt";
+
+                System.Xml.Xsl.XslCompiledTransform transform = new System.Xml.Xsl.XslCompiledTransform();
+                transform.Load(xsltPath);
+                string _selectedFile = LOCATION_COMPANYDATA + @"coda\out\-Mar-BV-E6EAECE6-8E88.xml";
+                // Vdk-Mar-03909081-864A
+
+                string outputFile = LOCATION_COMPANYDATA + @"coda\out\Sepa-output.html";
+                transform.Transform(_selectedFile, outputFile);
+
+                // Open output file in default external browser
+                System.Diagnostics.Process.Start(outputFile);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    $"Error transforming payment file:\r\n\r\n{ex.Message}",
+                    "Payment Viewer Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+            }
+        }
+
+        private void ToolStripCDDViewer_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string xsltPath = PROGRAM_LOCATION + @"Content\xslt-templates\directdebit-viewer.xslt";
+
+                System.Xml.Xsl.XslCompiledTransform transform = new System.Xml.Xsl.XslCompiledTransform();
+                transform.Load(xsltPath);
+                string _selectedFile = LOCATION_COMPANYDATA + @"coda\in\CDD-memo_2026-11-09.xml";
+                string outputFile = LOCATION_COMPANYDATA + @"coda\in\DirectDebit-output.html";
+                transform.Transform(_selectedFile, outputFile);
+
+                // Open output file in default external browser
+                System.Diagnostics.Process.Start(outputFile);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    $"Error transforming payment file:\r\n\r\n{ex.Message}",
+                    "Payment Viewer Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
             }
         }
     }

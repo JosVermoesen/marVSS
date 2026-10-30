@@ -164,11 +164,22 @@ namespace marVSS2028.MimMenu.DailyManagement
             _documentRefIsOGM = String99(100) == "1";
             _adminNoVat = (String99(20) ?? string.Empty).Trim() == "7";
 
-            string companyPath = LOCATION_COMPANYDATA ?? string.Empty;
-            if (companyPath.EndsWith("\\098\\", StringComparison.OrdinalIgnoreCase) || companyPath.EndsWith("\\099\\", StringComparison.OrdinalIgnoreCase))
+            // TODO: In preview mode we should only accept company foldernames "091" till "099"
+            string folderName = PartRight(LOCATION_COMPANYDATA, 4);
+            folderName = folderName.TrimEnd('\\');
+            if (int.TryParse(folderName, out int companyNumber))
             {
-                TextBoxWarningTestCompany.Visible = true;
+                if (IsPreviewMode && companyNumber >= 91 && companyNumber <= 99)
+                {
+                    TextBoxWarningTestCompany.Visible = true;
+                    return;
+                }
             }
+            else
+            {
+                MessageBox.Show("Folder name is not a valid number", "Error");
+            }
+
 
             SSTab1.SelectedIndex = 1;
             Ktrl = 1;

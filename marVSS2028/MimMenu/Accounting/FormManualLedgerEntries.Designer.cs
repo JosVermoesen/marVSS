@@ -41,6 +41,7 @@
             this.lblColNaam = new System.Windows.Forms.Label();
             this.lblColBedrag = new System.Windows.Forms.Label();
             this.lblColTegenR = new System.Windows.Forms.Label();
+            this.TextBoxWarningTestCompany = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // cmbSoortBoeking
@@ -108,7 +109,7 @@
             this.txtRekeningNummer.Location = new System.Drawing.Point(4, 92);
             this.txtRekeningNummer.Name = "txtRekeningNummer";
             this.txtRekeningNummer.Size = new System.Drawing.Size(80, 20);
-            this.txtRekeningNummer.TabIndex = 7;            
+            this.txtRekeningNummer.TabIndex = 7;
             this.txtRekeningNummer.DoubleClick += new System.EventHandler(this.TxtRekeningNummer_DoubleClick);
             this.txtRekeningNummer.GotFocus += new System.EventHandler(this.TxtRekeningNummer_GotFocus);
             this.txtRekeningNummer.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TxtRekeningNummer_KeyDown);
@@ -302,12 +303,26 @@
             this.lblColTegenR.TabIndex = 33;
             this.lblColTegenR.Text = "TegenR.";
             // 
+            // TextBoxWarningTestCompany
+            // 
+            this.TextBoxWarningTestCompany.BackColor = System.Drawing.Color.Red;
+            this.TextBoxWarningTestCompany.Enabled = false;
+            this.TextBoxWarningTestCompany.ForeColor = System.Drawing.Color.Black;
+            this.TextBoxWarningTestCompany.Location = new System.Drawing.Point(167, 412);
+            this.TextBoxWarningTestCompany.Name = "TextBoxWarningTestCompany";
+            this.TextBoxWarningTestCompany.Size = new System.Drawing.Size(177, 20);
+            this.TextBoxWarningTestCompany.TabIndex = 87;
+            this.TextBoxWarningTestCompany.TabStop = false;
+            this.TextBoxWarningTestCompany.Text = "Opgelet: Dit is een testbedrijf!";
+            this.TextBoxWarningTestCompany.Visible = false;
+            // 
             // FormManualLedgerEntries
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnSluiten;
             this.ClientSize = new System.Drawing.Size(522, 492);
+            this.Controls.Add(this.TextBoxWarningTestCompany);
             this.Controls.Add(this.cmbSoortBoeking);
             this.Controls.Add(this.txtOmschrijving);
             this.Controls.Add(this.dtpDatum);
@@ -372,5 +387,6 @@
         private System.Windows.Forms.Label lblColNaam;
         private System.Windows.Forms.Label lblColBedrag;
         private System.Windows.Forms.Label lblColTegenR;
+        private System.Windows.Forms.TextBox TextBoxWarningTestCompany;
     }
 }

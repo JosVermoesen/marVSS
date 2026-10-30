@@ -187,16 +187,22 @@ namespace marVSS2028.Forms
         {
             if (ListViewCompanies.SelectedItems.Count == 0)
                 return;
-
+                                    
             string folderName = ListViewCompanies.SelectedItems[0].SubItems[1].Text;
             // TODO: In preview mode we should only accept company foldernames "098" and "099"
-            if (IsPreviewMode && folderName != "098" && folderName != "099")
+            if (int.TryParse(folderName, out int companyNumber))
             {
-                MessageBox.Show(
-                    "MarIntegraal 2028 is in 'Evaluatie Modus'. Ter bescherming van uw gegevens zijn enkel de test-bedrijfsmappen '098' en '099' toegestaan.\n\n" +
-                    "Om te testen, kies voor '098' of '099'.\n\nTIP: Maak een kopij van een actieve bedrijfsmap, plak en hernoem deze kopij naar '098' of '099' om te 'testen'.\n\n",                    
-                    "Ongeldige Bedrijfskeuze", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
+                if (IsPreviewMode && companyNumber >= 1 && companyNumber <= 90)
+                {
+                    MessageBox.Show(
+                        "Waarschuwing: De echte bedrijven 001 tot en met 090 zijn niet geschikt voor test gebruik.\n\n" +
+                        "Gelieve een ander bedrijf te kiezen.",
+                        "Ongeldige Bedrijfskeuze",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Information);
+
+                    return;
+                }
             }
 
             string companyName = ListViewCompanies.SelectedItems[0].Text;

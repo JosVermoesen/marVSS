@@ -31,6 +31,22 @@ namespace marVSS2028.MimMenu.Accounting
             Top = 0;
             Left = 0;
 
+            // TODO: In preview mode we should only accept company foldernames "091" till "099"
+            string folderName = PartRight(LOCATION_COMPANYDATA, 4);
+            folderName = folderName.TrimEnd('\\');
+            if (int.TryParse(folderName, out int companyNumber))
+            {
+                if (IsPreviewMode && companyNumber >= 91 && companyNumber <= 99)
+                {
+                    TextBoxWarningTestCompany.Visible = true;
+                    return;
+                }
+            }
+            else
+            {
+                MessageBox.Show("Folder name is not a valid number", "Error");
+            }
+
             cmbSoortBoeking.Items.Add("0: Diverse post");
             cmbSoortBoeking.Items.Add("1: Afschrijvingspost Eindejaar");
             cmbSoortBoeking.Items.Add("2: Beginbalans");
