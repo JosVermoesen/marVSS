@@ -281,7 +281,7 @@ namespace marVSS2028.Classes
             }
 
             var xsl = new System.Xml.Xsl.XslCompiledTransform();
-            string xsltPath = PROGRAM_LOCATION + @"Content\xml-templates\peppol\peppol-invoice.xslt";
+            string xsltPath = PROGRAM_LOCATION + @"Content\xslt-templates\peppol-invoice.xslt";
             try { xsl.Load(xsltPath); }
             catch (Exception ex)
             {
