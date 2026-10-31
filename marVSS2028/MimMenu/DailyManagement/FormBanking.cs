@@ -106,8 +106,7 @@ namespace marVSS2028.MimMenu.DailyManagement
             {
                 if (IsPreviewMode && companyNumber >= 91 && companyNumber <= 99)
                 {
-                    TextBoxWarningTestCompany.Visible = true;
-                    return;
+                    TextBoxWarningTestCompany.Visible = true;                    
                 }
             }
             else

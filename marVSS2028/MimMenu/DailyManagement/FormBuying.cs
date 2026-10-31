@@ -172,12 +172,12 @@ namespace marVSS2028.MimMenu.DailyManagement
                 if (IsPreviewMode && companyNumber >= 91 && companyNumber <= 99)
                 {
                     TextBoxWarningTestCompany.Visible = true;
-                    return;
                 }
             }
             else
             {
                 MessageBox.Show("Folder name is not a valid number", "Error");
+                return;
             }
 
 
