@@ -1,4 +1,7 @@
 "7   A110 -","Uniek Codenummer","A",12
+"b   v404","Registratienummer Onderneming","N",20
+"b   A161","Origineel BTW nummer","A",15
+"b   v410 x","Ondersteunde documenten","N",10
 "&R  v016 *","Koppeling Kost- of balansrekening","N",7
 " 97 A10C *","Taalcode","N",1
 " 98 A102","Titelcode","N",1
@@ -12,9 +15,6 @@
 " 94 A109 *","Landcode volgens de POST","A",3
 "7   v150 *","ISOLandcode","A",2
 "    vs03","ISOMuntcode","A",3
-"b   v404","Registratienummer Onderneming","N",20
-"b   A161","Origineel BTW nummer","A",15
-"b   v410 x","Ondersteunde documenten","N",10
 " 19 v017","Aardcode gestruktureerde mededeling","N",1
 "    v259  ","IBAN bankrekening","A",20
 "    v260  ","BIC bankrekening","A",14

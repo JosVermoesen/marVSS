@@ -1,15 +1,15 @@
 "7   v033  ","Documentnummer","A",11
-"7   v413  ","Doc.nr. in OGM formaat","A",20
+"7   v413  ","Document OGM formaat","A",20
 "7   v034  ","Partijcodenummer","A",13
+"7   v409  ","DocumentID Leverancier","A",50
 "9   v035  ","Documentdatum","A",8
 "9   v036  ","Vervaldatum","A",8
 "3   v249  ","Totaal document","D",10
 "3   v037  ","Reeds Betaald","D",10
 "7   v039  ","Betalingsreferte","A",12
 "7   v038  ","Betalingsstuk","A",8
-"7   v409  ","DocumentID Leverancier","A",50
-"b   v406 x","Sent Bevestigd","A",1000
-"b   v408 x","Document reacties","A",1000
+"b   v406 x","Peppol Sent Bevestigd","A",1000
+"b   v408 x","Peppol reacties","A",1000
 "7   v411  ","GuidID XML Overschrijving","A",50
 "3   v042  ","Vak 55 BTW invoer EU","D",10
 "3   v043  ","Vak 56 BTW medecontractant","D",10
