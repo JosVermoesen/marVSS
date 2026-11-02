@@ -30,7 +30,7 @@
     <SuiteName>MarIntegraal 365</SuiteName>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>6</ApplicationRevision>
+    <ApplicationRevision>7</ApplicationRevision>
     <ApplicationVersion>0.3.1.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -352,6 +352,19 @@
     </Compile>
     <Compile Include="SharedForms\FormXLog.Designer.cs">
       <DependentUpon>FormXLog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Tooling\FormCreditorsDD.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Tooling\FormCreditorsDD.Designer.cs">
+      <DependentUpon>FormCreditorsDD.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Tooling\FormCreditorsDD.Implementations.cs" />
+    <Compile Include="Tooling\FormCreditorsddEdit.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Tooling\FormCreditorsddEdit.Designer.cs">
+      <DependentUpon>FormCreditorsddEdit.cs</DependentUpon>
     </Compile>
     <Content Include="Content\Def\00.DEF">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -1022,6 +1035,12 @@
     <Content Include="Content\Def\TELEBIB.PRE">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <EmbeddedResource Include="Tooling\FormCreditorsDD.resx">
+      <DependentUpon>FormCreditorsDD.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tooling\FormCreditorsddEdit.resx">
+      <DependentUpon>FormCreditorsddEdit.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Directory.Build.props" />
     <None Include="Directory.Build.targets" />
     <None Include="Resources\WebFolderOpened.png" />

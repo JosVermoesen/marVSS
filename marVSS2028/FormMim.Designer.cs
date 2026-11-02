@@ -120,6 +120,7 @@ namespace marVSS2028
             this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripMenuItem();
             this.ToolStripCDD = new System.Windows.Forms.ToolStripMenuItem();
+            this.ToolStripInternalCDD = new System.Windows.Forms.ToolStripMenuItem();
             this.ToolStripCDDViewer = new System.Windows.Forms.ToolStripMenuItem();
             this.AccountingSubMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.ToolStripManualLedgerEntry = new System.Windows.Forms.ToolStripMenuItem();
@@ -522,6 +523,7 @@ namespace marVSS2028
             this.toolStripMenuItem3,
             this.toolStripMenuItem4,
             this.ToolStripCDD,
+            this.ToolStripInternalCDD,
             this.ToolStripCDDViewer});
             this.DailyManagementSubMenu.Name = "DailyManagementSubMenu";
             this.DailyManagementSubMenu.Size = new System.Drawing.Size(75, 20);
@@ -585,7 +587,6 @@ namespace marVSS2028
             this.ToolStripPaymentFiles.Name = "ToolStripPaymentFiles";
             this.ToolStripPaymentFiles.Size = new System.Drawing.Size(282, 22);
             this.ToolStripPaymentFiles.Text = "Betalingsbestanden";
-            this.ToolStripPaymentFiles.Click += new System.EventHandler(this.ToolStripPaymentFiles_Click);
             // 
             // toolStripSeparator15
             // 
@@ -616,6 +617,13 @@ namespace marVSS2028
             this.ToolStripCDD.Size = new System.Drawing.Size(282, 22);
             this.ToolStripCDD.Text = "Domiciliëring Schuldeiser";
             this.ToolStripCDD.Click += new System.EventHandler(this.ToolStripCDD_Click);
+            // 
+            // ToolStripInternalCDD
+            // 
+            this.ToolStripInternalCDD.Name = "ToolStripInternalCDD";
+            this.ToolStripInternalCDD.Size = new System.Drawing.Size(282, 22);
+            this.ToolStripInternalCDD.Text = "CDD Intern";
+            this.ToolStripInternalCDD.Click += new System.EventHandler(this.ToolStripInternalCDD_Click);
             // 
             // ToolStripCDDViewer
             // 
@@ -1228,6 +1236,7 @@ namespace marVSS2028
         private ToolStripMenuItem toolStripMenuItem4;
         private ToolStripMenuItem ToolStripCDD;
         private ToolStripMenuItem ToolStripCDDViewer;
+        private ToolStripMenuItem ToolStripInternalCDD;
     }
 }
 

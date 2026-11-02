@@ -17,6 +17,7 @@ using marVSS2028.MimMenu.DailyManagement;
 using marVSS2028.MimMenu.Filing;
 using marVSS2028.PrivateForms;
 using marVSS2028.SharedForms;
+using marVSS2028.Tooling;
 
 namespace marVSS2028
 {
@@ -859,14 +860,6 @@ namespace marVSS2028
             ShowSingleMdiChild<FormBanking>();
             LayoutMdi(MdiLayout.Cascade);
         }
-
-        private void ToolStripPaymentFiles_Click(object sender, EventArgs e)
-        {
-            //using (var paymentFiles = new FormOGM())
-            //{   
-            //    paymentFiles.ShowDialog();
-            //}
-        }
         
         private void ToolStripCDDViewer_Click(object sender, EventArgs e)
         {
@@ -890,6 +883,14 @@ namespace marVSS2028
                     "Payment Viewer Error",
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Error);
+            }
+        }
+
+        private void ToolStripInternalCDD_Click(object sender, EventArgs e)
+        {
+            using (var cddFiles = new FormCreditorsDD())
+            {   
+                cddFiles.ShowDialog();
             }
         }
     }
