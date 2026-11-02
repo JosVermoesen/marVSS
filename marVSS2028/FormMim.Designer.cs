@@ -120,7 +120,6 @@ namespace marVSS2028
             this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripMenuItem();
             this.ToolStripCDD = new System.Windows.Forms.ToolStripMenuItem();
-            this.ToolStripPaymentViewer = new System.Windows.Forms.ToolStripMenuItem();
             this.ToolStripCDDViewer = new System.Windows.Forms.ToolStripMenuItem();
             this.AccountingSubMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.ToolStripManualLedgerEntry = new System.Windows.Forms.ToolStripMenuItem();
@@ -523,7 +522,6 @@ namespace marVSS2028
             this.toolStripMenuItem3,
             this.toolStripMenuItem4,
             this.ToolStripCDD,
-            this.ToolStripPaymentViewer,
             this.ToolStripCDDViewer});
             this.DailyManagementSubMenu.Name = "DailyManagementSubMenu";
             this.DailyManagementSubMenu.Size = new System.Drawing.Size(75, 20);
@@ -618,13 +616,6 @@ namespace marVSS2028
             this.ToolStripCDD.Size = new System.Drawing.Size(282, 22);
             this.ToolStripCDD.Text = "Domiciliëring Schuldeiser";
             this.ToolStripCDD.Click += new System.EventHandler(this.ToolStripCDD_Click);
-            // 
-            // ToolStripPaymentViewer
-            // 
-            this.ToolStripPaymentViewer.Name = "ToolStripPaymentViewer";
-            this.ToolStripPaymentViewer.Size = new System.Drawing.Size(282, 22);
-            this.ToolStripPaymentViewer.Text = "Test Crediteur Betalingsbestand SEPA";
-            this.ToolStripPaymentViewer.Click += new System.EventHandler(this.ToolStripPaymentViewer_Click);
             // 
             // ToolStripCDDViewer
             // 
@@ -1236,7 +1227,6 @@ namespace marVSS2028
         private ToolStripMenuItem toolStripMenuItem3;
         private ToolStripMenuItem toolStripMenuItem4;
         private ToolStripMenuItem ToolStripCDD;
-        private ToolStripMenuItem ToolStripPaymentViewer;
         private ToolStripMenuItem ToolStripCDDViewer;
     }
 }

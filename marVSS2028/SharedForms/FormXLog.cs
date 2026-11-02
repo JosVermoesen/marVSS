@@ -137,6 +137,38 @@ namespace marVSS2028.SharedForms
             try
             {
                 _rowIdx = X.CurrentCell?.RowIndex ?? -1;
+                string cellValue = X.Rows[_rowIdx].Cells[0].Value?.ToString() ?? "";
+                string transCheck = cellValue.Substring(4, 4);
+                string xmlFileName = X.Rows[_rowIdx].Cells[2].Value?.ToString() ?? "";
+
+                if (transCheck == "v411" && xmlFileName != "")
+                {
+                    try
+                    {
+                        string xsltPath = PROGRAM_LOCATION + @"Content\xslt-templates\payment-viewer.xslt";
+
+                        System.Xml.Xsl.XslCompiledTransform transform = new System.Xml.Xsl.XslCompiledTransform();
+                        transform.Load(xsltPath);
+                        string _selectedFile = LOCATION_COMPANYDATA + @"coda\out\" + xmlFileName + ".xml";
+                        // Vdk-Mar-03909081-864A
+
+                        string outputFile = LOCATION_COMPANYDATA + @"coda\out\" + xmlFileName + ".html";
+                        transform.Transform(_selectedFile, outputFile);
+
+                        // Open output file in default external browser
+                        System.Diagnostics.Process.Start(outputFile);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(
+                            $"Error transforming payment file:\r\n\r\n{ex.Message}",
+                            "Payment Viewer Error",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Error);
+                    }
+                    return;
+                }
+                                
                 if (_rowIdx < 0) return;
 
                 string telebibCode = _rowIdx < TELEBIB_CODE.Length ? TELEBIB_CODE[_rowIdx] ?? "" : "";
@@ -148,7 +180,7 @@ namespace marVSS2028.SharedForms
                     X_KeyDown_Ctrl(_rowIdx);
                     // MoveToNextRow();
                     X.Focus();
-                }
+                }                
                 else
                 {
                     string editMsg = string.Empty;
@@ -201,12 +233,15 @@ namespace marVSS2028.SharedForms
                             MessageBox.Show("Geen gegevens geregistreerd", string.Empty,
                                 MessageBoxButtons.OK, MessageBoxIcon.Information);
                         }
-                    }
+                    }                
                     else
                     {
+                        if (!BtnWijzigenLijn.Enabled)
+                            return;
+
                         string newVal = VsfInputBox(editMsg, telebibText.TrimEnd(), currentValue, string.Empty);
                         X.Rows[_rowIdx].Cells[col2].Value = newVal;
-                        // MoveToNextRow();
+                        MoveToNextRow();
                         X.Focus();
                     }
                 }
@@ -430,7 +465,7 @@ namespace marVSS2028.SharedForms
                     X_CellDoubleClick(sender, new DataGridViewCellEventArgs(colIndex, rowIndex));
                 }
                 else
-                {
+                {                    
                     BtnWijzigenLijn_Click(sender, e);
                 }
                 return;
