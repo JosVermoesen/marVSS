@@ -1291,8 +1291,19 @@ namespace marVSS2028.Classes
             // VB6: On Local Error Resume Next — field may not exist on all tables (e.g. A101 absent in Leveranciers).
             string titlePart1 = "";
             string titlePart2 = "";
-            try { titlePart1 = ObjectValue(rsMAR[fl].Fields["A100"].Value)?.ToString() ?? ""; } catch { }
-            try { titlePart2 = ObjectValue(rsMAR[fl].Fields["A101"].Value)?.ToString() ?? ""; } catch { }
+            try 
+            { 
+                if (rsMAR[fl] != null && rsMAR[fl].Fields != null)
+                    titlePart1 = ObjectValue(rsMAR[fl].Fields["A100"].Value)?.ToString() ?? ""; 
+            } 
+            catch { }
+            try 
+            { 
+                if (rsMAR[fl] != null && rsMAR[fl].Fields != null)
+                    if (fl != 2)
+                        titlePart2 = ObjectValue(rsMAR[fl].Fields["A101"].Value)?.ToString() ?? ""; 
+            } 
+            catch { }
 
             FormXLog xlog = new SharedForms.FormXLog
             {
@@ -1368,18 +1379,19 @@ namespace marVSS2028.Classes
                 while (!rsLocalAV.EOF)
                 {
                     // ── AddLine (VB6 GoSub) ────────────────────────────────────
-                    string v033 = ObjectValue(rsLocalAV.Fields["v033"].Value)?.ToString() ?? "";
+                    string v033 = "";
+                    try { v033 = ObjectValue(rsLocalAV.Fields["v033"].Value)?.ToString() ?? ""; } catch { }
                     dBetaald = 0m;
                     dTotaal = 0m;
 
                     if (fl == TABLE_CUSTOMERS)
                     {
-                        dBetaald = ParseDecimal(ObjectValue(rsLocalAV.Fields["v037"].Value));
+                        try { dBetaald = ParseDecimal(ObjectValue(rsLocalAV.Fields["v037"].Value)); } catch { }
 
                         string firstChar = v033.Length > 0 ? v033.Substring(0, 1) : "";
                         if (firstChar == "V")
                         {
-                            dTotaal = ParseDecimal(ObjectValue(rsLocalAV.Fields["v249"].Value));
+                            try { dTotaal = ParseDecimal(ObjectValue(rsLocalAV.Fields["v249"].Value)); } catch { }
                             if (v033.Length > 1 && v033.Substring(1, 1) == "1")
                             {
                                 dTotaal = -dTotaal;
@@ -1388,15 +1400,23 @@ namespace marVSS2028.Classes
                         }
                         else if (firstChar == "Q")
                         {
-                            dTotaal = ParseDecimal(ObjectValue(rsLocalAV.Fields["v249"].Value));
+                            try { dTotaal = ParseDecimal(ObjectValue(rsLocalAV.Fields["v249"].Value)); } catch { }
                         }
 
                         cumul += dTotaal - dBetaald;
 
-                        string v035str = ObjectValue(rsLocalAV.Fields["v035"].Value)?.ToString() ?? "";
-                        string v038 = ObjectValue(rsLocalAV.Fields["v038"].Value)?.ToString() ?? "";
-                        string a000 = (ObjectValue(rsLocalAV.Fields["A000"].Value)?.ToString() ?? "").Trim();
-                        string v039 = ObjectValue(rsLocalAV.Fields["v039"].Value)?.ToString() ?? "";
+                        string v035str = "";
+                        try { v035str = ObjectValue(rsLocalAV.Fields["v035"].Value)?.ToString() ?? ""; } catch { }
+
+                        string v038 = "";
+                        try { v038 = ObjectValue(rsLocalAV.Fields["v038"].Value)?.ToString() ?? ""; } catch { }
+
+                        string a000 = "";
+                        try { a000 = (ObjectValue(rsLocalAV.Fields["A000"].Value)?.ToString() ?? "").Trim(); } catch { }
+
+                        string v039 = "";
+                        try { v039 = ObjectValue(rsLocalAV.Fields["v039"].Value)?.ToString() ?? ""; } catch { }
+
                         string referte = a000 != "" ? a000 : v039;
 
                         if (!enkelOpenstaand || dBetaald != dTotaal)
@@ -1414,8 +1434,8 @@ namespace marVSS2028.Classes
                     }
                     else if (fl == TABLE_SUPPLIERS)
                     {
-                        dBetaald = ParseDecimal(ObjectValue(rsLocalAV.Fields["v037"].Value));
-                        dTotaal = ParseDecimal(ObjectValue(rsLocalAV.Fields["v249"].Value));
+                        try { dBetaald = ParseDecimal(ObjectValue(rsLocalAV.Fields["v037"].Value)); } catch { }
+                        try { dTotaal = ParseDecimal(ObjectValue(rsLocalAV.Fields["v249"].Value)); } catch { }
 
                         if (v033.Length >= 2 && v033.Substring(0, 2) == "A1")
                         {
@@ -1425,9 +1445,13 @@ namespace marVSS2028.Classes
 
                         cumul += dTotaal - dBetaald;
 
-                        string v035str = ObjectValue(rsLocalAV.Fields["v035"].Value)?.ToString() ?? "";
-                        string v038 = ObjectValue(rsLocalAV.Fields["v038"].Value)?.ToString() ?? "";
-                        string v039 =   ObjectValue(rsLocalAV.Fields["v039"].Value)?.ToString() ?? "";
+                        string v035str = "";
+                        try { v035str = ObjectValue(rsLocalAV.Fields["v035"].Value)?.ToString() ?? ""; } catch { }
+
+                        string v038 = "";
+                        try { v038 = ObjectValue(rsLocalAV.Fields["v038"].Value)?.ToString() ?? ""; } catch { }
+                        string v039 = "";
+                        try { v039 = ObjectValue(rsLocalAV.Fields["v039"].Value)?.ToString() ?? ""; } catch { }
 
                         if (!enkelOpenstaand || dBetaald != dTotaal)
                         {
